@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HANNA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<style>
+  :root {
+    --bg: #212121;
+    --panel: #2f2f2f;
+    --panel-2: #383838;
+    --border: #4d4d4f;
+    --border-soft: #3f3f3f;
+    --text: #ececec;
+    --text-dim: #b4b4b4;
+    --text-faint: #8e8ea0;
+    --accent: #10a37f;
+    --accent-strong: #19c37d;
+    --accent-glow: rgba(16, 163, 127, 0.16);
+    --warm: #f5b942;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* flat plain background, no ambient glow — matches the reference look */
+  body::before {
+    content: none;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 32px 20px 20px;
+  }
+
+  /* ---------- header ---------- */
+
+  .reset-btn {
+    position: fixed;
+    top: 20px;
+    right: 22px;
+    z-index: 5;
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    padding: 4px 6px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .reset-btn:hover { color: var(--text-dim); }
+  .reset-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- hero (landing state) ---------- */
+  .hero {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    transition: opacity 0.35s ease, transform 0.35s ease, margin 0.35s ease, max-height 0.4s ease;
+    overflow: hidden;
+  }
+
+  .hero.collapsed {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .hero-top {
+    margin-top: 12vh;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .hidden { display: none !important; }
+
+  .hero p.subtitle {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    margin: 0 0 30px;
+    font-family: var(--font-display);
+  }
+
+  .hero p.subtitle .flicker {
+    color: var(--accent-strong);
+  }
+
+  /* ---------- chat log ---------- */
+  .chat-shell {
+    width: 100%;
+    max-width: 640px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .chat-window {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 2px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: #232833 transparent;
+  }
+  .chat-window::-webkit-scrollbar { width: 6px; }
+  .chat-window::-webkit-scrollbar-thumb { background: #232833; border-radius: 10px; }
+
+  .msg { max-width: 92%; animation: rise 0.28s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .msg.user {
+    align-self: flex-end;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md) var(--radius-md) 4px var(--radius-md);
+    padding: 10px 15px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .msg.bot {
+    align-self: flex-start;
+    max-width: 100%;
+  }
+
+  .prompt-line {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .prompt-line::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  .bot-text {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.65;
+    color: #dbe2ea;
+    white-space: pre-wrap;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 15px;
+    background: var(--accent-strong);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .msg-actions {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .msg-actions button {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .msg-actions button:hover { border-color: var(--accent); color: var(--text); transform: translateY(-1px); }
+  .msg-actions button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .msg-actions button.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .msg-actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- quick chips ---------- */
+  .quick-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    padding-left: 2px;
+  }
+  .quick-chips.hidden { display: none; }
+  .quick-chips button {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 8px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .quick-chips button:hover {
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    background: rgba(56, 189, 248, 0.06);
+  }
+  .quick-chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- composer ---------- */
+  .composer-wrap {
+    width: 100%;
+    max-width: 640px;
+    margin: 10px auto 0;
+    position: sticky;
+    bottom: 0;
+    padding-bottom: 8px;
+    background: linear-gradient(to top, var(--bg) 55%, transparent);
+  }
+
+  .composer-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 14px 10px;
+  }
+
+  .composer-card:focus-within {
+    border-color: var(--border-soft);
+  }
+
+  .composer-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    margin: 0 2px;
+  }
+
+  #chatInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 15px;
+    line-height: 1.5;
+    max-height: 96px;
+    min-height: 24px;
+    padding: 2px 4px 12px;
+  }
+  #chatInput::placeholder { color: var(--text-faint); }
+
+  .composer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .agent-select {
+    position: relative;
+  }
+
+  .agent-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 8px 6px 6px;
+    border-radius: 100px;
+    transition: background 0.18s, color 0.18s;
+  }
+  .agent-btn:hover { background: var(--panel-2); color: var(--text); }
+  .agent-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .agent-btn svg { transition: transform 0.18s; }
+  .agent-btn.open svg { transform: rotate(180deg); }
+
+  .agent-menu {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 0;
+    min-width: 220px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.7);
+    z-index: 10;
+  }
+  .agent-menu.open { display: flex; }
+  .agent-menu button {
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 9px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .agent-menu button:hover { background: rgba(56,189,248,0.08); color: var(--accent-strong); }
+
+  .composer-actions { display: flex; align-items: center; gap: 6px; }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex-shrink: 0;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .icon-btn.mic-active { color: #fff; background: #ef4444; border-color: #ef4444; }
+
+  #sendBtn {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+  #sendBtn:hover:not(:disabled) { background: var(--accent-strong); border-color: var(--accent-strong); }
+  #sendBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  footer.hint {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--text-faint);
+    margin-top: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 24px; }
+    .hero-top { margin-top: 8vh; }
+    .reset-btn { top: 14px; right: 14px; }
+  }
+
+  @media (min-width: 481px) and (max-width: 900px) {
+    .app { padding: 28px 32px 20px; }
+    .hero, .chat-shell, .composer-wrap { max-width: 680px; }
+    .hero-top { margin-top: 10vh; }
+    .hero h1 { font-size: 28px; }
+    .icon-btn { width: 38px; height: 38px; }
+    .msg { max-width: 85%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; }
+    .msg { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <button class="reset-btn hidden" id="resetBtn" type="button">reiniciar</button>
+
+  <div class="app">
+    <div class="hero" id="hero">
+      <div class="hero-top">
+        <h1>Converse com nosso assistente</h1>
+        <p class="subtitle">A sua criatividade é o único limite.</p>
+      </div>
+    </div>
+
+    <div class="chat-shell">
+      <div class="chat-window" id="chatWindow"></div>
+
+      <div class="composer-wrap">
+        <div class="quick-chips hidden" id="quickChips"></div>
+        <form class="composer-card" id="composerForm" style="margin-top:10px;">
+          <textarea id="chatInput" rows="1" placeholder="O que você precisa saber?"></textarea>
+          <div class="composer-row">
+            <div class="agent-select">
+              <button type="button" class="agent-btn" id="agentBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="14" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/></svg>
+                Assistente TI
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="agent-menu" id="agentMenu"></div>
+            </div>
+            <div class="composer-actions">
+              <span class="composer-divider" aria-hidden="true"></span>
+              <button type="button" class="icon-btn" id="micBtn" title="Falar" aria-label="Entrada por voz">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 003-3V6a3 3 0 10-6 0v6a3 3 0 003 3z" stroke="currentColor" stroke-width="1.6"/><path d="M19 11a7 7 0 01-14 0M12 18v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </button>
+              <button type="submit" class="icon-btn" id="sendBtn" disabled title="Enviar" aria-label="Enviar mensagem">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ============================================================
+// TechFlow — HANNA, assistente de triagem (100% client-side, sem IA/backend)
+// Troque CONTACT_LINK e o array CATALOG pelos seus dados reais.
+// ============================================================
+
+const CONTACT_LINK = "https://wa.me/5515981289296";
+
+const CATALOG = [
+  {
+    id: "formatacao",
+    label: "formatação",
+    keywords: ["formatar", "formata", "lento", "lenta", "travando", "trava", "reinstalar", "reinstalação", "sistema", "demorando", "ligar demora"],
+    reply: "Diagnóstico rápido: computador lento, travando ou demorando pra ligar quase sempre pede uma formatação limpa. Refaço o sistema do zero, já com drivers e programas essenciais no lugar — sai de lá pronto pra rodar.",
+    services: ["Formatação e reinstalação do Windows", "Diagnóstico de hardware (pra confirmar que não é peça)"],
+  },
+  {
+    id: "hardware",
+    label: "hardware",
+    keywords: ["não liga", "nao liga", "tela azul", "tela preta", "barulho", "hardware", "peça", "peca", "bateria", "hd", "ssd", "placa", "fonte"],
+    reply: "Não ligar, tela azul ou barulho estranho são sintomas, não veredictos. Antes de trocar qualquer peça, faço um diagnóstico de hardware pra achar a causa real — sem chute, sem gasto desnecessário.",
+    services: ["Diagnóstico de hardware", "Troca de peças e manutenção física"],
+  },
+  {
+    id: "virus",
+    label: "vírus",
+    keywords: ["virus", "vírus", "malware", "hackeado", "invadido", "popup", "propaganda", "sequestrado", "ransomware"],
+    reply: "Popup, propaganda invasiva ou sinal de invasão? Isso é infecção ativa confirmada. Protocolo padrão: remoção completa da ameaça, seguida de checagem pra garantir que nenhum dado vazou.",
+    services: ["Remoção de vírus e malware", "Consultoria de segurança digital"],
+  },
+  {
+    id: "recuperacao",
+    label: "recuperação",
+    keywords: ["perdi arquivo", "apaguei", "recuperar", "recuperação", "não abre", "nao abre", "sumiu", "corrompido", "corrompeu"],
+    reply: "Arquivo apagado ou HD que não abre mais ainda tem chance real de recuperação — mas cada minuto de uso a mais no disco reduz essa chance. Quanto antes eu entrar em ação, melhor o resultado.",
+    services: ["Recuperação de dados", "Diagnóstico de hardware de armazenamento"],
+  },
+  {
+    id: "manutencao",
+    label: "manutenção",
+    keywords: ["limpeza", "pasta térmica", "pasta termica", "esquentando", "esquenta", "superaquecendo", "ventoinha", "cooler"],
+    reply: "Esquentando e com a ventoinha berrando? Isso é o hardware pedindo socorro. Uma limpeza interna e troca de pasta térmica resolve — e evita que o problema evolua pra algo mais caro.",
+    services: ["Manutenção preventiva (limpeza + pasta térmica)", "Diagnóstico de hardware"],
+  },
+  {
+    id: "seguranca",
+    label: "segurança",
+    keywords: ["segurança", "seguranca", "lgpd", "proteção", "protecao", "dados", "empresa", "rede", "wifi", "wi-fi", "firewall"],
+    reply: "Proteção de dados, rede ou adequação da sua empresa começa sempre pelo mesmo passo: um raio-x completo da situação atual. Só depois entra qualquer mudança.",
+    services: ["Consultoria de segurança digital", "Configuração e proteção de rede"],
+  },
+  {
+    id: "remoto",
+    label: "suporte remoto",
+    keywords: ["remoto", "à distância", "a distancia", "não posso levar", "nao posso levar", "online"],
+    reply: "Boa notícia: nem tudo exige que o equipamento venha até aqui. Boa parte dos problemas eu resolvo por suporte remoto, direto de onde você estiver.",
+    services: ["Suporte remoto", "Diagnóstico inicial por chamada"],
+  },
+  {
+    id: "windows",
+    label: "Windows",
+    keywords: ["windows", "win 10", "win 11", "windows 10", "windows 11", "atualização do windows", "atualizacao do windows", "driver", "ativação do windows", "ativacao do windows"],
+    reply: "Problema no Windows — trava na atualização, driver bugado, ativação, tela de erro? Eu diagnostico e ajusto direto no sistema, sem precisar reinstalar tudo do zero (a não ser que seja realmente necessário).",
+    services: ["Suporte e configuração Windows", "Formatação e reinstalação do Windows"],
+  },
+  {
+    id: "linux",
+    label: "Linux",
+    keywords: ["linux", "ubuntu", "debian", "fedora", "mint", "kernel", "distro", "terminal não funciona", "terminal nao funciona", "dual boot"],
+    reply: "Linux tem lógica própria — não dá pra tratar como Windows. Eu cuido de instalação, dual boot, drivers e configuração de distro, seja pra uso pessoal ou servidor.",
+    services: ["Instalação e configuração Linux", "Suporte técnico Linux"],
+  },
+  {
+    id: "macos",
+    label: "macOS",
+    keywords: ["mac", "macos", "macbook", "imac", "apple", "ios da apple", "os x"],
+    reply: "Mac lento, travando ou com erro de sistema também tem solução — o processo é diferente do Windows, mas o diagnóstico é igual de rigoroso. Cuido de configuração, otimização e resolução de erros no macOS.",
+    services: ["Suporte e configuração macOS", "Diagnóstico de hardware Apple"],
+  },
+];
+
+const GREETING = "Sistemas online. Sou a HANNA, assistente do Luidy — conta o que está acontecendo com seu computador, celular ou rede, ou escolhe um assunto abaixo, que eu te encaminho pro serviço certo.";
+const FALLBACK = "Não decodifiquei bem esse sinal. Tenta descrever de outro jeito, ou escolhe uma das opções abaixo — assim eu não erro o alvo.";
+
+// Pequenas interações de conversa — respondidas antes do fallback genérico,
+// pra parecer menos robótico quando a mensagem não é um problema técnico.
+const SMALL_TALK = [
+  {
+    id: "saudacao",
+    keywords: ["oi", "olá", "ola", "e ai", "eae", "e aí", "salve", "bom dia", "boa tarde", "boa noite", "opa"],
+    replies: [
+      "Oi! Sistemas nominais por aqui. Me conta o que está pegando no seu equipamento, ou escolhe um assunto abaixo.",
+      "Presente. O que está acontecendo com seu computador, celular ou rede?",
+    ],
+  },
+  {
+    id: "identidade",
+    keywords: ["quem é você", "quem e voce", "quem é a hanna", "quem e a hanna", "o que você faz", "o que voce faz", "o que é isso", "o que voce é"],
+    replies: [
+      "Sou a HANNA, a assistente técnica do Luidy. Minha função é ouvir o problema e te encaminhar direto pro serviço certo — sem enrolação.",
+    ],
+  },
+  {
+    id: "estado",
+    keywords: ["tudo bem", "como você está", "como voce esta", "beleza", "como vai"],
+    replies: [
+      "Rodando 100%, obrigado por perguntar. E o seu equipamento, também está bem — ou é por isso que você veio falar comigo?",
+    ],
+  },
+  {
+    id: "agradecimento",
+    keywords: ["obrigado", "obrigada", "valeu", "vlw", "brigado", "brigada"],
+    replies: [
+      "Por nada. Se aparecer qualquer outro sinal estranho no equipamento, é só chamar.",
+    ],
+  },
+  {
+    id: "ajuda_generica",
+    keywords: ["me ajuda", "preciso de ajuda", "socorro", "ajuda ai", "ajuda aí"],
+    replies: [
+      "Pode contar. Só preciso de um pouco mais de sinal — o que exatamente está acontecendo? Ou escolhe uma das opções abaixo.",
+    ],
+  },
+];
+
+function matchSmallTalk(rawText) {
+  const text = rawText.toLowerCase().trim();
+  return SMALL_TALK.find((entry) => entry.keywords.some((kw) => text.includes(kw)));
+}
+
+// ---- Fuzzy keyword matching (Fuse.js) ----
+// Builds one searchable entry per (category, keyword) pair, then fuzzy-matches
+// small chunks of the user's sentence against it. Tolerates typos like
+// "formatr" -> "formatar" or "travnado" -> "travando" without needing an
+// exact substring match.
+const FUSE_INDEX = (() => {
+  const entries = [];
+  CATALOG.forEach((cat) => {
+    cat.keywords.forEach((kw) => entries.push({ keyword: kw, categoryId: cat.id }));
+  });
+  if (typeof Fuse === "undefined") return null;
+  return new Fuse(entries, {
+    keys: ["keyword"],
+    threshold: 0.32,       // lower = stricter; 0.32 tolerates small typos only
+    ignoreLocation: true,
+    includeScore: true,
+    minMatchCharLength: 3,
+  });
+})();
+
+function normalizeWords(rawText) {
+  return rawText
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+// Generates 1, 2 and 3-word chunks so multi-word keywords like
+// "não liga" or "tela azul" can still be matched fuzzily.
+function buildNgrams(words) {
+  const grams = [];
+  for (let size = 1; size <= 3; size++) {
+    for (let i = 0; i + size <= words.length; i++) {
+      grams.push(words.slice(i, i + size).join(" "));
+    }
+  }
+  return grams;
+}
+
+function matchCategory(rawText) {
+  const text = rawText.toLowerCase();
+
+  // Fast path: exact substring match (cheap, no false positives).
+  const exact = CATALOG.find((cat) => cat.keywords.some((kw) => text.includes(kw)));
+  if (exact) return exact;
+
+  // Fuzzy fallback: tries word-chunks of the message against known keywords.
+  if (!FUSE_INDEX) return null;
+  const grams = buildNgrams(normalizeWords(rawText));
+  let best = null;
+  for (const gram of grams) {
+    const results = FUSE_INDEX.search(gram, { limit: 1 });
+    if (results.length && (!best || results[0].score < best.score)) {
+      best = results[0];
+    }
+  }
+  if (best && best.score <= 0.32) {
+    return CATALOG.find((cat) => cat.id === best.item.categoryId) || null;
+  }
+  return null;
+}
+
+// ---- Context memory: what was the last topic we identified? ----
+// Lets short follow-up messages ("quanto custa?", "quanto tempo demora?")
+// get a relevant answer instead of falling into the generic fallback.
+let lastCategory = null;
+
+const FOLLOW_UPS = [
+  {
+    id: "preco",
+    keywords: ["quanto custa", "preco", "preço", "valor", "quanto fica", "quanto e", "quanto é", "quanto sai", "quanto vai custar"],
+    reply: (cat) => `Valor exato o especialista fecha com você olhando o caso — varia conforme o problema de ${cat.label}. Quer que eu já te encaminhe?`,
+  },
+  {
+    id: "prazo",
+    keywords: ["quanto tempo", "prazo", "demora", "quantos dias", "quando fica pronto", "que dia"],
+    reply: (cat) => `Prazo também varia por caso, mas o especialista confirma rapidinho com você sobre o seu assunto de ${cat.label}. Chamo ele?`,
+  },
+  {
+    id: "local",
+    keywords: ["onde fica", "endereco", "endereço", "localizacao", "localização", "onde voces", "onde vocês", "onde e", "onde é"],
+    reply: () => `Endereço e detalhes de atendimento o especialista te passa direto no chat. Posso te encaminhar agora?`,
+  },
+  {
+    id: "pagamento",
+    keywords: ["forma de pagamento", "pagamento", "pix", "cartao", "cartão", "parcelar", "parcela"],
+    reply: () => `Formas de pagamento o especialista confirma com você na hora — geralmente dá pra combinar. Bora falar com ele?`,
+  },
+];
+
+function matchFollowUp(rawText) {
+  const text = rawText.toLowerCase();
+  return FOLLOW_UPS.find((f) => f.keywords.some((kw) => text.includes(kw))) || null;
+}
+
+// ---- Date & time — answered locally from the device clock, no network needed ----
+const DATE_KEYWORDS = ["que dia", "que data", "data de hoje", "dia de hoje", "dia da semana", "hoje é dia", "hoje e dia", "qual o dia"];
+const TIME_KEYWORDS = ["que horas", "horas são", "horas sao", "hora atual", "que hora e", "que hora é"];
+
+function matchDateTime(rawText) {
+  const text = rawText.toLowerCase();
+  if (TIME_KEYWORDS.some((kw) => text.includes(kw))) return "time";
+  if (DATE_KEYWORDS.some((kw) => text.includes(kw))) return "date";
+  return null;
+}
+
+function answerDateTime(type) {
+  const now = new Date();
+  if (type === "time") {
+    const time = now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    return `Agora são ${time}, direto do relógio do seu aparelho.`;
+  }
+  const date = now.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  return `Hoje é ${date}.`;
+}
+
+// ---- Fallback: offer a plain Google search of what the person typed ----
+// Not a real search integration (that would need a paid API key exposed
+// in the page's source, which is unsafe on a static site) — just a shortcut
+// that opens Google with their exact question in a new tab.
+function googleSearchAction(rawText) {
+  return {
+    label: "pesquisar no Google ↗",
+    onClick: () => window.open(`https://www.google.com/search?q=${encodeURIComponent(rawText)}`, "_blank", "noopener"),
+  };
+}
+
+const hero = document.getElementById("hero");
+const chatWindow = document.getElementById("chatWindow");
+const chatInput = document.getElementById("chatInput");
+const composerForm = document.getElementById("composerForm");
+const sendBtn = document.getElementById("sendBtn");
+const micBtn = document.getElementById("micBtn");
+const resetBtn = document.getElementById("resetBtn");
+const quickChips = document.getElementById("quickChips");
+const agentBtn = document.getElementById("agentBtn");
+const agentMenu = document.getElementById("agentMenu");
+
+let prefersReducedMotion = false;
+try {
+  prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+} catch (e) {
+  prefersReducedMotion = false;
+}
+let busy = false;
+let started = false;
+
+function scrollToBottom() {
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function collapseHero() {
+  if (started) return;
+  started = true;
+  hero.classList.add("collapsed");
+  resetBtn.classList.remove("hidden");
+}
+
+function addUserMessage(text) {
+  const el = document.createElement("div");
+  el.className = "msg user";
+  el.textContent = text;
+  chatWindow.appendChild(el);
+  scrollToBottom();
+}
+
+// Renders a bot message with a terminal-style prefix and a typewriter effect.
+function addBotMessage(text, { actions } = {}) {
+  return new Promise((resolve) => {
+    const wrap = document.createElement("div");
+    wrap.className = "msg bot";
+
+    const promptLine = document.createElement("div");
+    promptLine.className = "prompt-line";
+    promptLine.textContent = "HANNA";
+    wrap.appendChild(promptLine);
+
+    const textEl = document.createElement("span");
+    textEl.className = "bot-text";
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    wrap.appendChild(textEl);
+    wrap.appendChild(cursor);
+
+    chatWindow.appendChild(wrap);
+    scrollToBottom();
+
+    const finish = () => {
+      cursor.remove();
+      if (actions && actions.length) {
+        const actionsWrap = document.createElement("div");
+        actionsWrap.className = "msg-actions";
+        actions.forEach(({ label, primary, onClick }) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = label;
+          if (primary) btn.classList.add("primary");
+          btn.addEventListener("click", onClick);
+          actionsWrap.appendChild(btn);
+        });
+        wrap.appendChild(actionsWrap);
+      }
+      scrollToBottom();
+      resolve();
+    };
+
+    if (prefersReducedMotion) {
+      textEl.textContent = text;
+      finish();
+      return;
+    }
+
+    let i = 0;
+    const speed = 14;
+    const interval = setInterval(() => {
+      textEl.textContent = text.slice(0, i);
+      scrollToBottom();
+      i++;
+      if (i > text.length) {
+        clearInterval(interval);
+        finish();
+      }
+    }, speed);
+  });
+}
+
+function ctaActions(extra = []) {
+  return [
+    {
+      label: "acionar um especialista",
+      primary: true,
+      onClick: () => window.open(CONTACT_LINK, "_blank", "noopener"),
+    },
+    {
+      label: "trocar de assunto",
+      onClick: () => showQuickChips(),
+    },
+    ...extra,
+  ];
+}
+
+function renderCategoryReply(category) {
+  const serviceList = category.services.map((s) => `• ${s}`).join("\n");
+  const fullText = `${category.reply}\n\nServiços indicados:\n${serviceList}\n\npreço e prazo variam por caso — isso um humano confirma com você em segundos.`;
+  hideQuickChips();
+  return addBotMessage(fullText, { actions: ctaActions() });
+}
+
+function showQuickChips() {
+  quickChips.innerHTML = "";
+  CATALOG.forEach((cat) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = cat.label;
+    btn.addEventListener("click", () => handleCategorySelect(cat));
+    quickChips.appendChild(btn);
+  });
+  quickChips.classList.remove("hidden");
+}
+
+function hideQuickChips() {
+  quickChips.classList.add("hidden");
+}
+
+async function handleCategorySelect(category) {
+  if (busy) return;
+  busy = true;
+  await startChat();
+  addUserMessage(category.label);
+  hideQuickChips();
+  await sleep(400);
+  lastCategory = category;
+  await renderCategoryReply(category);
+  busy = false;
+}
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+async function handleUserText(text) {
+  if (busy) return;
+  busy = true;
+  await startChat();
+  addUserMessage(text);
+  hideQuickChips();
+  await sleep(500);
+
+  const category = matchCategory(text);
+  if (category) {
+    lastCategory = category;
+    await renderCategoryReply(category);
+  } else {
+    const dateTimeType = matchDateTime(text);
+    if (dateTimeType) {
+      await addBotMessage(answerDateTime(dateTimeType));
+      showQuickChips();
+      busy = false;
+      return;
+    }
+
+    const followUp = lastCategory ? matchFollowUp(text) : null;
+    if (followUp) {
+      await addBotMessage(followUp.reply(lastCategory), { actions: ctaActions() });
+    } else {
+      const smallTalk = matchSmallTalk(text);
+      if (smallTalk) {
+        const reply = smallTalk.replies[Math.floor(Math.random() * smallTalk.replies.length)];
+        await addBotMessage(reply);
+      } else {
+        await addBotMessage(FALLBACK, { actions: [googleSearchAction(text)] });
+      }
+      showQuickChips();
+    }
+  }
+  busy = false;
+}
+
+function updateSendState() {
+  sendBtn.disabled = chatInput.value.trim().length === 0;
+}
+
+function autoResize() {
+  chatInput.style.height = "auto";
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 96) + "px";
+}
+
+chatInput.addEventListener("input", () => {
+  updateSendState();
+  autoResize();
+});
+
+function trySendMessage() {
+  const text = chatInput.value.trim();
+  if (!text || busy) return;
+  chatInput.value = "";
+  autoResize();
+  updateSendState();
+  handleUserText(text);
+}
+
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    trySendMessage();
+  }
+});
+
+composerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  trySendMessage();
+});
+
+resetBtn.addEventListener("click", () => {
+  chatWindow.innerHTML = "";
+  hero.classList.remove("collapsed");
+  resetBtn.classList.add("hidden");
+  started = false;
+  lastCategory = null;
+  hideQuickChips();
+  agentMenu.classList.remove("open");
+  agentBtn.classList.remove("open");
+  chatInput.addEventListener("focus", startChat, { once: true });
+});
+
+// ---- agent selector popover (reuses the category list as quick jump) ----
+function buildAgentMenu() {
+  agentMenu.innerHTML = "";
+  CATALOG.forEach((cat) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = cat.label;
+    btn.addEventListener("click", () => {
+      agentMenu.classList.remove("open");
+      agentBtn.classList.remove("open");
+      handleCategorySelect(cat);
+    });
+    agentMenu.appendChild(btn);
+  });
+}
+
+agentBtn.addEventListener("click", () => {
+  agentMenu.classList.toggle("open");
+  agentBtn.classList.toggle("open");
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".agent-select")) {
+    agentMenu.classList.remove("open");
+    agentBtn.classList.remove("open");
+  }
+});
+
+// ---- optional voice input, native browser API, no external service ----
+(function setupMic() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    micBtn.style.display = "none";
+    return;
+  }
+  const recognition = new SpeechRecognition();
+  recognition.lang = "pt-BR";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  let listening = false;
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    chatInput.value = transcript;
+    autoResize();
+    updateSendState();
+  };
+  recognition.onend = () => {
+    listening = false;
+    micBtn.classList.remove("mic-active");
+  };
+  recognition.onerror = () => {
+    listening = false;
+    micBtn.classList.remove("mic-active");
+  };
+
+  micBtn.addEventListener("click", () => {
+    if (listening) {
+      recognition.stop();
+      return;
+    }
+    listening = true;
+    micBtn.classList.add("mic-active");
+    try {
+      recognition.start();
+    } catch (e) {
+      listening = false;
+      micBtn.classList.remove("mic-active");
+    }
+  });
+})();
+
+async function startChat() {
+  if (started) return;
+  collapseHero();
+  busy = true;
+  await addBotMessage(GREETING);
+  showQuickChips();
+  busy = false;
+}
+
+chatInput.addEventListener("focus", startChat, { once: true });
+
+function init() {
+  buildAgentMenu();
+}
+
+init();
+</script>
+</body>
+</html>
