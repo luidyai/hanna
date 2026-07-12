@@ -263,6 +263,136 @@
     line-height:1.6;
   }
 
+  .search-bar{
+    margin-top:8px;
+    margin-bottom:36px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+
+  #searchInput{
+    flex:1;
+    min-width:240px;
+    max-width:420px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    padding:13px 16px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--white);
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s;
+  }
+  #searchInput:focus{ border-color:var(--cyan); }
+  #searchInput::placeholder{ color:var(--gray); }
+
+  #resultCount{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--gray);
+    white-space:nowrap;
+  }
+
+  .tools-table-wrap{
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+  }
+
+  #toolsTable{
+    width:100%;
+    border-collapse:collapse;
+  }
+
+  #toolsTable thead th{
+    text-align:left;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gray);
+    background:var(--off);
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+  }
+
+  #toolsTable tbody tr{
+    border-bottom:1px solid var(--line);
+    transition:background .2s;
+  }
+  #toolsTable tbody tr:last-child{ border-bottom:none; }
+  #toolsTable tbody tr:hover{ background:var(--off); }
+
+  #toolsTable tbody td{
+    padding:20px;
+    font-size:14.5px;
+    vertical-align:middle;
+  }
+
+  .tool-name{ font-weight:600; font-size:15px; }
+  .tool-category{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--cyan); }
+  .tool-version{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--gray); }
+  .tool-desc{ color:var(--gray); line-height:1.5; max-width:340px; display:block; }
+
+  .download-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:100px;
+    padding:9px 18px;
+    font-family:'Inter', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:background .2s, transform .15s;
+  }
+  .download-btn:hover{ background:#1a1f28; transform:translateY(-1px); }
+
+  .empty-state{
+    padding:56px 20px;
+    text-align:center;
+    color:var(--gray);
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    display:none;
+  }
+  .empty-state.show{ display:block; }
+
+  @media (max-width:900px){
+    .tools-table-wrap{ border:none; }
+    #toolsTable thead{ display:none; }
+    #toolsTable, #toolsTable tbody, #toolsTable tr, #toolsTable td{ display:block; width:100%; }
+    #toolsTable tbody tr{
+      border:1px solid var(--line);
+      border-radius:4px;
+      margin-bottom:14px;
+      padding:16px 4px;
+    }
+    #toolsTable tbody td{ padding:6px 16px; border:none; }
+    #toolsTable tbody td:first-child{ padding-top:2px; }
+    #toolsTable td[data-label]::before{
+      content: attr(data-label);
+      display:block;
+      font-family:'JetBrains Mono', monospace;
+      font-size:10px;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      color:var(--gray);
+      margin-bottom:4px;
+    }
+    .tool-desc{ max-width:none; }
+    .actions-cell{ padding-top:12px; }
+  }
+
+  @media (max-width:600px){
+    #searchInput{ max-width:none; width:100%; }
+  }
+
   footer{
     padding:56px;
     display:flex; justify-content:space-between; align-items:center;
@@ -335,6 +465,7 @@
   <div class="logo"><span class="dot"></span>LUIDYSEC</div>
   <ul>
     <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#ferramentas">Ferramentas</a></li>
     <li><a href="#hanna">HANNA</a></li>
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -418,6 +549,34 @@
   </div>
 </section>
 
+<section id="ferramentas">
+  <div class="section-head">
+    <h2>Ferramentas</h2>
+    <p>Utilitários e scripts que uso no dia a dia de suporte e infraestrutura, disponibilizados aqui para quem quiser baixar e usar.</p>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar por nome ou categoria...">
+    <span id="resultCount"></span>
+  </div>
+
+  <div class="tools-table-wrap">
+    <table id="toolsTable">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Versão</th>
+          <th>Descrição</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="toolsBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState">Nenhuma ferramenta encontrada para essa busca.</div>
+  </div>
+</section>
+
 <section id="sobre">
   <div class="section-head">
     <h2>Sobre</h2>
@@ -445,6 +604,66 @@
   <div>LuidySec — Tecnologia da Informação © 2026</div>
   <div class="status"><span class="dot"></span>Disponível para novos projetos</div>
 </footer>
+
+<script>
+  const WHATSAPP_NUMBER = "5515981289296";
+
+  const TOOLS = [
+    { name: "DiskClean", category: "Manutenção", version: "v1.2", description: "Script de limpeza de arquivos temporários e cache do Windows." },
+    { name: "NetScan Lite", category: "Redes", version: "v0.9", description: "Varredura simples de dispositivos ativos na rede local." },
+    { name: "BackupSync", category: "Segurança & Backup", version: "v2.0", description: "Rotina de backup incremental para pastas locais e externas." },
+    { name: "LogViewer", category: "Linux", version: "v1.0", description: "Visualizador rápido de logs do sistema em terminal." },
+    { name: "PortCheck", category: "Redes", version: "v1.1", description: "Verificação rápida de portas abertas em um host." }
+  ];
+
+  const toolsBody = document.getElementById("toolsBody");
+  const toolsSearchInput = document.getElementById("searchInput");
+  const toolsResultCount = document.getElementById("resultCount");
+  const toolsEmptyState = document.getElementById("emptyState");
+  const toolsTableEl = document.getElementById("toolsTable");
+
+  function waLink(toolName){
+    const msg = `Olá! Vi a ferramenta "${toolName}" no portfólio da LuidySec e gostaria de receber o arquivo.`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  function renderTools(list){
+    toolsBody.innerHTML = "";
+    list.forEach(tool => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td data-label="Nome"><span class="tool-name">${tool.name}</span></td>
+        <td data-label="Categoria"><span class="tool-category">${tool.category}</span></td>
+        <td data-label="Versão"><span class="tool-version">${tool.version}</span></td>
+        <td data-label="Descrição"><span class="tool-desc">${tool.description}</span></td>
+        <td class="actions-cell">
+          <a class="download-btn" href="${waLink(tool.name)}" target="_blank" rel="noopener">↓ Baixar</a>
+        </td>
+      `;
+      toolsBody.appendChild(tr);
+    });
+
+    toolsResultCount.textContent = `${list.length} de ${TOOLS.length}`;
+    const showEmpty = list.length === 0;
+    toolsEmptyState.classList.toggle("show", showEmpty);
+    toolsTableEl.style.display = showEmpty ? "none" : "table";
+  }
+
+  function filterTools(query){
+    const q = query.trim().toLowerCase();
+    if(!q) return TOOLS;
+    return TOOLS.filter(t =>
+      t.name.toLowerCase().includes(q) ||
+      t.category.toLowerCase().includes(q)
+    );
+  }
+
+  toolsSearchInput.addEventListener("input", (e) => {
+    renderTools(filterTools(e.target.value));
+  });
+
+  renderTools(TOOLS);
+</script>
 
 </body>
 </html>
