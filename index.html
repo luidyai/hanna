@@ -559,10 +559,112 @@
     .tech-card{ padding:18px; }
     .tech-card .tech-icon{ width:46px; height:46px; margin-bottom:14px; }
   }
+
+  /* ---------- catálogo de bots ---------- */
+  .bot-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .bot-card{
+    position:relative;
+    background:var(--white);
+    padding:32px 30px 28px;
+    display:flex;
+    flex-direction:column;
+    transition:background .3s;
+  }
+  .bot-card:hover{ background:var(--off); }
+  .bot-card .bot-badge{
+    position:absolute;
+    top:24px; right:24px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#fff;
+    background:var(--ink);
+    padding:4px 9px;
+    border-radius:100px;
+  }
+  .bot-card .num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--cyan);
+    margin-bottom:18px;
+    display:block;
+  }
+  .bot-card h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:18.5px;
+    font-weight:600;
+    margin-bottom:6px;
+    padding-right:60px;
+  }
+  .bot-card .bot-tagline{
+    color:var(--gray);
+    font-size:13.5px;
+    line-height:1.55;
+    margin-bottom:18px;
+  }
+  .bot-card ul.bot-features{
+    list-style:none;
+    margin:0 0 22px;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .bot-card ul.bot-features li{
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.5;
+    padding-left:16px;
+    position:relative;
+  }
+  .bot-card ul.bot-features li::before{
+    content:'';
+    position:absolute;
+    left:0; top:6px;
+    width:5px; height:5px;
+    background:var(--cyan);
+  }
+  .bot-card .bot-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:100px;
+    padding:11px 18px;
+    font-family:'Inter', sans-serif;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    text-decoration:none;
+    transition:background .2s, transform .15s;
+  }
+  .bot-card .bot-cta:hover{ background:#1a1f28; transform:translateY(-1px); }
+
+  @media (max-width:900px){
+    .bot-grid{ grid-template-columns:1fr; }
+    .bot-card{ padding:26px 24px; }
+  }
+
   @media (max-width:600px){
     .tech-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
     .tech-card .tech-name{ font-size:14.5px; }
     .tech-card .tech-desc{ display:none; }
+  }
+
+  @media (max-width:600px){
+    .bot-card{ padding:22px 20px; }
+    .bot-card h3{ font-size:17px; }
   }
 
   footer{
@@ -692,6 +794,7 @@
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#ferramentas">Ferramentas</a></li>
     <li><a href="#tecnologias">Tecnologias</a></li>
+    <li><a href="#bots">Bots</a></li>
     <li><a href="#hanna">HANNA</a></li>
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -840,6 +943,15 @@
   </div>
 
   <div class="tech-grid" id="techGrid"></div>
+</section>
+
+<section id="bots">
+  <div class="section-head">
+    <h2>Catálogo de Bots</h2>
+    <p>Assistentes sob medida pra atendimento, orçamento e triagem — prontos pra rodar no seu site, WhatsApp ou painel interno.</p>
+  </div>
+
+  <div class="bot-grid" id="botGrid"></div>
 </section>
 
 <section id="sobre">
@@ -1048,6 +1160,119 @@
   }
 
   renderTechGrid();
+
+  // ---------------------------------------------------------------
+  // CATÁLOGO DE BOTS
+  // ---------------------------------------------------------------
+  const BOT_CATALOG = [
+    {
+      id: "orcamento",
+      name: "Bot de Orçamento",
+      tagline: "Faz perguntas guiadas sobre o problema e já entrega uma estimativa de valor ou um resumo pronto pro WhatsApp.",
+      badge: "mais pedido",
+      features: [
+        "Perguntas adaptadas ao tipo de serviço",
+        "Estimativa de faixa de preço",
+        "Resumo automático pro atendente"
+      ]
+    },
+    {
+      id: "agendamento",
+      name: "Bot de Agendamento",
+      tagline: "Coleta dia, horário e tipo de atendimento (presencial ou remoto) e monta a confirmação sem ida e volta de mensagens.",
+      features: [
+        "Verificação de disponibilidade",
+        "Presencial ou remoto",
+        "Confirmação automática por mensagem"
+      ]
+    },
+    {
+      id: "qualificacao",
+      name: "Bot de Qualificação de Lead",
+      tagline: "Identifica se é pessoa física ou empresa e direciona pro serviço certo antes de chegar ao atendente.",
+      features: [
+        "Segmenta pessoa física ou empresa",
+        "Detecta porte e urgência",
+        "Encaminhamento por especialidade"
+      ]
+    },
+    {
+      id: "status",
+      name: "Bot de Status de Chamado",
+      tagline: "Cliente informa o número do protocolo e recebe o andamento do serviço na hora.",
+      features: [
+        "Consulta por número de protocolo",
+        "Integração com planilha ou painel",
+        "Atualização em tempo real"
+      ]
+    },
+    {
+      id: "faq",
+      name: "Bot FAQ",
+      tagline: "Respostas diretas pras perguntas mais comuns — horário, formas de pagamento, área de cobertura.",
+      features: [
+        "Setup rápido, sem regras complexas",
+        "Ideal pra dúvidas recorrentes",
+        "Baixo custo de manutenção"
+      ]
+    },
+    {
+      id: "checklist",
+      name: "Quiz de Segurança",
+      tagline: "Checklist interativo que avalia hábitos digitais e sugere os serviços certos pros pontos fracos encontrados.",
+      badge: "engajamento",
+      features: [
+        "Perguntas tipo quiz, com pontuação",
+        "Recomendação personalizada no final",
+        "Bom pra captar leads engajados"
+      ]
+    },
+    {
+      id: "pos-venda",
+      name: "Bot de Pós-Atendimento",
+      tagline: "Dispara automaticamente após o serviço pra medir satisfação e identificar problemas recorrentes.",
+      features: [
+        "Pesquisa rápida de satisfação",
+        "Disparo automático pós-serviço",
+        "Histórico de feedback por cliente"
+      ]
+    }
+  ];
+
+  function botWaLink(bot){
+    const msg = `Olá! Tenho interesse no "${bot.name}" do catálogo de bots da LuidySec. Podemos conversar sobre esse projeto?`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  function renderBotCatalog(){
+    const grid = document.getElementById("botGrid");
+    if(!grid) return;
+    grid.innerHTML = "";
+    BOT_CATALOG.forEach((bot, i) => {
+      const card = document.createElement("div");
+      card.className = "bot-card";
+
+      const badgeMarkup = bot.badge
+        ? `<span class="bot-badge">${bot.badge}</span>`
+        : "";
+
+      const featuresMarkup = bot.features
+        .map(f => `<li>${f}</li>`)
+        .join("");
+
+      card.innerHTML = `
+        ${badgeMarkup}
+        <span class="num">${String(i + 1).padStart(2, "0")}</span>
+        <h3>${bot.name}</h3>
+        <p class="bot-tagline">${bot.tagline}</p>
+        <ul class="bot-features">${featuresMarkup}</ul>
+        <a class="bot-cta" href="${botWaLink(bot)}" target="_blank" rel="noopener">Solicitar orçamento</a>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  renderBotCatalog();
 
   // ---------------------------------------------------------------
   // MENU MOBILE
