@@ -477,6 +477,14 @@
 // - lembra tópicos já discutidos na conversa e faz callbacks entre eles
 // - varia as respostas por categoria em vez de repetir sempre o mesmo texto
 // - reconhece visitante recorrente (localStorage) e saudação por horário
+//
+// CORREÇÃO (fuzzy matching):
+// O threshold do Fuse.js estava alto demais (0.32) e o minMatchCharLength
+// baixo demais (3), causando falsos positivos com palavras curtas e comuns
+// (ex.: "conte" batendo com "fonte", derrubando a mensagem na categoria
+// hardware em vez de seguir pro fallback de IA). Ajustado para threshold
+// 0.2 e minMatchCharLength 5, bem mais rígido — só pega erros de digitação
+// realmente próximos, não qualquer palavra parecida.
 // ============================================================
 
 const CONTACT_LINK = "https://wa.me/5515981289296";
@@ -698,6 +706,11 @@ const FRUSTRATION_ACK = [
 // small chunks of the user's sentence against it. Tolerates typos like
 // "formatr" -> "formatar" or "travnado" -> "travando" without needing an
 // exact substring match.
+//
+// threshold: 0.2 (mais rígido — antes 0.32 causava falsos positivos como
+// "conte" batendo com "fonte")
+// minMatchCharLength: 5 (antes 3 — evita palavras curtas genéricas
+// disparando categorias por engano)
 const FUSE_INDEX = (() => {
   const entries = [];
   CATALOG.forEach((cat) => {
@@ -706,10 +719,10 @@ const FUSE_INDEX = (() => {
   if (typeof Fuse === "undefined") return null;
   return new Fuse(entries, {
     keys: ["keyword"],
-    threshold: 0.32,       // lower = stricter; 0.32 tolerates small typos only
+    threshold: 0.2,
     ignoreLocation: true,
     includeScore: true,
-    minMatchCharLength: 3,
+    minMatchCharLength: 5,
   });
 })();
 
@@ -750,7 +763,7 @@ function matchCategory(rawText) {
       best = results[0];
     }
   }
-  if (best && best.score <= 0.32) {
+  if (best && best.score <= 0.2) {
     return CATALOG.find((cat) => cat.id === best.item.categoryId) || null;
   }
   return null;
