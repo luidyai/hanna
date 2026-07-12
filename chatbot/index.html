@@ -471,84 +471,124 @@
 // TechFlow — HANNA, assistente de triagem (100% client-side, sem IA/backend)
 // Tom "Jarvis-style": formal, técnico, direto — sem soar robótico ou frio.
 // Troque CONTACT_LINK e o array CATALOG pelos seus dados reais.
+//
+// Camada de "contexto e personalidade" adicionada:
+// - reconhece nome, dispositivo, urgência e frustração na mensagem
+// - lembra tópicos já discutidos na conversa e faz callbacks entre eles
+// - varia as respostas por categoria em vez de repetir sempre o mesmo texto
+// - reconhece visitante recorrente (localStorage) e saudação por horário
 // ============================================================
 
 const CONTACT_LINK = "https://wa.me/5515981289296";
+
+// URL do seu Cloudflare Worker (o "porteiro" que guarda a API key).
+// Troque pela URL que aparece no dashboard depois do deploy.
+// Exemplo: "https://hanna-proxy.seu-usuario.workers.dev"
+const HANNA_PROXY_URL = "https://hanna-proxy.cartao05luidy-2c7.workers.dev";
 
 const CATALOG = [
   {
     id: "formatacao",
     label: "formatação",
     keywords: ["formatar", "formata", "lento", "lenta", "travando", "trava", "reinstalar", "reinstalação", "sistema", "demorando", "ligar demora"],
-    reply: "Diagnóstico preliminar registrado: computador lento, travando ou demorando pra iniciar quase sempre indica a necessidade de uma formatação limpa. O procedimento reconstrói o sistema do zero, já com drivers e programas essenciais no lugar — pronto pra operar novamente.",
+    reply: [
+      "Diagnóstico preliminar registrado: computador lento, travando ou demorando pra iniciar quase sempre indica a necessidade de uma formatação limpa. O procedimento reconstrói o sistema do zero, já com drivers e programas essenciais no lugar — pronto pra operar novamente.",
+      "Lentidão persistente, travamentos frequentes ou inicialização demorada apontam quase sempre pra mesma solução: formatação completa. O sistema é reconstruído do zero, com drivers e programas essenciais já configurados.",
+    ],
     services: ["Formatação e reinstalação do Windows", "Diagnóstico de hardware (pra confirmar que não é peça)"],
   },
   {
     id: "hardware",
     label: "hardware",
     keywords: ["não liga", "nao liga", "tela azul", "tela preta", "barulho", "hardware", "peça", "peca", "bateria", "hd", "ssd", "placa", "fonte"],
-    reply: "Não ligar, tela azul ou ruído incomum são sintomas — não um veredito. Antes de qualquer substituição de peça, é executado um diagnóstico de hardware completo pra isolar a causa real. Sem chute, sem gasto desnecessário.",
+    reply: [
+      "Não ligar, tela azul ou ruído incomum são sintomas — não um veredito. Antes de qualquer substituição de peça, é executado um diagnóstico de hardware completo pra isolar a causa real. Sem chute, sem gasto desnecessário.",
+      "Esse tipo de sintoma não confirma a causa por si só. O diagnóstico de hardware isola a peça exata antes de qualquer substituição — evita trocar componente que não é o problema.",
+    ],
     services: ["Diagnóstico de hardware", "Troca de peças e manutenção física"],
   },
   {
     id: "virus",
     label: "vírus",
     keywords: ["virus", "vírus", "malware", "hackeado", "invadido", "popup", "propaganda", "sequestrado", "ransomware"],
-    reply: "Popup, propaganda invasiva ou sinal de invasão confirmam infecção ativa. Protocolo padrão: remoção completa da ameaça, seguida de checagem pra garantir que nenhum dado saiu do lugar.",
+    reply: [
+      "Popup, propaganda invasiva ou sinal de invasão confirmam infecção ativa. Protocolo padrão: remoção completa da ameaça, seguida de checagem pra garantir que nenhum dado saiu do lugar.",
+      "Infecção ativa confirmada pelos sinais descritos. O protocolo é remoção completa da ameaça, seguida de verificação pra garantir que nenhum dado foi comprometido.",
+    ],
     services: ["Remoção de vírus e malware", "Consultoria de segurança digital"],
   },
   {
     id: "recuperacao",
     label: "recuperação",
     keywords: ["perdi arquivo", "apaguei", "recuperar", "recuperação", "não abre", "nao abre", "sumiu", "corrompido", "corrompeu"],
-    reply: "Arquivo apagado ou disco que não abre mais ainda tem chance real de recuperação — mas cada minuto adicional de uso reduz essa chance. Quanto antes o procedimento começar, melhor o resultado.",
+    reply: [
+      "Arquivo apagado ou disco que não abre mais ainda tem chance real de recuperação — mas cada minuto adicional de uso reduz essa chance. Quanto antes o procedimento começar, melhor o resultado.",
+      "Cada minuto de uso após a perda reduz a chance de recuperação. Quanto antes o procedimento começar, maior a taxa de sucesso na recuperação dos dados.",
+    ],
     services: ["Recuperação de dados", "Diagnóstico de hardware de armazenamento"],
   },
   {
     id: "manutencao",
     label: "manutenção",
     keywords: ["limpeza", "pasta térmica", "pasta termica", "esquentando", "esquenta", "superaquecendo", "ventoinha", "cooler"],
-    reply: "Superaquecimento e ventoinha em rotação máxima são o hardware sinalizando estresse térmico. Limpeza interna e troca de pasta térmica resolvem — e evitam que o quadro evolua pra algo mais caro.",
+    reply: [
+      "Superaquecimento e ventoinha em rotação máxima são o hardware sinalizando estresse térmico. Limpeza interna e troca de pasta térmica resolvem — e evitam que o quadro evolua pra algo mais caro.",
+      "Aquecimento acima do normal é sinal de estresse térmico acumulado. Limpeza interna e troca de pasta térmica resolvem antes que o desgaste avance pra algo mais sério.",
+    ],
     services: ["Manutenção preventiva (limpeza + pasta térmica)", "Diagnóstico de hardware"],
   },
   {
     id: "seguranca",
     label: "segurança",
     keywords: ["segurança", "seguranca", "lgpd", "proteção", "protecao", "dados", "empresa", "rede", "wifi", "wi-fi", "firewall"],
-    reply: "Proteção de dados, rede ou adequação da operação começa sempre pelo mesmo protocolo: um levantamento completo da situação atual. Qualquer intervenção só entra depois disso.",
+    reply: [
+      "Proteção de dados, rede ou adequação da operação começa sempre pelo mesmo protocolo: um levantamento completo da situação atual. Qualquer intervenção só entra depois disso.",
+      "Antes de qualquer ajuste em segurança, rede ou dados, o protocolo padrão é um levantamento completo da situação atual — só depois entra a intervenção.",
+    ],
     services: ["Consultoria de segurança digital", "Configuração e proteção de rede"],
   },
   {
     id: "remoto",
     label: "suporte remoto",
     keywords: ["remoto", "à distância", "a distancia", "não posso levar", "nao posso levar", "online"],
-    reply: "Registrado: nem toda ocorrência exige que o equipamento seja trazido fisicamente. Boa parte dos casos é resolvida por suporte remoto, direto de onde você estiver.",
+    reply: [
+      "Registrado: nem toda ocorrência exige que o equipamento seja trazido fisicamente. Boa parte dos casos é resolvida por suporte remoto, direto de onde você estiver.",
+      "Trazer o equipamento fisicamente nem sempre é necessário. Grande parte das ocorrências é resolvida remotamente, com o mesmo nível de precisão.",
+    ],
     services: ["Suporte remoto", "Diagnóstico inicial por chamada"],
   },
   {
     id: "windows",
     label: "Windows",
     keywords: ["windows", "win 10", "win 11", "windows 10", "windows 11", "atualização do windows", "atualizacao do windows", "driver", "ativação do windows", "ativacao do windows"],
-    reply: "Falha no Windows — travamento em atualização, driver instável, ativação, tela de erro — é diagnosticada e corrigida diretamente no sistema, sem reinstalação completa, a não ser que seja estritamente necessário.",
+    reply: [
+      "Falha no Windows — travamento em atualização, driver instável, ativação, tela de erro — é diagnosticada e corrigida diretamente no sistema, sem reinstalação completa, a não ser que seja estritamente necessário.",
+      "Erro no Windows é tratado diretamente no sistema — atualização travada, driver instável, tela de erro — sem reinstalação completa, salvo quando estritamente necessário.",
+    ],
     services: ["Suporte e configuração Windows", "Formatação e reinstalação do Windows"],
   },
   {
     id: "linux",
     label: "Linux",
     keywords: ["linux", "ubuntu", "debian", "fedora", "mint", "kernel", "distro", "terminal não funciona", "terminal nao funciona", "dual boot"],
-    reply: "Linux opera sob lógica própria — não é tratado como Windows. Instalação, dual boot, drivers e configuração de distribuição são conduzidos com esse rigor, seja para uso pessoal ou servidor.",
+    reply: [
+      "Linux opera sob lógica própria — não é tratado como Windows. Instalação, dual boot, drivers e configuração de distribuição são conduzidos com esse rigor, seja para uso pessoal ou servidor.",
+      "Ambiente Linux segue lógica própria. Instalação, dual boot e configuração de distribuição são conduzidos com o mesmo rigor técnico, pessoal ou servidor.",
+    ],
     services: ["Instalação e configuração Linux", "Suporte técnico Linux"],
   },
   {
     id: "macos",
     label: "macOS",
     keywords: ["mac", "macos", "macbook", "imac", "apple", "ios da apple", "os x"],
-    reply: "Mac lento, travando ou com erro de sistema também recebe diagnóstico completo — o processo difere do Windows, mas o rigor é idêntico. Configuração, otimização e resolução de falhas no macOS.",
+    reply: [
+      "Mac lento, travando ou com erro de sistema também recebe diagnóstico completo — o processo difere do Windows, mas o rigor é idêntico. Configuração, otimização e resolução de falhas no macOS.",
+      "Mac também recebe diagnóstico completo em caso de lentidão ou erro de sistema — processo distinto do Windows, rigor idêntico.",
+    ],
     services: ["Suporte e configuração macOS", "Diagnóstico de hardware Apple"],
   },
 ];
 
-const GREETING = "Sistemas online. Sou a HANNA, unidade de triagem técnica do Luidy. Descreva o que está ocorrendo com seu computador, celular ou rede — ou selecione um assunto abaixo, que eu direciono ao protocolo correto.";
 const FALLBACK = "Sinal não reconhecido com precisão suficiente. Reformule a descrição, ou selecione uma das opções abaixo — assim garanto que o encaminhamento seja exato.";
 
 // Pequenas interações de conversa — respondidas antes do fallback genérico,
@@ -596,6 +636,62 @@ function matchSmallTalk(rawText) {
   const text = rawText.toLowerCase().trim();
   return SMALL_TALK.find((entry) => entry.keywords.some((kw) => text.includes(kw)));
 }
+
+// ---- Reconhecimento de nome ----
+// Guarda entre sessões (localStorage) pra reconhecer visitante recorrente.
+const NAME_PATTERNS = [
+  /meu nome (?:é|e) ([a-zà-ú]+)/i,
+  /me chamo ([a-zà-ú]+)/i,
+  /(?:pode me chamar de|me chame de) ([a-zà-ú]+)/i,
+  /^sou (?:o |a )?([a-zà-ú]+)$/i,
+];
+
+function extractName(rawText) {
+  const text = rawText.trim();
+  for (const pattern of NAME_PATTERNS) {
+    const m = text.match(pattern);
+    if (m && m[1] && m[1].length >= 2) {
+      return m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase();
+    }
+  }
+  return null;
+}
+
+// ---- Reconhecimento de dispositivo mencionado ----
+const DEVICE_MAP = {
+  "notebook": "notebook", "laptop": "notebook", "note": "notebook",
+  "computador": "computador", "pc": "computador", "desktop": "computador",
+  "celular": "celular", "smartphone": "celular", "iphone": "celular", "android": "celular",
+  "servidor": "servidor",
+  "roteador": "rede", "wi-fi": "rede", "wifi": "rede",
+};
+
+function extractDevice(rawText) {
+  const text = rawText.toLowerCase();
+  for (const key in DEVICE_MAP) {
+    if (text.includes(key)) return DEVICE_MAP[key];
+  }
+  return null;
+}
+
+// ---- Urgência e frustração ----
+const URGENCY_KEYWORDS = ["urgente", "urgência", "urgencia", "hoje mesmo", "não aguento mais", "nao aguento mais", "trabalho parado", "preciso disso hoje", "o mais rápido possível", "o mais rapido possivel"];
+const FRUSTRATION_KEYWORDS = ["que saco", "irritado", "irritada", "cansado disso", "cansada disso", "isso é frustrante", "isso e frustrante", "não aguento mais", "nao aguento mais", "detesto isso"];
+
+function detectUrgency(rawText) {
+  const t = rawText.toLowerCase();
+  return URGENCY_KEYWORDS.some((kw) => t.includes(kw));
+}
+
+function detectFrustration(rawText) {
+  const t = rawText.toLowerCase();
+  return FRUSTRATION_KEYWORDS.some((kw) => t.includes(kw));
+}
+
+const FRUSTRATION_ACK = [
+  "Entendo a frustração — vamos resolver isso o mais rápido possível.",
+  "Compreendido, situação chata. O protocolo abaixo resolve.",
+];
 
 // ---- Fuzzy keyword matching (Fuse.js) ----
 // Builds one searchable entry per (category, keyword) pair, then fuzzy-matches
@@ -664,6 +760,11 @@ function matchCategory(rawText) {
 // Lets short follow-up messages ("quanto custa?", "quanto tempo demora?")
 // get a relevant answer instead of falling into the generic fallback.
 let lastCategory = null;
+
+// Memória de contexto ampliada da sessão atual
+let userName = localStorage.getItem("hanna_name") || null;
+let mentionedDevice = null;
+let conversationTopics = []; // ids das categorias já discutidas nesta conversa
 
 const FOLLOW_UPS = [
   {
@@ -756,6 +857,10 @@ function collapseHero() {
   resetBtn.classList.remove("hidden");
 }
 
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function addUserMessage(text) {
   const el = document.createElement("div");
   el.className = "msg user";
@@ -824,6 +929,38 @@ function addBotMessage(text, { actions } = {}) {
   });
 }
 
+// Bolha temporária de "processando", removida assim que a resposta chega.
+function addThinkingBubble() {
+  const wrap = document.createElement("div");
+  wrap.className = "msg bot";
+  wrap.innerHTML = `<div class="prompt-line">HANNA</div><span class="bot-text">Processando sinal…</span>`;
+  chatWindow.appendChild(wrap);
+  scrollToBottom();
+  return wrap;
+}
+
+// Quando nenhuma regra reconhece a mensagem, pergunta pro Worker (IA de
+// verdade) em vez de cair direto no fallback genérico. Se o Worker não
+// estiver configurado ou falhar, volta pro fallback com busca no Google.
+async function tryAIFallback(text) {
+  const bubble = addThinkingBubble();
+  try {
+    const res = await fetch(HANNA_PROXY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text }),
+    });
+    if (!res.ok) throw new Error("proxy indisponível");
+    const data = await res.json();
+    bubble.remove();
+    await addBotMessage(data.reply || FALLBACK, { actions: ctaActions() });
+  } catch (e) {
+    bubble.remove();
+    await addBotMessage(FALLBACK, { actions: [googleSearchAction(text)] });
+  }
+  showQuickChips();
+}
+
 function ctaActions(extra = []) {
   return [
     {
@@ -839,9 +976,26 @@ function ctaActions(extra = []) {
   ];
 }
 
+// Monta a resposta da categoria com: variação aleatória, personalização por
+// dispositivo mencionado, e um "callback" se já houver outro tópico discutido
+// antes nesta mesma conversa.
 function renderCategoryReply(category) {
+  const baseReply = pick(category.reply);
+  const personalized = mentionedDevice
+    ? baseReply.replace(/computador/gi, mentionedDevice)
+    : baseReply;
+
+  let intro = "";
+  const priorTopics = conversationTopics.filter((id) => id !== category.id);
+  if (priorTopics.length > 0) {
+    const prevCat = CATALOG.find((c) => c.id === priorTopics[priorTopics.length - 1]);
+    if (prevCat) intro = `Além da questão de ${prevCat.label} mencionada antes, `;
+  }
+
   const serviceList = category.services.map((s) => `• ${s}`).join("\n");
-  const fullText = `${category.reply}\n\nServiços indicados:\n${serviceList}\n\nValor e prazo variam por caso — um especialista confirma isso com você em segundos.`;
+  const namePart = userName ? ` ${userName},` : "";
+  const fullText = `${intro}${intro ? personalized.charAt(0).toLowerCase() + personalized.slice(1) : personalized}\n\nServiços indicados:\n${serviceList}\n\nValor e prazo variam por caso — um especialista confirma isso com você em segundos${namePart}.`;
+
   hideQuickChips();
   return addBotMessage(fullText, { actions: ctaActions() });
 }
@@ -870,6 +1024,7 @@ async function handleCategorySelect(category) {
   hideQuickChips();
   await sleep(400);
   lastCategory = category;
+  if (!conversationTopics.includes(category.id)) conversationTopics.push(category.id);
   await renderCategoryReply(category);
   busy = false;
 }
@@ -886,9 +1041,27 @@ async function handleUserText(text) {
   hideQuickChips();
   await sleep(500);
 
+  // Reconhece nome, se apresentado, e passa a usar em respostas futuras.
+  const detectedName = extractName(text);
+  if (detectedName && detectedName.toLowerCase() !== (userName || "").toLowerCase()) {
+    userName = detectedName;
+    localStorage.setItem("hanna_name", userName);
+    await addBotMessage(`Registrado, ${userName}. Prossiga com a descrição da ocorrência.`);
+  }
+
+  // Reconhece dispositivo mencionado, pra personalizar as próximas respostas.
+  const detectedDevice = extractDevice(text);
+  if (detectedDevice) mentionedDevice = detectedDevice;
+
+  const isUrgent = detectUrgency(text);
+  const isFrustrated = detectFrustration(text);
+
   const category = matchCategory(text);
   if (category) {
+    if (isFrustrated) await addBotMessage(pick(FRUSTRATION_ACK));
+    if (isUrgent) await addBotMessage("Urgência identificada. Encaminhamento prioritário ativado.");
     lastCategory = category;
+    if (!conversationTopics.includes(category.id)) conversationTopics.push(category.id);
     await renderCategoryReply(category);
   } else {
     const dateTimeType = matchDateTime(text);
@@ -905,12 +1078,12 @@ async function handleUserText(text) {
     } else {
       const smallTalk = matchSmallTalk(text);
       if (smallTalk) {
-        const reply = smallTalk.replies[Math.floor(Math.random() * smallTalk.replies.length)];
+        const reply = pick(smallTalk.replies);
         await addBotMessage(reply);
+        showQuickChips();
       } else {
-        await addBotMessage(FALLBACK, { actions: [googleSearchAction(text)] });
+        await tryAIFallback(text);
       }
-      showQuickChips();
     }
   }
   busy = false;
@@ -957,6 +1130,8 @@ resetBtn.addEventListener("click", () => {
   resetBtn.classList.add("hidden");
   started = false;
   lastCategory = null;
+  conversationTopics = [];
+  mentionedDevice = null;
   hideQuickChips();
   agentMenu.classList.remove("open");
   agentBtn.classList.remove("open");
@@ -1035,11 +1210,28 @@ document.addEventListener("click", (e) => {
   });
 })();
 
+// Saudação inicial: varia por horário do dia, reconhece visitante recorrente
+// e usa o nome se já for conhecido de uma sessão anterior.
+function buildGreeting() {
+  const hour = new Date().getHours();
+  let timeGreeting;
+  if (hour < 6) timeGreeting = "Sistemas online, madrugada registrada.";
+  else if (hour < 12) timeGreeting = "Bom dia. Sistemas online.";
+  else if (hour < 18) timeGreeting = "Boa tarde. Sistemas online.";
+  else timeGreeting = "Boa noite. Sistemas online.";
+
+  const returning = localStorage.getItem("hanna_visited") ? " Bom te ver de novo." : "";
+  const namePart = userName ? ` ${userName},` : "";
+
+  return `${timeGreeting}${returning} Sou a HANNA, unidade de triagem técnica do Luidy.${namePart} Descreva o que está ocorrendo com seu computador, celular ou rede — ou selecione um assunto abaixo, que eu direciono ao protocolo correto.`;
+}
+
 async function startChat() {
   if (started) return;
   collapseHero();
   busy = true;
-  await addBotMessage(GREETING);
+  await addBotMessage(buildGreeting());
+  localStorage.setItem("hanna_visited", "1");
   showQuickChips();
   busy = false;
 }
