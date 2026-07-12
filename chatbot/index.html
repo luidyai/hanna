@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" integrity="sha384-PCSoOZTpbkikBEtd/+uV3WNdc676i9KUf01KOA8CnJotvlx8rRrETbDuwdjqTYvt" crossorigin="anonymous"></script>
 <style>
   :root {
     --bg: #212121;
@@ -47,7 +47,6 @@
     min-height: 100vh;
   }
 
-  /* flat plain background, no ambient glow — matches the reference look */
   body::before {
     content: none;
   }
@@ -426,13 +425,13 @@
 </head>
 <body>
 
-  <button class="reset-btn hidden" id="resetBtn" type="button">reiniciar</button>
+  <button class="reset-btn hidden" id="resetBtn" type="button">reiniciar sessão</button>
 
   <div class="app">
     <div class="hero" id="hero">
       <div class="hero-top">
-        <h1>Converse com nosso assistente</h1>
-        <p class="subtitle">A sua criatividade é o único limite.</p>
+        <h1>HANNA <span style="color:var(--accent-strong);">·</span> em espera</h1>
+        <p class="subtitle">Diagnóstico técnico sob demanda. <span class="flicker">Descreva a ocorrência</span> quando estiver pronto.</p>
       </div>
     </div>
 
@@ -442,22 +441,22 @@
       <div class="composer-wrap">
         <div class="quick-chips hidden" id="quickChips"></div>
         <form class="composer-card" id="composerForm" style="margin-top:10px;">
-          <textarea id="chatInput" rows="1" placeholder="O que você precisa saber?"></textarea>
+          <textarea id="chatInput" rows="1" placeholder="Descreva a ocorrência..."></textarea>
           <div class="composer-row">
             <div class="agent-select">
               <button type="button" class="agent-btn" id="agentBtn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="14" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/></svg>
-                Assistente TI
+                HANNA · Triagem
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
               <div class="agent-menu" id="agentMenu"></div>
             </div>
             <div class="composer-actions">
               <span class="composer-divider" aria-hidden="true"></span>
-              <button type="button" class="icon-btn" id="micBtn" title="Falar" aria-label="Entrada por voz">
+              <button type="button" class="icon-btn" id="micBtn" title="Entrada por voz" aria-label="Entrada por voz">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 003-3V6a3 3 0 10-6 0v6a3 3 0 003 3z" stroke="currentColor" stroke-width="1.6"/><path d="M19 11a7 7 0 01-14 0M12 18v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
               </button>
-              <button type="submit" class="icon-btn" id="sendBtn" disabled title="Enviar" aria-label="Enviar mensagem">
+              <button type="submit" class="icon-btn" id="sendBtn" disabled title="Transmitir" aria-label="Enviar mensagem">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </div>
@@ -470,6 +469,7 @@
 <script>
 // ============================================================
 // TechFlow — HANNA, assistente de triagem (100% client-side, sem IA/backend)
+// Tom "Jarvis-style": formal, técnico, direto — sem soar robótico ou frio.
 // Troque CONTACT_LINK e o array CATALOG pelos seus dados reais.
 // ============================================================
 
@@ -480,114 +480,114 @@ const CATALOG = [
     id: "formatacao",
     label: "formatação",
     keywords: ["formatar", "formata", "lento", "lenta", "travando", "trava", "reinstalar", "reinstalação", "sistema", "demorando", "ligar demora"],
-    reply: "Diagnóstico rápido: computador lento, travando ou demorando pra ligar quase sempre pede uma formatação limpa. Refaço o sistema do zero, já com drivers e programas essenciais no lugar — sai de lá pronto pra rodar.",
+    reply: "Diagnóstico preliminar registrado: computador lento, travando ou demorando pra iniciar quase sempre indica a necessidade de uma formatação limpa. O procedimento reconstrói o sistema do zero, já com drivers e programas essenciais no lugar — pronto pra operar novamente.",
     services: ["Formatação e reinstalação do Windows", "Diagnóstico de hardware (pra confirmar que não é peça)"],
   },
   {
     id: "hardware",
     label: "hardware",
     keywords: ["não liga", "nao liga", "tela azul", "tela preta", "barulho", "hardware", "peça", "peca", "bateria", "hd", "ssd", "placa", "fonte"],
-    reply: "Não ligar, tela azul ou barulho estranho são sintomas, não veredictos. Antes de trocar qualquer peça, faço um diagnóstico de hardware pra achar a causa real — sem chute, sem gasto desnecessário.",
+    reply: "Não ligar, tela azul ou ruído incomum são sintomas — não um veredito. Antes de qualquer substituição de peça, é executado um diagnóstico de hardware completo pra isolar a causa real. Sem chute, sem gasto desnecessário.",
     services: ["Diagnóstico de hardware", "Troca de peças e manutenção física"],
   },
   {
     id: "virus",
     label: "vírus",
     keywords: ["virus", "vírus", "malware", "hackeado", "invadido", "popup", "propaganda", "sequestrado", "ransomware"],
-    reply: "Popup, propaganda invasiva ou sinal de invasão? Isso é infecção ativa confirmada. Protocolo padrão: remoção completa da ameaça, seguida de checagem pra garantir que nenhum dado vazou.",
+    reply: "Popup, propaganda invasiva ou sinal de invasão confirmam infecção ativa. Protocolo padrão: remoção completa da ameaça, seguida de checagem pra garantir que nenhum dado saiu do lugar.",
     services: ["Remoção de vírus e malware", "Consultoria de segurança digital"],
   },
   {
     id: "recuperacao",
     label: "recuperação",
     keywords: ["perdi arquivo", "apaguei", "recuperar", "recuperação", "não abre", "nao abre", "sumiu", "corrompido", "corrompeu"],
-    reply: "Arquivo apagado ou HD que não abre mais ainda tem chance real de recuperação — mas cada minuto de uso a mais no disco reduz essa chance. Quanto antes eu entrar em ação, melhor o resultado.",
+    reply: "Arquivo apagado ou disco que não abre mais ainda tem chance real de recuperação — mas cada minuto adicional de uso reduz essa chance. Quanto antes o procedimento começar, melhor o resultado.",
     services: ["Recuperação de dados", "Diagnóstico de hardware de armazenamento"],
   },
   {
     id: "manutencao",
     label: "manutenção",
     keywords: ["limpeza", "pasta térmica", "pasta termica", "esquentando", "esquenta", "superaquecendo", "ventoinha", "cooler"],
-    reply: "Esquentando e com a ventoinha berrando? Isso é o hardware pedindo socorro. Uma limpeza interna e troca de pasta térmica resolve — e evita que o problema evolua pra algo mais caro.",
+    reply: "Superaquecimento e ventoinha em rotação máxima são o hardware sinalizando estresse térmico. Limpeza interna e troca de pasta térmica resolvem — e evitam que o quadro evolua pra algo mais caro.",
     services: ["Manutenção preventiva (limpeza + pasta térmica)", "Diagnóstico de hardware"],
   },
   {
     id: "seguranca",
     label: "segurança",
     keywords: ["segurança", "seguranca", "lgpd", "proteção", "protecao", "dados", "empresa", "rede", "wifi", "wi-fi", "firewall"],
-    reply: "Proteção de dados, rede ou adequação da sua empresa começa sempre pelo mesmo passo: um raio-x completo da situação atual. Só depois entra qualquer mudança.",
+    reply: "Proteção de dados, rede ou adequação da operação começa sempre pelo mesmo protocolo: um levantamento completo da situação atual. Qualquer intervenção só entra depois disso.",
     services: ["Consultoria de segurança digital", "Configuração e proteção de rede"],
   },
   {
     id: "remoto",
     label: "suporte remoto",
     keywords: ["remoto", "à distância", "a distancia", "não posso levar", "nao posso levar", "online"],
-    reply: "Boa notícia: nem tudo exige que o equipamento venha até aqui. Boa parte dos problemas eu resolvo por suporte remoto, direto de onde você estiver.",
+    reply: "Registrado: nem toda ocorrência exige que o equipamento seja trazido fisicamente. Boa parte dos casos é resolvida por suporte remoto, direto de onde você estiver.",
     services: ["Suporte remoto", "Diagnóstico inicial por chamada"],
   },
   {
     id: "windows",
     label: "Windows",
     keywords: ["windows", "win 10", "win 11", "windows 10", "windows 11", "atualização do windows", "atualizacao do windows", "driver", "ativação do windows", "ativacao do windows"],
-    reply: "Problema no Windows — trava na atualização, driver bugado, ativação, tela de erro? Eu diagnostico e ajusto direto no sistema, sem precisar reinstalar tudo do zero (a não ser que seja realmente necessário).",
+    reply: "Falha no Windows — travamento em atualização, driver instável, ativação, tela de erro — é diagnosticada e corrigida diretamente no sistema, sem reinstalação completa, a não ser que seja estritamente necessário.",
     services: ["Suporte e configuração Windows", "Formatação e reinstalação do Windows"],
   },
   {
     id: "linux",
     label: "Linux",
     keywords: ["linux", "ubuntu", "debian", "fedora", "mint", "kernel", "distro", "terminal não funciona", "terminal nao funciona", "dual boot"],
-    reply: "Linux tem lógica própria — não dá pra tratar como Windows. Eu cuido de instalação, dual boot, drivers e configuração de distro, seja pra uso pessoal ou servidor.",
+    reply: "Linux opera sob lógica própria — não é tratado como Windows. Instalação, dual boot, drivers e configuração de distribuição são conduzidos com esse rigor, seja para uso pessoal ou servidor.",
     services: ["Instalação e configuração Linux", "Suporte técnico Linux"],
   },
   {
     id: "macos",
     label: "macOS",
     keywords: ["mac", "macos", "macbook", "imac", "apple", "ios da apple", "os x"],
-    reply: "Mac lento, travando ou com erro de sistema também tem solução — o processo é diferente do Windows, mas o diagnóstico é igual de rigoroso. Cuido de configuração, otimização e resolução de erros no macOS.",
+    reply: "Mac lento, travando ou com erro de sistema também recebe diagnóstico completo — o processo difere do Windows, mas o rigor é idêntico. Configuração, otimização e resolução de falhas no macOS.",
     services: ["Suporte e configuração macOS", "Diagnóstico de hardware Apple"],
   },
 ];
 
-const GREETING = "Sistemas online. Sou a HANNA, assistente do Luidy — conta o que está acontecendo com seu computador, celular ou rede, ou escolhe um assunto abaixo, que eu te encaminho pro serviço certo.";
-const FALLBACK = "Não decodifiquei bem esse sinal. Tenta descrever de outro jeito, ou escolhe uma das opções abaixo — assim eu não erro o alvo.";
+const GREETING = "Sistemas online. Sou a HANNA, unidade de triagem técnica do Luidy. Descreva o que está ocorrendo com seu computador, celular ou rede — ou selecione um assunto abaixo, que eu direciono ao protocolo correto.";
+const FALLBACK = "Sinal não reconhecido com precisão suficiente. Reformule a descrição, ou selecione uma das opções abaixo — assim garanto que o encaminhamento seja exato.";
 
 // Pequenas interações de conversa — respondidas antes do fallback genérico,
-// pra parecer menos robótico quando a mensagem não é um problema técnico.
+// mantendo o registro formal mesmo fora de contexto técnico.
 const SMALL_TALK = [
   {
     id: "saudacao",
     keywords: ["oi", "olá", "ola", "e ai", "eae", "e aí", "salve", "bom dia", "boa tarde", "boa noite", "opa"],
     replies: [
-      "Oi! Sistemas nominais por aqui. Me conta o que está pegando no seu equipamento, ou escolhe um assunto abaixo.",
-      "Presente. O que está acontecendo com seu computador, celular ou rede?",
+      "Presente e operacional. Descreva o que está ocorrendo com seu equipamento, ou selecione um assunto abaixo.",
+      "Canal aberto. O que está acontecendo com seu computador, celular ou rede?",
     ],
   },
   {
     id: "identidade",
     keywords: ["quem é você", "quem e voce", "quem é a hanna", "quem e a hanna", "o que você faz", "o que voce faz", "o que é isso", "o que voce é"],
     replies: [
-      "Sou a HANNA, a assistente técnica do Luidy. Minha função é ouvir o problema e te encaminhar direto pro serviço certo — sem enrolação.",
+      "Sou a HANNA, unidade de triagem técnica do Luidy. Minha função é interpretar o problema relatado e encaminhá-lo diretamente ao serviço correto — sem etapas desnecessárias.",
     ],
   },
   {
     id: "estado",
     keywords: ["tudo bem", "como você está", "como voce esta", "beleza", "como vai"],
     replies: [
-      "Rodando 100%, obrigado por perguntar. E o seu equipamento, também está bem — ou é por isso que você veio falar comigo?",
+      "Todos os sistemas operando em plena capacidade, agradeço a pergunta. Quanto ao seu equipamento — também está tudo bem, ou é por isso que você está aqui?",
     ],
   },
   {
     id: "agradecimento",
     keywords: ["obrigado", "obrigada", "valeu", "vlw", "brigado", "brigada"],
     replies: [
-      "Por nada. Se aparecer qualquer outro sinal estranho no equipamento, é só chamar.",
+      "Registrado. Qualquer novo sinal irregular no equipamento, é só acionar.",
     ],
   },
   {
     id: "ajuda_generica",
     keywords: ["me ajuda", "preciso de ajuda", "socorro", "ajuda ai", "ajuda aí"],
     replies: [
-      "Pode contar. Só preciso de um pouco mais de sinal — o que exatamente está acontecendo? Ou escolhe uma das opções abaixo.",
+      "Compreendido. Preciso de um pouco mais de dado pra prosseguir — o que exatamente está ocorrendo? Ou selecione uma das opções abaixo.",
     ],
   },
 ];
@@ -669,22 +669,22 @@ const FOLLOW_UPS = [
   {
     id: "preco",
     keywords: ["quanto custa", "preco", "preço", "valor", "quanto fica", "quanto e", "quanto é", "quanto sai", "quanto vai custar"],
-    reply: (cat) => `Valor exato o especialista fecha com você olhando o caso — varia conforme o problema de ${cat.label}. Quer que eu já te encaminhe?`,
+    reply: (cat) => `Valor exato é confirmado pelo especialista após avaliar o caso — varia conforme a extensão do problema de ${cat.label}. Deseja que eu já efetue o encaminhamento?`,
   },
   {
     id: "prazo",
     keywords: ["quanto tempo", "prazo", "demora", "quantos dias", "quando fica pronto", "que dia"],
-    reply: (cat) => `Prazo também varia por caso, mas o especialista confirma rapidinho com você sobre o seu assunto de ${cat.label}. Chamo ele?`,
+    reply: (cat) => `Prazo também varia por caso, mas o especialista confirma rapidamente com você sobre o assunto de ${cat.label}. Aciono o contato agora?`,
   },
   {
     id: "local",
     keywords: ["onde fica", "endereco", "endereço", "localizacao", "localização", "onde voces", "onde vocês", "onde e", "onde é"],
-    reply: () => `Endereço e detalhes de atendimento o especialista te passa direto no chat. Posso te encaminhar agora?`,
+    reply: () => `Endereço e detalhes de atendimento são confirmados diretamente com o especialista. Deseja que eu efetue o encaminhamento agora?`,
   },
   {
     id: "pagamento",
     keywords: ["forma de pagamento", "pagamento", "pix", "cartao", "cartão", "parcelar", "parcela"],
-    reply: () => `Formas de pagamento o especialista confirma com você na hora — geralmente dá pra combinar. Bora falar com ele?`,
+    reply: () => `Formas de pagamento são confirmadas na hora com o especialista — geralmente há flexibilidade. Prossigo com o encaminhamento?`,
   },
 ];
 
@@ -708,10 +708,10 @@ function answerDateTime(type) {
   const now = new Date();
   if (type === "time") {
     const time = now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-    return `Agora são ${time}, direto do relógio do seu aparelho.`;
+    return `Registro do relógio local: ${time}.`;
   }
   const date = now.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  return `Hoje é ${date}.`;
+  return `Data local: ${date}.`;
 }
 
 // ---- Fallback: offer a plain Google search of what the person typed ----
@@ -827,7 +827,7 @@ function addBotMessage(text, { actions } = {}) {
 function ctaActions(extra = []) {
   return [
     {
-      label: "acionar um especialista",
+      label: "acionar especialista",
       primary: true,
       onClick: () => window.open(CONTACT_LINK, "_blank", "noopener"),
     },
@@ -841,7 +841,7 @@ function ctaActions(extra = []) {
 
 function renderCategoryReply(category) {
   const serviceList = category.services.map((s) => `• ${s}`).join("\n");
-  const fullText = `${category.reply}\n\nServiços indicados:\n${serviceList}\n\npreço e prazo variam por caso — isso um humano confirma com você em segundos.`;
+  const fullText = `${category.reply}\n\nServiços indicados:\n${serviceList}\n\nValor e prazo variam por caso — um especialista confirma isso com você em segundos.`;
   hideQuickChips();
   return addBotMessage(fullText, { actions: ctaActions() });
 }
