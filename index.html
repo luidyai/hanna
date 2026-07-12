@@ -430,6 +430,13 @@
     #searchInput{ max-width:none; width:100%; }
   }
 
+  @media (max-width:900px){
+    #bannerVideo{
+      height:78vw;
+      min-height:340px;
+    }
+  }
+
   footer{
     padding:56px;
     display:flex; justify-content:space-between; align-items:center;
@@ -579,11 +586,13 @@
   </div>
 </header>
 
-<section id="video-banner" style="padding-top:0; padding-bottom:0; border-top:none;">
-  <div style="position:relative; border:1px solid var(--line); border-radius:2px; overflow:hidden; max-width:1200px; margin:0 auto 60px;">
+<section id="video-banner" style="padding-top:0; padding-bottom:0; border-top:none; padding-left:0; padding-right:0;">
+  <div class="video-frame" style="position:relative; overflow:hidden; margin:0 0 60px;">
     <video
-      autoplay muted loop playsinline
-      style="width:100%; height:clamp(260px, 46vw, 560px); object-fit:cover; display:block; filter:grayscale(15%) contrast(1.05);"
+      id="bannerVideo"
+      autoplay muted loop playsinline webkit-playsinline="true" disablePictureInPicture
+      preload="auto"
+      style="width:100%; height:clamp(360px, 42vw, 620px); object-fit:cover; display:block; filter:grayscale(15%) contrast(1.05); pointer-events:none;"
       poster="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_tiny.jpg">
       <source src="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_large.mp4" type="video/mp4">
     </video>
@@ -776,6 +785,39 @@
     navOverlay.classList.add("open");
     navToggle.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
+  }
+
+  // ---- force video autoplay on mobile (some browsers block it unless triggered via JS) ----
+  const bannerVideo = document.getElementById("bannerVideo");
+  if (bannerVideo) {
+    bannerVideo.muted = true;
+    bannerVideo.playsInline = true;
+
+    const tryPlay = () => {
+      const p = bannerVideo.play();
+      if (p !== undefined) p.catch(() => { /* will retry on interaction/visibility */ });
+    };
+
+    tryPlay();
+
+    // retry once the video has buffered enough data
+    bannerVideo.addEventListener("loadeddata", tryPlay);
+    bannerVideo.addEventListener("canplay", tryPlay);
+
+    // retry when it scrolls into view
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) tryPlay();
+        });
+      }, { threshold: 0.25 });
+      io.observe(bannerVideo);
+    }
+
+    // last resort: first user tap/scroll anywhere unlocks it
+    ["touchstart", "click", "scroll"].forEach((evt) => {
+      window.addEventListener(evt, tryPlay, { once: true, passive: true });
+    });
   }
 
   navToggle.addEventListener("click", () => {
