@@ -579,6 +579,27 @@
   </div>
 </header>
 
+<section id="video-banner" style="padding-top:0; padding-bottom:0; border-top:none;">
+  <div style="position:relative; border:1px solid var(--line); border-radius:2px; overflow:hidden; max-width:1200px; margin:0 auto 60px;">
+    <video
+      autoplay muted loop playsinline
+      style="width:100%; height:clamp(260px, 46vw, 560px); object-fit:cover; display:block; filter:grayscale(15%) contrast(1.05);"
+      poster="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_tiny.jpg">
+      <source src="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_large.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(10,14,20,0.15) 55%, rgba(10,14,20,0.55) 100%); pointer-events:none;"></div>
+    <div style="position:absolute; top:24px; left:24px; display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); padding:8px 14px; border-radius:2px;">
+      <span style="width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></span>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink);">tecnologia em movimento</span>
+    </div>
+    <div style="position:absolute; bottom:0; left:0; right:0; padding:32px 32px 28px;">
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(22px, 3.4vw, 36px); color:#fff; letter-spacing:-0.01em; max-width:640px;">
+        Infraestrutura, redes e IA trabalhando juntas.
+      </h2>
+    </div>
+  </div>
+</section>
+
 <section id="servicos">
   <div class="section-head">
     <h2>Serviços</h2>
