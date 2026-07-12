@@ -17,9 +17,9 @@
     --ink:#0a0e14;
     --gray:#6b7280;
     --line:#e6e9ee;
-    --cyan:#00c2ff;
+    --cyan:#0a0e14;
     --violet:#7b5cff;
-    --glow: 0 0 24px rgba(0,194,255,.35);
+    --glow: 0 0 18px rgba(10,14,20,.28);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -158,7 +158,11 @@
     text-transform:uppercase;
   }
   h1 .accent{
-    color:var(--cyan);
+    color:var(--ink);
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.08em;
+    text-decoration-color: var(--ink);
   }
 
   .subhead{
@@ -557,9 +561,9 @@
 
 <header class="hero">
   <div class="hero-left">
-    <div class="eyebrow">Aqui e agora</div>
+    <div class="eyebrow">Sistemas online</div>
     <h1>O <span class="accent">futuro</span><br>da segurança<br>cyber</h1>
-    <p class="subhead">LuidySec — soluções em infraestrutura, redes e proteção de dados para empresas que não podem parar. Diagnóstico, prevenção e resposta, do jeito certo.</p>
+    <p class="subhead">LuidySec — soluções em infraestrutura, redes e proteção de dados para operações que não podem parar. Diagnóstico, prevenção e resposta, executados com precisão.</p>
 
     <div class="hero-meta">
       <div>
@@ -585,7 +589,8 @@
     <div class="readout">
       Firewall <b>ativo</b><br>
       Backup <b>sincronizado</b><br>
-      Rede <b>monitorada</b>
+      Rede <b>monitorada</b><br>
+      HANNA <b>em espera</b>
     </div>
   </div>
 </header>
@@ -638,7 +643,7 @@
       <span class="num">04</span>
       <h3>Automação &amp; Ferramentas</h3>
       <p>Chatbots e ferramentas sob medida para atendimento e operação de clientes.</p>
-      <a href="#hanna" style="display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--cyan); text-decoration:none; letter-spacing:0.02em;">
+      <a href="#hanna" style="display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; color:var(--cyan); text-decoration:underline; text-underline-offset:3px; letter-spacing:0.02em;">
         Testar a HANNA ↓
       </a>
     </div>
@@ -695,12 +700,12 @@
 <section id="hanna" style="padding-bottom:100px;">
   <div class="section-head">
     <h2>Teste a HANNA</h2>
-    <p>Assistente de triagem que já está no ar atendendo clientes reais. Manda uma mensagem e veja como ela funciona.</p>
+    <p>Unidade de triagem técnica, já operacional atendendo clientes reais. Envie uma mensagem e observe o diagnóstico em tempo real.</p>
   </div>
   <div style="border:1px solid var(--line); border-radius:4px; overflow:hidden; max-width:720px; margin:0 auto; box-shadow:0 24px 60px -20px rgba(10,14,20,0.15);">
     <div style="display:flex; align-items:center; gap:8px; padding:12px 16px; background:var(--off); border-bottom:1px solid var(--line);">
       <span style="width:8px; height:8px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></span>
-      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray); letter-spacing:0.05em; text-transform:uppercase;">hanna — assistente ativa</span>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray); letter-spacing:0.05em; text-transform:uppercase;">hanna — sistemas online</span>
     </div>
     <iframe src="chatbot/index.html" title="HANNA — assistente virtual" loading="lazy" style="width:100%; height:640px; border:none; display:block;"></iframe>
   </div>
@@ -718,14 +723,14 @@
     </video>
     <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.1) 40%, rgba(10,14,20,0.55) 100%); pointer-events:none;"></div>
     <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px;">
-      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--cyan); margin-bottom:16px;">Pronto pra começar</span>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--cyan); margin-bottom:16px;">Protocolo de contato disponível</span>
       <h2 style="font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(26px, 4.2vw, 46px); color:#fff; letter-spacing:-0.01em; max-width:640px;">
         Vamos colocar sua infraestrutura em ordem.
       </h2>
       <a href="https://wa.me/5515981289296?text=Ol%C3%A1!%20Vi%20o%20portf%C3%B3lio%20da%20LuidySec%20e%20quero%20colocar%20minha%20infraestrutura%20em%20ordem." target="_blank" rel="noopener"
-        style="display:inline-flex; align-items:center; gap:10px; margin-top:28px; background:var(--cyan); color:#0a0e14; font-family:'Inter', sans-serif; font-weight:600; font-size:14.5px; padding:14px 26px; border-radius:100px; text-decoration:none; box-shadow:0 12px 32px -8px rgba(0,194,255,0.5); transition:transform .18s, box-shadow .18s;"
-        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 16px 40px -8px rgba(0,194,255,0.6)';"
-        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 32px -8px rgba(0,194,255,0.5)';">
+        style="display:inline-flex; align-items:center; gap:10px; margin-top:28px; background:#25D366; color:#ffffff; font-family:'Inter', sans-serif; font-weight:600; font-size:14.5px; padding:14px 26px; border-radius:100px; text-decoration:none; box-shadow:0 12px 32px -8px rgba(37,211,102,0.5); transition:transform .18s, box-shadow .18s;"
+        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 16px 40px -8px rgba(37,211,102,0.6)';"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 32px -8px rgba(37,211,102,0.5)';">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.53.06-1 .27-3.44-.72-2.44-.99-4.04-3.49-4.16-3.65-.12-.16-.99-1.31-.99-2.5s.62-1.77.84-2.01c.22-.24.48-.3.64-.3.16 0 .32.002.46.008.15.006.35-.056.55.42.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.24.25-.1.49.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.26z"/></svg>
         Falar no WhatsApp
       </a>
