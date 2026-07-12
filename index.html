@@ -445,6 +445,102 @@
     }
   }
 
+  /* ===== Tecnologias — grid de seleção estilo "perfil Netflix" ===== */
+  .tech-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+  .tech-card{
+    position:relative;
+    aspect-ratio:1 / 1;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--off);
+    overflow:hidden;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    text-align:center;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s, box-shadow .28s, background .28s;
+  }
+  .tech-card:hover, .tech-card:focus-visible{
+    transform:scale(1.055);
+    border-color:var(--ink);
+    background:var(--white);
+    box-shadow:0 24px 48px -16px rgba(10,14,20,0.28);
+    z-index:2;
+    outline:none;
+  }
+  .tech-card .tech-icon{
+    width:56px; height:56px;
+    margin-bottom:18px;
+    color:var(--ink);
+    transition:transform .28s;
+  }
+  .tech-card:hover .tech-icon{
+    transform:translateY(-2px) scale(1.08);
+  }
+  .tech-card .tech-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:17px;
+    letter-spacing:-0.01em;
+    margin-bottom:8px;
+  }
+  .tech-card .tech-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gray);
+  }
+  .tech-card .tech-desc{
+    font-size:12.5px;
+    color:var(--gray);
+    line-height:1.5;
+    max-width:220px;
+    margin-top:10px;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    transition:max-height .28s ease, opacity .22s ease;
+  }
+  .tech-card:hover .tech-desc, .tech-card:focus-visible .tech-desc{
+    max-height:80px;
+    opacity:1;
+  }
+  .tech-card .tech-select{
+    position:absolute;
+    top:14px; right:14px;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:#25D366;
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0;
+    transform:scale(.7);
+    transition:opacity .22s, transform .22s;
+  }
+  .tech-card:hover .tech-select, .tech-card:focus-visible .tech-select{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  @media (max-width:900px){
+    .tech-grid{ grid-template-columns:repeat(2, 1fr); gap:18px; }
+    .tech-card{ padding:18px; }
+    .tech-card .tech-icon{ width:46px; height:46px; margin-bottom:14px; }
+  }
+  @media (max-width:600px){
+    .tech-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
+    .tech-card .tech-name{ font-size:14.5px; }
+    .tech-card .tech-desc{ display:none; }
+  }
+
   footer{
     padding:56px;
     display:flex; justify-content:space-between; align-items:center;
@@ -570,6 +666,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#ferramentas">Ferramentas</a></li>
+    <li><a href="#tecnologias">Tecnologias</a></li>
     <li><a href="#hanna">HANNA</a></li>
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#contato">Contato</a></li>
@@ -709,6 +806,15 @@
   </div>
 </section>
 
+<section id="tecnologias">
+  <div class="section-head">
+    <h2>Tecnologias</h2>
+    <p>Selecione a stack ou o ambiente que melhor descreve sua necessidade. O encaminhamento já sai contextualizado direto pro WhatsApp.</p>
+  </div>
+
+  <div class="tech-grid" id="techGrid"></div>
+</section>
+
 <section id="sobre">
   <div class="section-head">
     <h2>Sobre</h2>
@@ -822,6 +928,83 @@
   });
 
   renderTools(TOOLS);
+
+  // ---- Tecnologias — seleção estilo grid de perfis, cada card leva pro WhatsApp já contextualizado ----
+  const TECHNOLOGIES = [
+    {
+      id: "openclaw",
+      name: "OpenClaw",
+      tag: "Automação & Agentes de IA",
+      desc: "Orquestração de agentes autônomos, integrações e fluxos de automação sob medida.",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7L6.5 15.5M12 7L17.5 15.5M7 17h10"/></svg>`
+    },
+    {
+      id: "cli",
+      name: "Linha de Comando",
+      tag: "Shell & Scripting",
+      desc: "Scripts, automações e ferramentas via terminal, sem dependência de interface gráfica.",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg>`
+    },
+    {
+      id: "linux",
+      name: "Interface Linux",
+      tag: "Configuração & Hardening",
+      desc: "Instalação, configuração e hardening de ambientes Linux para uso profissional.",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>`
+    },
+    {
+      id: "redes",
+      name: "Redes & Infraestrutura",
+      tag: "Conectividade & Monitoramento",
+      desc: "Configuração de rede, VPN, firewall e monitoramento de infraestrutura.",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 7l3 9M16 7l-3 9M8 6h8"/></svg>`
+    },
+    {
+      id: "seguranca",
+      name: "Segurança & OSINT",
+      tag: "Inteligência & Proteção de Dados",
+      desc: "Levantamento de informação, resposta a incidentes e proteção de dados.",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><circle cx="11" cy="11" r="2.2"/><path d="M13 13l2 2"/></svg>`
+    },
+    {
+      id: "windows",
+      name: "Ambientes Windows",
+      tag: "Suporte & Administração",
+      desc: "Suporte, formatação e administração de ambientes corporativos Windows.",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>`
+    }
+  ];
+
+  function techWaLink(tech){
+    const msg = `Olá! Tenho interesse na tecnologia "${tech.name}" (${tech.tag}) oferecida pela LuidySec. Podemos conversar?`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  function renderTechGrid(){
+    const grid = document.getElementById("techGrid");
+    if(!grid) return;
+    grid.innerHTML = "";
+    TECHNOLOGIES.forEach(tech => {
+      const card = document.createElement("a");
+      card.href = techWaLink(tech);
+      card.target = "_blank";
+      card.rel = "noopener";
+      card.className = "tech-card";
+      card.setAttribute("aria-label", `Selecionar ${tech.name} e falar no WhatsApp`);
+      card.innerHTML = `
+        <span class="tech-select" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>
+        </span>
+        <span class="tech-icon">${tech.icon}</span>
+        <span class="tech-name">${tech.name}</span>
+        <span class="tech-tag">${tech.tag}</span>
+        <span class="tech-desc">${tech.desc}</span>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  renderTechGrid();
 
   // ---- mobile nav toggle ----
   const navToggle = document.getElementById("navToggle");
