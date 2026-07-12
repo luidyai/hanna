@@ -82,6 +82,39 @@
   }
   nav a:hover{opacity:1;}
 
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    width:36px; height:36px;
+    background:transparent;
+    border:1px solid var(--line);
+    border-radius:4px;
+    cursor:pointer;
+    padding:0;
+    z-index:20;
+  }
+  .nav-toggle span{
+    display:block;
+    width:16px; height:1.5px;
+    background:var(--ink);
+    transition: transform .3s ease, opacity .3s ease;
+  }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+
+  .nav-overlay{
+    position:fixed; inset:0;
+    background:rgba(10,14,20,0.25);
+    opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+    z-index:8;
+  }
+  .nav-overlay.open{ opacity:1; pointer-events:auto; }
+
   header.hero{
     position:relative;
     min-height:100vh;
@@ -415,6 +448,39 @@
     50%{opacity:0.3;}
   }
 
+  @media (max-width:860px){
+    .nav-toggle{ display:flex; }
+
+    .nav-links{
+      position:fixed;
+      top:0; right:0;
+      height:100vh;
+      width:min(78vw, 320px);
+      background:#ffffff;
+      flex-direction:column;
+      gap:0;
+      padding:88px 32px 40px;
+      transform:translateX(100%);
+      transition:transform .32s cubic-bezier(.4,0,.2,1);
+      box-shadow:-24px 0 60px -20px rgba(10,14,20,0.18);
+      z-index:9;
+      align-items:flex-start;
+    }
+    .nav-links.open{ transform:translateX(0); }
+    .nav-links li{
+      width:100%;
+      border-bottom:1px solid var(--line);
+    }
+    .nav-links a{
+      display:block;
+      padding:18px 4px;
+      font-size:14px;
+      letter-spacing:0.04em;
+      opacity:0.85;
+    }
+    .nav-links a:hover{ opacity:1; color:var(--cyan); }
+  }
+
   @media (max-width:900px){
     nav, section, footer{padding-left:24px; padding-right:24px;}
     header.hero{grid-template-columns:1fr; padding-top:96px;}
@@ -427,8 +493,6 @@
   @media (max-width:600px){
     nav{padding:18px 20px;}
     .logo{font-size:12px; gap:8px;}
-    nav ul{gap:16px;}
-    nav a{font-size:10.5px; letter-spacing:0.02em;}
 
     header.hero{padding-top:84px;}
     .hero-left{padding:0 20px 32px 20px;}
@@ -463,14 +527,18 @@
 
 <nav>
   <div class="logo"><span class="dot"></span>LUIDYSEC</div>
-  <ul>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#servicos">Serviços</a></li>
     <li><a href="#ferramentas">Ferramentas</a></li>
     <li><a href="#hanna">HANNA</a></li>
     <li><a href="#sobre">Sobre</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <header class="hero">
   <div class="hero-left">
@@ -663,6 +731,36 @@
   });
 
   renderTools(TOOLS);
+
+  // ---- mobile nav toggle ----
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
+  const navOverlay = document.getElementById("navOverlay");
+
+  function closeNav(){
+    navToggle.classList.remove("open");
+    navLinks.classList.remove("open");
+    navOverlay.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  function openNav(){
+    navToggle.classList.add("open");
+    navLinks.classList.add("open");
+    navOverlay.classList.add("open");
+    navToggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.contains("open") ? closeNav() : openNav();
+  });
+  navOverlay.addEventListener("click", closeNav);
+  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) closeNav();
+  });
 </script>
 
 </body>
