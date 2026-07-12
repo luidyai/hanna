@@ -198,32 +198,6 @@
   .msg-actions button.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
   .msg-actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  .quick-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-    padding-left: 2px;
-  }
-  .quick-chips.hidden { display: none; }
-  .quick-chips button {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    padding: 8px 14px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    background: var(--panel);
-    color: var(--text-dim);
-    cursor: pointer;
-    transition: all 0.18s;
-  }
-  .quick-chips button:hover {
-    border-color: var(--accent);
-    color: var(--accent-strong);
-    background: rgba(56, 189, 248, 0.06);
-  }
-  .quick-chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
   .composer-wrap {
     width: 100%;
     max-width: 640px;
@@ -334,7 +308,6 @@
       <div class="chat-window" id="chatWindow"></div>
 
       <div class="composer-wrap">
-        <div class="quick-chips hidden" id="quickChips"></div>
         <form class="composer-card" id="composerForm" style="margin-top:10px;">
           <textarea id="chatInput" rows="1" placeholder="Descreva a ocorrência..."></textarea>
           <div class="composer-row">
@@ -374,16 +347,6 @@
 const CONTACT_LINK = "https://wa.me/5515981289296";
 const HANNA_PROXY_URL = "https://hanna-proxy.cartao05luidy-2c7.workers.dev";
 
-// Sugestões rápidas — só preenchem/enviam o texto, não têm lógica própria.
-const QUICK_SUGGESTIONS = [
-  "Meu computador está lento e travando",
-  "Meu computador não liga",
-  "Acho que peguei um vírus",
-  "Preciso configurar minha rede/Wi-Fi",
-  "Apaguei um arquivo importante sem querer",
-  "Quero saber sobre suporte remoto",
-];
-
 const hero = document.getElementById("hero");
 const chatWindow = document.getElementById("chatWindow");
 const chatInput = document.getElementById("chatInput");
@@ -391,7 +354,6 @@ const composerForm = document.getElementById("composerForm");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 const resetBtn = document.getElementById("resetBtn");
-const quickChips = document.getElementById("quickChips");
 
 let prefersReducedMotion = false;
 try {
@@ -505,13 +467,6 @@ function ctaActions(extra = []) {
   ];
 }
 
-function googleSearchAction(rawText) {
-  return {
-    label: "pesquisar no Google ↗",
-    onClick: () => window.open(`https://www.google.com/search?q=${encodeURIComponent(rawText)}`, "_blank", "noopener"),
-  };
-}
-
 // Chamada real ao Worker/OpenRouter — sem nenhuma regra local no meio.
 async function askAI(text) {
   const bubble = addThinkingBubble();
@@ -536,35 +491,17 @@ async function askAI(text) {
     bubble.remove();
     await addBotMessage(
       "Não consegui me conectar ao sistema de diagnóstico agora. Tente novamente em instantes, ou fale direto com o especialista.",
-      { actions: ctaActions([googleSearchAction(text)]) }
+      { actions: ctaActions() }
     );
   }
-}
-
-function showQuickChips() {
-  quickChips.innerHTML = "";
-  QUICK_SUGGESTIONS.forEach((suggestion) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.textContent = suggestion;
-    btn.addEventListener("click", () => sendMessage(suggestion));
-    quickChips.appendChild(btn);
-  });
-  quickChips.classList.remove("hidden");
-}
-
-function hideQuickChips() {
-  quickChips.classList.add("hidden");
 }
 
 async function sendMessage(text) {
   if (busy) return;
   busy = true;
-  await startChat();
+  startChat();
   addUserMessage(text);
-  hideQuickChips();
   await askAI(text);
-  showQuickChips();
   busy = false;
 }
 
@@ -609,8 +546,6 @@ resetBtn.addEventListener("click", () => {
   resetBtn.classList.add("hidden");
   started = false;
   history = [];
-  hideQuickChips();
-  chatInput.addEventListener("focus", startChat, { once: true });
 });
 
 (function setupMic() {
@@ -656,24 +591,9 @@ resetBtn.addEventListener("click", () => {
   });
 })();
 
-function buildGreeting() {
-  const hour = new Date().getHours();
-  let timeGreeting;
-  if (hour < 6) timeGreeting = "Sistemas online, madrugada registrada.";
-  else if (hour < 12) timeGreeting = "Bom dia. Sistemas online.";
-  else if (hour < 18) timeGreeting = "Boa tarde. Sistemas online.";
-  else timeGreeting = "Boa noite. Sistemas online.";
-
-  return `${timeGreeting} Sou a HANNA, unidade de triagem técnica do Luidy. Descreva o que está ocorrendo com seu computador, celular ou rede — ou selecione uma sugestão abaixo.`;
-}
-
-async function startChat() {
+function startChat() {
   if (started) return;
   collapseHero();
-  busy = true;
-  await addBotMessage(buildGreeting());
-  showQuickChips();
-  busy = false;
 }
 
 chatInput.addEventListener("focus", startChat, { once: true });
