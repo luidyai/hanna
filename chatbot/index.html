@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" integrity="sha384-PCSoOZTpbkikBEtd/+uV3WNdc676i9KUf01KOA8CnJotvlx8rRrETbDuwdjqTYvt" crossorigin="anonymous"></script>
 <style>
   :root {
     --bg: #212121;
@@ -20,8 +19,6 @@
     --text-faint: #8e8ea0;
     --accent: #10a37f;
     --accent-strong: #19c37d;
-    --accent-glow: rgba(16, 163, 127, 0.16);
-    --warm: #f5b942;
     --radius-lg: 20px;
     --radius-md: 14px;
     --radius-sm: 9px;
@@ -30,12 +27,7 @@
   }
 
   * { box-sizing: border-box; }
-
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-
+  html, body { height: 100%; margin: 0; }
   body {
     background: var(--bg);
     color: var(--text);
@@ -45,10 +37,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-  }
-
-  body::before {
-    content: none;
   }
 
   .app {
@@ -61,8 +49,6 @@
     width: 100%;
     padding: 32px 20px 20px;
   }
-
-  /* ---------- header ---------- */
 
   .reset-btn {
     position: fixed;
@@ -82,7 +68,6 @@
   .reset-btn:hover { color: var(--text-dim); }
   .reset-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* ---------- hero (landing state) ---------- */
   .hero {
     width: 100%;
     max-width: 640px;
@@ -91,7 +76,6 @@
     transition: opacity 0.35s ease, transform 0.35s ease, margin 0.35s ease, max-height 0.4s ease;
     overflow: hidden;
   }
-
   .hero.collapsed {
     max-height: 0;
     opacity: 0;
@@ -99,32 +83,22 @@
     margin: 0;
     pointer-events: none;
   }
-
-  .hero-top {
-    margin-top: 12vh;
-  }
-
+  .hero-top { margin-top: 12vh; }
   .hero h1 {
     font-size: 30px;
     font-weight: 600;
     margin: 0 0 10px;
     letter-spacing: -0.01em;
   }
-
   .hidden { display: none !important; }
-
   .hero p.subtitle {
     color: var(--text-dim);
     font-size: 14.5px;
     margin: 0 0 30px;
     font-family: var(--font-display);
   }
+  .hero p.subtitle .flicker { color: var(--accent-strong); }
 
-  .hero p.subtitle .flicker {
-    color: var(--accent-strong);
-  }
-
-  /* ---------- chat log ---------- */
   .chat-shell {
     width: 100%;
     max-width: 640px;
@@ -161,10 +135,7 @@
     color: var(--text);
   }
 
-  .msg.bot {
-    align-self: flex-start;
-    max-width: 100%;
-  }
+  .msg.bot { align-self: flex-start; max-width: 100%; }
 
   .prompt-line {
     font-family: var(--font-mono);
@@ -204,13 +175,7 @@
   }
   @keyframes blink { 50% { opacity: 0; } }
 
-  .msg-actions {
-    margin-top: 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
+  .msg-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
   .msg-actions button {
     font-family: var(--font-display);
     font-size: 13px;
@@ -233,7 +198,6 @@
   .msg-actions button.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
   .msg-actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* ---------- quick chips ---------- */
   .quick-chips {
     display: flex;
     flex-wrap: wrap;
@@ -260,7 +224,6 @@
   }
   .quick-chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* ---------- composer ---------- */
   .composer-wrap {
     width: 100%;
     max-width: 640px;
@@ -277,17 +240,9 @@
     border-radius: var(--radius-lg);
     padding: 14px 14px 10px;
   }
+  .composer-card:focus-within { border-color: var(--border-soft); }
 
-  .composer-card:focus-within {
-    border-color: var(--border-soft);
-  }
-
-  .composer-divider {
-    width: 1px;
-    height: 20px;
-    background: var(--border);
-    margin: 0 2px;
-  }
+  .composer-divider { width: 1px; height: 20px; background: var(--border); margin: 0 2px; }
 
   #chatInput {
     width: 100%;
@@ -305,65 +260,18 @@
   }
   #chatInput::placeholder { color: var(--text-faint); }
 
-  .composer-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
+  .composer-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 
-  .agent-select {
-    position: relative;
-  }
-
-  .agent-btn {
+  .agent-tag {
     display: flex;
     align-items: center;
     gap: 7px;
-    background: transparent;
-    border: none;
     color: var(--text-dim);
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 500;
-    cursor: pointer;
     padding: 6px 8px 6px 6px;
-    border-radius: 100px;
-    transition: background 0.18s, color 0.18s;
   }
-  .agent-btn:hover { background: var(--panel-2); color: var(--text); }
-  .agent-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .agent-btn svg { transition: transform 0.18s; }
-  .agent-btn.open svg { transform: rotate(180deg); }
-
-  .agent-menu {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 0;
-    min-width: 220px;
-    background: var(--panel-2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 6px;
-    display: none;
-    flex-direction: column;
-    gap: 2px;
-    box-shadow: 0 20px 40px -12px rgba(0,0,0,0.7);
-    z-index: 10;
-  }
-  .agent-menu.open { display: flex; }
-  .agent-menu button {
-    text-align: left;
-    background: transparent;
-    border: none;
-    color: var(--text-dim);
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    padding: 9px 10px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-  }
-  .agent-menu button:hover { background: rgba(56,189,248,0.08); color: var(--accent-strong); }
 
   .composer-actions { display: flex; align-items: center; gap: 6px; }
 
@@ -385,22 +293,9 @@
   .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .icon-btn.mic-active { color: #fff; background: #ef4444; border-color: #ef4444; }
 
-  #sendBtn {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #ffffff;
-  }
+  #sendBtn { background: var(--accent); border-color: var(--accent); color: #ffffff; }
   #sendBtn:hover:not(:disabled) { background: var(--accent-strong); border-color: var(--accent-strong); }
   #sendBtn:disabled { opacity: 0.35; cursor: not-allowed; }
-
-  footer.hint {
-    text-align: center;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
-    color: var(--text-faint);
-    margin-top: 10px;
-    letter-spacing: 0.02em;
-  }
 
   @media (max-width: 480px) {
     .hero h1 { font-size: 24px; }
@@ -443,13 +338,9 @@
         <form class="composer-card" id="composerForm" style="margin-top:10px;">
           <textarea id="chatInput" rows="1" placeholder="Descreva a ocorrência..."></textarea>
           <div class="composer-row">
-            <div class="agent-select">
-              <button type="button" class="agent-btn" id="agentBtn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="14" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/></svg>
-                HANNA · Triagem
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <div class="agent-menu" id="agentMenu"></div>
+            <div class="agent-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="14" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/></svg>
+              HANNA · IA
             </div>
             <div class="composer-actions">
               <span class="composer-divider" aria-hidden="true"></span>
@@ -468,376 +359,30 @@
 
 <script>
 // ============================================================
-// TechFlow — HANNA, assistente de triagem (100% client-side, sem IA/backend)
-// Tom "Jarvis-style": formal, técnico, direto — sem soar robótico ou frio.
-// Troque CONTACT_LINK e o array CATALOG pelos seus dados reais.
+// HANNA — versão 100% IA (sem regras locais / keywords / fuzzy matching)
 //
-// Camada de "contexto e personalidade" adicionada:
-// - reconhece nome, dispositivo, urgência e frustração na mensagem
-// - lembra tópicos já discutidos na conversa e faz callbacks entre eles
-// - varia as respostas por categoria em vez de repetir sempre o mesmo texto
-// - reconhece visitante recorrente (localStorage) e saudação por horário
+// Toda mensagem do usuário é enviada direto pro Worker (Cloudflare),
+// que repassa pra API da OpenRouter. Quem decide o que responder é
+// inteiramente o modelo de IA, guiado pelo "system prompt" que está
+// dentro do código do Worker (o arquivo que fica no dash.cloudflare.com,
+// não este aqui).
 //
-// CORREÇÃO (fuzzy matching):
-// O threshold do Fuse.js estava alto demais (0.32) e o minMatchCharLength
-// baixo demais (3), causando falsos positivos com palavras curtas e comuns
-// (ex.: "conte" batendo com "fonte", derrubando a mensagem na categoria
-// hardware em vez de seguir pro fallback de IA). Ajustado para threshold
-// 0.2 e minMatchCharLength 5, bem mais rígido — só pega erros de digitação
-// realmente próximos, não qualquer palavra parecida.
+// O histórico da conversa é enviado a cada mensagem, pra a IA manter
+// contexto (lembrar o que já foi dito antes na mesma sessão).
 // ============================================================
 
 const CONTACT_LINK = "https://wa.me/5515981289296";
-
-// URL do seu Cloudflare Worker (o "porteiro" que guarda a API key).
-// Troque pela URL que aparece no dashboard depois do deploy.
-// Exemplo: "https://hanna-proxy.seu-usuario.workers.dev"
 const HANNA_PROXY_URL = "https://hanna-proxy.cartao05luidy-2c7.workers.dev";
 
-const CATALOG = [
-  {
-    id: "formatacao",
-    label: "formatação",
-    keywords: ["formatar", "formata", "lento", "lenta", "travando", "trava", "reinstalar", "reinstalação", "sistema", "demorando", "ligar demora"],
-    reply: [
-      "Diagnóstico preliminar registrado: computador lento, travando ou demorando pra iniciar quase sempre indica a necessidade de uma formatação limpa. O procedimento reconstrói o sistema do zero, já com drivers e programas essenciais no lugar — pronto pra operar novamente.",
-      "Lentidão persistente, travamentos frequentes ou inicialização demorada apontam quase sempre pra mesma solução: formatação completa. O sistema é reconstruído do zero, com drivers e programas essenciais já configurados.",
-    ],
-    services: ["Formatação e reinstalação do Windows", "Diagnóstico de hardware (pra confirmar que não é peça)"],
-  },
-  {
-    id: "hardware",
-    label: "hardware",
-    keywords: ["não liga", "nao liga", "tela azul", "tela preta", "barulho", "hardware", "peça", "peca", "bateria", "hd", "ssd", "placa", "fonte"],
-    reply: [
-      "Não ligar, tela azul ou ruído incomum são sintomas — não um veredito. Antes de qualquer substituição de peça, é executado um diagnóstico de hardware completo pra isolar a causa real. Sem chute, sem gasto desnecessário.",
-      "Esse tipo de sintoma não confirma a causa por si só. O diagnóstico de hardware isola a peça exata antes de qualquer substituição — evita trocar componente que não é o problema.",
-    ],
-    services: ["Diagnóstico de hardware", "Troca de peças e manutenção física"],
-  },
-  {
-    id: "virus",
-    label: "vírus",
-    keywords: ["virus", "vírus", "malware", "hackeado", "invadido", "popup", "propaganda", "sequestrado", "ransomware"],
-    reply: [
-      "Popup, propaganda invasiva ou sinal de invasão confirmam infecção ativa. Protocolo padrão: remoção completa da ameaça, seguida de checagem pra garantir que nenhum dado saiu do lugar.",
-      "Infecção ativa confirmada pelos sinais descritos. O protocolo é remoção completa da ameaça, seguida de verificação pra garantir que nenhum dado foi comprometido.",
-    ],
-    services: ["Remoção de vírus e malware", "Consultoria de segurança digital"],
-  },
-  {
-    id: "recuperacao",
-    label: "recuperação",
-    keywords: ["perdi arquivo", "apaguei", "recuperar", "recuperação", "não abre", "nao abre", "sumiu", "corrompido", "corrompeu"],
-    reply: [
-      "Arquivo apagado ou disco que não abre mais ainda tem chance real de recuperação — mas cada minuto adicional de uso reduz essa chance. Quanto antes o procedimento começar, melhor o resultado.",
-      "Cada minuto de uso após a perda reduz a chance de recuperação. Quanto antes o procedimento começar, maior a taxa de sucesso na recuperação dos dados.",
-    ],
-    services: ["Recuperação de dados", "Diagnóstico de hardware de armazenamento"],
-  },
-  {
-    id: "manutencao",
-    label: "manutenção",
-    keywords: ["limpeza", "pasta térmica", "pasta termica", "esquentando", "esquenta", "superaquecendo", "ventoinha", "cooler"],
-    reply: [
-      "Superaquecimento e ventoinha em rotação máxima são o hardware sinalizando estresse térmico. Limpeza interna e troca de pasta térmica resolvem — e evitam que o quadro evolua pra algo mais caro.",
-      "Aquecimento acima do normal é sinal de estresse térmico acumulado. Limpeza interna e troca de pasta térmica resolvem antes que o desgaste avance pra algo mais sério.",
-    ],
-    services: ["Manutenção preventiva (limpeza + pasta térmica)", "Diagnóstico de hardware"],
-  },
-  {
-    id: "seguranca",
-    label: "segurança",
-    keywords: ["segurança", "seguranca", "lgpd", "proteção", "protecao", "dados", "empresa", "rede", "wifi", "wi-fi", "firewall"],
-    reply: [
-      "Proteção de dados, rede ou adequação da operação começa sempre pelo mesmo protocolo: um levantamento completo da situação atual. Qualquer intervenção só entra depois disso.",
-      "Antes de qualquer ajuste em segurança, rede ou dados, o protocolo padrão é um levantamento completo da situação atual — só depois entra a intervenção.",
-    ],
-    services: ["Consultoria de segurança digital", "Configuração e proteção de rede"],
-  },
-  {
-    id: "remoto",
-    label: "suporte remoto",
-    keywords: ["remoto", "à distância", "a distancia", "não posso levar", "nao posso levar", "online"],
-    reply: [
-      "Registrado: nem toda ocorrência exige que o equipamento seja trazido fisicamente. Boa parte dos casos é resolvida por suporte remoto, direto de onde você estiver.",
-      "Trazer o equipamento fisicamente nem sempre é necessário. Grande parte das ocorrências é resolvida remotamente, com o mesmo nível de precisão.",
-    ],
-    services: ["Suporte remoto", "Diagnóstico inicial por chamada"],
-  },
-  {
-    id: "windows",
-    label: "Windows",
-    keywords: ["windows", "win 10", "win 11", "windows 10", "windows 11", "atualização do windows", "atualizacao do windows", "driver", "ativação do windows", "ativacao do windows"],
-    reply: [
-      "Falha no Windows — travamento em atualização, driver instável, ativação, tela de erro — é diagnosticada e corrigida diretamente no sistema, sem reinstalação completa, a não ser que seja estritamente necessário.",
-      "Erro no Windows é tratado diretamente no sistema — atualização travada, driver instável, tela de erro — sem reinstalação completa, salvo quando estritamente necessário.",
-    ],
-    services: ["Suporte e configuração Windows", "Formatação e reinstalação do Windows"],
-  },
-  {
-    id: "linux",
-    label: "Linux",
-    keywords: ["linux", "ubuntu", "debian", "fedora", "mint", "kernel", "distro", "terminal não funciona", "terminal nao funciona", "dual boot"],
-    reply: [
-      "Linux opera sob lógica própria — não é tratado como Windows. Instalação, dual boot, drivers e configuração de distribuição são conduzidos com esse rigor, seja para uso pessoal ou servidor.",
-      "Ambiente Linux segue lógica própria. Instalação, dual boot e configuração de distribuição são conduzidos com o mesmo rigor técnico, pessoal ou servidor.",
-    ],
-    services: ["Instalação e configuração Linux", "Suporte técnico Linux"],
-  },
-  {
-    id: "macos",
-    label: "macOS",
-    keywords: ["mac", "macos", "macbook", "imac", "apple", "ios da apple", "os x"],
-    reply: [
-      "Mac lento, travando ou com erro de sistema também recebe diagnóstico completo — o processo difere do Windows, mas o rigor é idêntico. Configuração, otimização e resolução de falhas no macOS.",
-      "Mac também recebe diagnóstico completo em caso de lentidão ou erro de sistema — processo distinto do Windows, rigor idêntico.",
-    ],
-    services: ["Suporte e configuração macOS", "Diagnóstico de hardware Apple"],
-  },
+// Sugestões rápidas — só preenchem/enviam o texto, não têm lógica própria.
+const QUICK_SUGGESTIONS = [
+  "Meu computador está lento e travando",
+  "Meu computador não liga",
+  "Acho que peguei um vírus",
+  "Preciso configurar minha rede/Wi-Fi",
+  "Apaguei um arquivo importante sem querer",
+  "Quero saber sobre suporte remoto",
 ];
-
-const FALLBACK = "Sinal não reconhecido com precisão suficiente. Reformule a descrição, ou selecione uma das opções abaixo — assim garanto que o encaminhamento seja exato.";
-
-// Pequenas interações de conversa — respondidas antes do fallback genérico,
-// mantendo o registro formal mesmo fora de contexto técnico.
-const SMALL_TALK = [
-  {
-    id: "saudacao",
-    keywords: ["oi", "olá", "ola", "e ai", "eae", "e aí", "salve", "bom dia", "boa tarde", "boa noite", "opa"],
-    replies: [
-      "Presente e operacional. Descreva o que está ocorrendo com seu equipamento, ou selecione um assunto abaixo.",
-      "Canal aberto. O que está acontecendo com seu computador, celular ou rede?",
-    ],
-  },
-  {
-    id: "identidade",
-    keywords: ["quem é você", "quem e voce", "quem é a hanna", "quem e a hanna", "o que você faz", "o que voce faz", "o que é isso", "o que voce é"],
-    replies: [
-      "Sou a HANNA, unidade de triagem técnica do Luidy. Minha função é interpretar o problema relatado e encaminhá-lo diretamente ao serviço correto — sem etapas desnecessárias.",
-    ],
-  },
-  {
-    id: "estado",
-    keywords: ["tudo bem", "como você está", "como voce esta", "beleza", "como vai"],
-    replies: [
-      "Todos os sistemas operando em plena capacidade, agradeço a pergunta. Quanto ao seu equipamento — também está tudo bem, ou é por isso que você está aqui?",
-    ],
-  },
-  {
-    id: "agradecimento",
-    keywords: ["obrigado", "obrigada", "valeu", "vlw", "brigado", "brigada"],
-    replies: [
-      "Registrado. Qualquer novo sinal irregular no equipamento, é só acionar.",
-    ],
-  },
-  {
-    id: "ajuda_generica",
-    keywords: ["me ajuda", "preciso de ajuda", "socorro", "ajuda ai", "ajuda aí"],
-    replies: [
-      "Compreendido. Preciso de um pouco mais de dado pra prosseguir — o que exatamente está ocorrendo? Ou selecione uma das opções abaixo.",
-    ],
-  },
-];
-
-function matchSmallTalk(rawText) {
-  const text = rawText.toLowerCase().trim();
-  return SMALL_TALK.find((entry) => entry.keywords.some((kw) => text.includes(kw)));
-}
-
-// ---- Reconhecimento de nome ----
-// Guarda entre sessões (localStorage) pra reconhecer visitante recorrente.
-const NAME_PATTERNS = [
-  /meu nome (?:é|e) ([a-zà-ú]+)/i,
-  /me chamo ([a-zà-ú]+)/i,
-  /(?:pode me chamar de|me chame de) ([a-zà-ú]+)/i,
-  /^sou (?:o |a )?([a-zà-ú]+)$/i,
-];
-
-function extractName(rawText) {
-  const text = rawText.trim();
-  for (const pattern of NAME_PATTERNS) {
-    const m = text.match(pattern);
-    if (m && m[1] && m[1].length >= 2) {
-      return m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase();
-    }
-  }
-  return null;
-}
-
-// ---- Reconhecimento de dispositivo mencionado ----
-const DEVICE_MAP = {
-  "notebook": "notebook", "laptop": "notebook", "note": "notebook",
-  "computador": "computador", "pc": "computador", "desktop": "computador",
-  "celular": "celular", "smartphone": "celular", "iphone": "celular", "android": "celular",
-  "servidor": "servidor",
-  "roteador": "rede", "wi-fi": "rede", "wifi": "rede",
-};
-
-function extractDevice(rawText) {
-  const text = rawText.toLowerCase();
-  for (const key in DEVICE_MAP) {
-    if (text.includes(key)) return DEVICE_MAP[key];
-  }
-  return null;
-}
-
-// ---- Urgência e frustração ----
-const URGENCY_KEYWORDS = ["urgente", "urgência", "urgencia", "hoje mesmo", "não aguento mais", "nao aguento mais", "trabalho parado", "preciso disso hoje", "o mais rápido possível", "o mais rapido possivel"];
-const FRUSTRATION_KEYWORDS = ["que saco", "irritado", "irritada", "cansado disso", "cansada disso", "isso é frustrante", "isso e frustrante", "não aguento mais", "nao aguento mais", "detesto isso"];
-
-function detectUrgency(rawText) {
-  const t = rawText.toLowerCase();
-  return URGENCY_KEYWORDS.some((kw) => t.includes(kw));
-}
-
-function detectFrustration(rawText) {
-  const t = rawText.toLowerCase();
-  return FRUSTRATION_KEYWORDS.some((kw) => t.includes(kw));
-}
-
-const FRUSTRATION_ACK = [
-  "Entendo a frustração — vamos resolver isso o mais rápido possível.",
-  "Compreendido, situação chata. O protocolo abaixo resolve.",
-];
-
-// ---- Fuzzy keyword matching (Fuse.js) ----
-// Builds one searchable entry per (category, keyword) pair, then fuzzy-matches
-// small chunks of the user's sentence against it. Tolerates typos like
-// "formatr" -> "formatar" or "travnado" -> "travando" without needing an
-// exact substring match.
-//
-// threshold: 0.2 (mais rígido — antes 0.32 causava falsos positivos como
-// "conte" batendo com "fonte")
-// minMatchCharLength: 5 (antes 3 — evita palavras curtas genéricas
-// disparando categorias por engano)
-const FUSE_INDEX = (() => {
-  const entries = [];
-  CATALOG.forEach((cat) => {
-    cat.keywords.forEach((kw) => entries.push({ keyword: kw, categoryId: cat.id }));
-  });
-  if (typeof Fuse === "undefined") return null;
-  return new Fuse(entries, {
-    keys: ["keyword"],
-    threshold: 0.2,
-    ignoreLocation: true,
-    includeScore: true,
-    minMatchCharLength: 5,
-  });
-})();
-
-function normalizeWords(rawText) {
-  return rawText
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}\s]/gu, " ")
-    .split(/\s+/)
-    .filter(Boolean);
-}
-
-// Generates 1, 2 and 3-word chunks so multi-word keywords like
-// "não liga" or "tela azul" can still be matched fuzzily.
-function buildNgrams(words) {
-  const grams = [];
-  for (let size = 1; size <= 3; size++) {
-    for (let i = 0; i + size <= words.length; i++) {
-      grams.push(words.slice(i, i + size).join(" "));
-    }
-  }
-  return grams;
-}
-
-function matchCategory(rawText) {
-  const text = rawText.toLowerCase();
-
-  // Fast path: exact substring match (cheap, no false positives).
-  const exact = CATALOG.find((cat) => cat.keywords.some((kw) => text.includes(kw)));
-  if (exact) return exact;
-
-  // Fuzzy fallback: tries word-chunks of the message against known keywords.
-  if (!FUSE_INDEX) return null;
-  const grams = buildNgrams(normalizeWords(rawText));
-  let best = null;
-  for (const gram of grams) {
-    const results = FUSE_INDEX.search(gram, { limit: 1 });
-    if (results.length && (!best || results[0].score < best.score)) {
-      best = results[0];
-    }
-  }
-  if (best && best.score <= 0.2) {
-    return CATALOG.find((cat) => cat.id === best.item.categoryId) || null;
-  }
-  return null;
-}
-
-// ---- Context memory: what was the last topic we identified? ----
-// Lets short follow-up messages ("quanto custa?", "quanto tempo demora?")
-// get a relevant answer instead of falling into the generic fallback.
-let lastCategory = null;
-
-// Memória de contexto ampliada da sessão atual
-let userName = localStorage.getItem("hanna_name") || null;
-let mentionedDevice = null;
-let conversationTopics = []; // ids das categorias já discutidas nesta conversa
-
-const FOLLOW_UPS = [
-  {
-    id: "preco",
-    keywords: ["quanto custa", "preco", "preço", "valor", "quanto fica", "quanto e", "quanto é", "quanto sai", "quanto vai custar"],
-    reply: (cat) => `Valor exato é confirmado pelo especialista após avaliar o caso — varia conforme a extensão do problema de ${cat.label}. Deseja que eu já efetue o encaminhamento?`,
-  },
-  {
-    id: "prazo",
-    keywords: ["quanto tempo", "prazo", "demora", "quantos dias", "quando fica pronto", "que dia"],
-    reply: (cat) => `Prazo também varia por caso, mas o especialista confirma rapidamente com você sobre o assunto de ${cat.label}. Aciono o contato agora?`,
-  },
-  {
-    id: "local",
-    keywords: ["onde fica", "endereco", "endereço", "localizacao", "localização", "onde voces", "onde vocês", "onde e", "onde é"],
-    reply: () => `Endereço e detalhes de atendimento são confirmados diretamente com o especialista. Deseja que eu efetue o encaminhamento agora?`,
-  },
-  {
-    id: "pagamento",
-    keywords: ["forma de pagamento", "pagamento", "pix", "cartao", "cartão", "parcelar", "parcela"],
-    reply: () => `Formas de pagamento são confirmadas na hora com o especialista — geralmente há flexibilidade. Prossigo com o encaminhamento?`,
-  },
-];
-
-function matchFollowUp(rawText) {
-  const text = rawText.toLowerCase();
-  return FOLLOW_UPS.find((f) => f.keywords.some((kw) => text.includes(kw))) || null;
-}
-
-// ---- Date & time — answered locally from the device clock, no network needed ----
-const DATE_KEYWORDS = ["que dia", "que data", "data de hoje", "dia de hoje", "dia da semana", "hoje é dia", "hoje e dia", "qual o dia"];
-const TIME_KEYWORDS = ["que horas", "horas são", "horas sao", "hora atual", "que hora e", "que hora é"];
-
-function matchDateTime(rawText) {
-  const text = rawText.toLowerCase();
-  if (TIME_KEYWORDS.some((kw) => text.includes(kw))) return "time";
-  if (DATE_KEYWORDS.some((kw) => text.includes(kw))) return "date";
-  return null;
-}
-
-function answerDateTime(type) {
-  const now = new Date();
-  if (type === "time") {
-    const time = now.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-    return `Registro do relógio local: ${time}.`;
-  }
-  const date = now.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-  return `Data local: ${date}.`;
-}
-
-// ---- Fallback: offer a plain Google search of what the person typed ----
-// Not a real search integration (that would need a paid API key exposed
-// in the page's source, which is unsafe on a static site) — just a shortcut
-// that opens Google with their exact question in a new tab.
-function googleSearchAction(rawText) {
-  return {
-    label: "pesquisar no Google ↗",
-    onClick: () => window.open(`https://www.google.com/search?q=${encodeURIComponent(rawText)}`, "_blank", "noopener"),
-  };
-}
 
 const hero = document.getElementById("hero");
 const chatWindow = document.getElementById("chatWindow");
@@ -847,8 +392,6 @@ const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 const resetBtn = document.getElementById("resetBtn");
 const quickChips = document.getElementById("quickChips");
-const agentBtn = document.getElementById("agentBtn");
-const agentMenu = document.getElementById("agentMenu");
 
 let prefersReducedMotion = false;
 try {
@@ -856,8 +399,13 @@ try {
 } catch (e) {
   prefersReducedMotion = false;
 }
+
 let busy = false;
 let started = false;
+
+// Histórico simples da sessão, enviado ao Worker a cada chamada
+// pra a IA manter contexto da conversa.
+let history = [];
 
 function scrollToBottom() {
   chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -870,10 +418,6 @@ function collapseHero() {
   resetBtn.classList.remove("hidden");
 }
 
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
 function addUserMessage(text) {
   const el = document.createElement("div");
   el.className = "msg user";
@@ -882,7 +426,6 @@ function addUserMessage(text) {
   scrollToBottom();
 }
 
-// Renders a bot message with a terminal-style prefix and a typewriter effect.
 function addBotMessage(text, { actions } = {}) {
   return new Promise((resolve) => {
     const wrap = document.createElement("div");
@@ -942,7 +485,6 @@ function addBotMessage(text, { actions } = {}) {
   });
 }
 
-// Bolha temporária de "processando", removida assim que a resposta chega.
 function addThinkingBubble() {
   const wrap = document.createElement("div");
   wrap.className = "msg bot";
@@ -952,28 +494,6 @@ function addThinkingBubble() {
   return wrap;
 }
 
-// Quando nenhuma regra reconhece a mensagem, pergunta pro Worker (IA de
-// verdade) em vez de cair direto no fallback genérico. Se o Worker não
-// estiver configurado ou falhar, volta pro fallback com busca no Google.
-async function tryAIFallback(text) {
-  const bubble = addThinkingBubble();
-  try {
-    const res = await fetch(HANNA_PROXY_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text }),
-    });
-    if (!res.ok) throw new Error("proxy indisponível");
-    const data = await res.json();
-    bubble.remove();
-    await addBotMessage(data.reply || FALLBACK, { actions: ctaActions() });
-  } catch (e) {
-    bubble.remove();
-    await addBotMessage(FALLBACK, { actions: [googleSearchAction(text)] });
-  }
-  showQuickChips();
-}
-
 function ctaActions(extra = []) {
   return [
     {
@@ -981,45 +501,53 @@ function ctaActions(extra = []) {
       primary: true,
       onClick: () => window.open(CONTACT_LINK, "_blank", "noopener"),
     },
-    {
-      label: "trocar de assunto",
-      onClick: () => showQuickChips(),
-    },
     ...extra,
   ];
 }
 
-// Monta a resposta da categoria com: variação aleatória, personalização por
-// dispositivo mencionado, e um "callback" se já houver outro tópico discutido
-// antes nesta mesma conversa.
-function renderCategoryReply(category) {
-  const baseReply = pick(category.reply);
-  const personalized = mentionedDevice
-    ? baseReply.replace(/computador/gi, mentionedDevice)
-    : baseReply;
+function googleSearchAction(rawText) {
+  return {
+    label: "pesquisar no Google ↗",
+    onClick: () => window.open(`https://www.google.com/search?q=${encodeURIComponent(rawText)}`, "_blank", "noopener"),
+  };
+}
 
-  let intro = "";
-  const priorTopics = conversationTopics.filter((id) => id !== category.id);
-  if (priorTopics.length > 0) {
-    const prevCat = CATALOG.find((c) => c.id === priorTopics[priorTopics.length - 1]);
-    if (prevCat) intro = `Além da questão de ${prevCat.label} mencionada antes, `;
+// Chamada real ao Worker/OpenRouter — sem nenhuma regra local no meio.
+async function askAI(text) {
+  const bubble = addThinkingBubble();
+  try {
+    const res = await fetch(HANNA_PROXY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text, history }),
+    });
+    if (!res.ok) throw new Error("proxy indisponível");
+    const data = await res.json();
+    const reply = data.reply || "Não consegui processar essa mensagem no momento.";
+
+    history.push({ role: "user", content: text });
+    history.push({ role: "assistant", content: reply });
+    // mantém só as últimas mensagens pra não crescer indefinidamente
+    if (history.length > 20) history = history.slice(-20);
+
+    bubble.remove();
+    await addBotMessage(reply, { actions: ctaActions() });
+  } catch (e) {
+    bubble.remove();
+    await addBotMessage(
+      "Não consegui me conectar ao sistema de diagnóstico agora. Tente novamente em instantes, ou fale direto com o especialista.",
+      { actions: ctaActions([googleSearchAction(text)]) }
+    );
   }
-
-  const serviceList = category.services.map((s) => `• ${s}`).join("\n");
-  const namePart = userName ? ` ${userName},` : "";
-  const fullText = `${intro}${intro ? personalized.charAt(0).toLowerCase() + personalized.slice(1) : personalized}\n\nServiços indicados:\n${serviceList}\n\nValor e prazo variam por caso — um especialista confirma isso com você em segundos${namePart}.`;
-
-  hideQuickChips();
-  return addBotMessage(fullText, { actions: ctaActions() });
 }
 
 function showQuickChips() {
   quickChips.innerHTML = "";
-  CATALOG.forEach((cat) => {
+  QUICK_SUGGESTIONS.forEach((suggestion) => {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.textContent = cat.label;
-    btn.addEventListener("click", () => handleCategorySelect(cat));
+    btn.textContent = suggestion;
+    btn.addEventListener("click", () => sendMessage(suggestion));
     quickChips.appendChild(btn);
   });
   quickChips.classList.remove("hidden");
@@ -1029,76 +557,14 @@ function hideQuickChips() {
   quickChips.classList.add("hidden");
 }
 
-async function handleCategorySelect(category) {
-  if (busy) return;
-  busy = true;
-  await startChat();
-  addUserMessage(category.label);
-  hideQuickChips();
-  await sleep(400);
-  lastCategory = category;
-  if (!conversationTopics.includes(category.id)) conversationTopics.push(category.id);
-  await renderCategoryReply(category);
-  busy = false;
-}
-
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
-async function handleUserText(text) {
+async function sendMessage(text) {
   if (busy) return;
   busy = true;
   await startChat();
   addUserMessage(text);
   hideQuickChips();
-  await sleep(500);
-
-  // Reconhece nome, se apresentado, e passa a usar em respostas futuras.
-  const detectedName = extractName(text);
-  if (detectedName && detectedName.toLowerCase() !== (userName || "").toLowerCase()) {
-    userName = detectedName;
-    localStorage.setItem("hanna_name", userName);
-    await addBotMessage(`Registrado, ${userName}. Prossiga com a descrição da ocorrência.`);
-  }
-
-  // Reconhece dispositivo mencionado, pra personalizar as próximas respostas.
-  const detectedDevice = extractDevice(text);
-  if (detectedDevice) mentionedDevice = detectedDevice;
-
-  const isUrgent = detectUrgency(text);
-  const isFrustrated = detectFrustration(text);
-
-  const category = matchCategory(text);
-  if (category) {
-    if (isFrustrated) await addBotMessage(pick(FRUSTRATION_ACK));
-    if (isUrgent) await addBotMessage("Urgência identificada. Encaminhamento prioritário ativado.");
-    lastCategory = category;
-    if (!conversationTopics.includes(category.id)) conversationTopics.push(category.id);
-    await renderCategoryReply(category);
-  } else {
-    const dateTimeType = matchDateTime(text);
-    if (dateTimeType) {
-      await addBotMessage(answerDateTime(dateTimeType));
-      showQuickChips();
-      busy = false;
-      return;
-    }
-
-    const followUp = lastCategory ? matchFollowUp(text) : null;
-    if (followUp) {
-      await addBotMessage(followUp.reply(lastCategory), { actions: ctaActions() });
-    } else {
-      const smallTalk = matchSmallTalk(text);
-      if (smallTalk) {
-        const reply = pick(smallTalk.replies);
-        await addBotMessage(reply);
-        showQuickChips();
-      } else {
-        await tryAIFallback(text);
-      }
-    }
-  }
+  await askAI(text);
+  showQuickChips();
   busy = false;
 }
 
@@ -1122,7 +588,7 @@ function trySendMessage() {
   chatInput.value = "";
   autoResize();
   updateSendState();
-  handleUserText(text);
+  sendMessage(text);
 }
 
 chatInput.addEventListener("keydown", (e) => {
@@ -1142,44 +608,11 @@ resetBtn.addEventListener("click", () => {
   hero.classList.remove("collapsed");
   resetBtn.classList.add("hidden");
   started = false;
-  lastCategory = null;
-  conversationTopics = [];
-  mentionedDevice = null;
+  history = [];
   hideQuickChips();
-  agentMenu.classList.remove("open");
-  agentBtn.classList.remove("open");
   chatInput.addEventListener("focus", startChat, { once: true });
 });
 
-// ---- agent selector popover (reuses the category list as quick jump) ----
-function buildAgentMenu() {
-  agentMenu.innerHTML = "";
-  CATALOG.forEach((cat) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.textContent = cat.label;
-    btn.addEventListener("click", () => {
-      agentMenu.classList.remove("open");
-      agentBtn.classList.remove("open");
-      handleCategorySelect(cat);
-    });
-    agentMenu.appendChild(btn);
-  });
-}
-
-agentBtn.addEventListener("click", () => {
-  agentMenu.classList.toggle("open");
-  agentBtn.classList.toggle("open");
-});
-
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".agent-select")) {
-    agentMenu.classList.remove("open");
-    agentBtn.classList.remove("open");
-  }
-});
-
-// ---- optional voice input, native browser API, no external service ----
 (function setupMic() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
@@ -1223,8 +656,6 @@ document.addEventListener("click", (e) => {
   });
 })();
 
-// Saudação inicial: varia por horário do dia, reconhece visitante recorrente
-// e usa o nome se já for conhecido de uma sessão anterior.
 function buildGreeting() {
   const hour = new Date().getHours();
   let timeGreeting;
@@ -1233,10 +664,7 @@ function buildGreeting() {
   else if (hour < 18) timeGreeting = "Boa tarde. Sistemas online.";
   else timeGreeting = "Boa noite. Sistemas online.";
 
-  const returning = localStorage.getItem("hanna_visited") ? " Bom te ver de novo." : "";
-  const namePart = userName ? ` ${userName},` : "";
-
-  return `${timeGreeting}${returning} Sou a HANNA, unidade de triagem técnica do Luidy.${namePart} Descreva o que está ocorrendo com seu computador, celular ou rede — ou selecione um assunto abaixo, que eu direciono ao protocolo correto.`;
+  return `${timeGreeting} Sou a HANNA, unidade de triagem técnica do Luidy. Descreva o que está ocorrendo com seu computador, celular ou rede — ou selecione uma sugestão abaixo.`;
 }
 
 async function startChat() {
@@ -1244,18 +672,11 @@ async function startChat() {
   collapseHero();
   busy = true;
   await addBotMessage(buildGreeting());
-  localStorage.setItem("hanna_visited", "1");
   showQuickChips();
   busy = false;
 }
 
 chatInput.addEventListener("focus", startChat, { once: true });
-
-function init() {
-  buildAgentMenu();
-}
-
-init();
 </script>
 </body>
 </html>
