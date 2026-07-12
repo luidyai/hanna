@@ -435,6 +435,10 @@
       height:78vw;
       min-height:340px;
     }
+    #outroVideo{
+      height:88vw;
+      min-height:360px;
+    }
   }
 
   footer{
@@ -702,6 +706,26 @@
   </div>
 </section>
 
+<section id="video-outro" style="padding-top:0; padding-bottom:0; border-top:none; padding-left:0; padding-right:0;">
+  <div class="video-frame" style="position:relative; overflow:hidden; margin:0;">
+    <video
+      id="outroVideo"
+      autoplay muted loop playsinline webkit-playsinline="true" disablePictureInPicture
+      preload="auto"
+      style="width:100%; height:clamp(320px, 40vw, 520px); object-fit:cover; display:block; filter:contrast(1.05); pointer-events:none;"
+      poster="https://cdn.pixabay.com/video/2023/07/27/173482-849645869_tiny.jpg">
+      <source src="https://cdn.pixabay.com/video/2023/07/27/173482-849645869_large.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.1) 40%, rgba(10,14,20,0.55) 100%); pointer-events:none;"></div>
+    <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px;">
+      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--cyan); margin-bottom:16px;">Pronto pra começar</span>
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(26px, 4.2vw, 46px); color:#fff; letter-spacing:-0.01em; max-width:640px;">
+        Vamos colocar sua infraestrutura em ordem.
+      </h2>
+    </div>
+  </div>
+</section>
+
 <footer id="contato">
   <div>LuidySec — Tecnologia da Informação © 2026</div>
   <div class="status"><span class="dot"></span>Disponível para novos projetos</div>
@@ -788,37 +812,33 @@
   }
 
   // ---- force video autoplay on mobile (some browsers block it unless triggered via JS) ----
-  const bannerVideo = document.getElementById("bannerVideo");
-  if (bannerVideo) {
-    bannerVideo.muted = true;
-    bannerVideo.playsInline = true;
+  const autoplayVideos = document.querySelectorAll("#bannerVideo, #outroVideo");
+  autoplayVideos.forEach((vid) => {
+    vid.muted = true;
+    vid.playsInline = true;
 
     const tryPlay = () => {
-      const p = bannerVideo.play();
+      const p = vid.play();
       if (p !== undefined) p.catch(() => { /* will retry on interaction/visibility */ });
     };
 
     tryPlay();
+    vid.addEventListener("loadeddata", tryPlay);
+    vid.addEventListener("canplay", tryPlay);
 
-    // retry once the video has buffered enough data
-    bannerVideo.addEventListener("loadeddata", tryPlay);
-    bannerVideo.addEventListener("canplay", tryPlay);
-
-    // retry when it scrolls into view
     if ("IntersectionObserver" in window) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) tryPlay();
         });
       }, { threshold: 0.25 });
-      io.observe(bannerVideo);
+      io.observe(vid);
     }
 
-    // last resort: first user tap/scroll anywhere unlocks it
     ["touchstart", "click", "scroll"].forEach((evt) => {
       window.addEventListener(evt, tryPlay, { once: true, passive: true });
     });
-  }
+  });
 
   navToggle.addEventListener("click", () => {
     navLinks.classList.contains("open") ? closeNav() : openNav();
