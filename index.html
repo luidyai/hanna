@@ -651,9 +651,373 @@
   }
   .bot-card .bot-cta:hover{ background:#1a1f28; transform:translateY(-1px); }
 
+  .bot-cta-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .bot-cta-row .bot-cta{ flex:1; white-space:nowrap; }
+  .bot-card .bot-cta.secondary{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--line);
+  }
+  .bot-card .bot-cta.secondary:hover{
+    background:var(--off);
+    border-color:var(--ink);
+    transform:translateY(-1px);
+  }
+  .bot-card .bot-cta.secondary svg{ flex-shrink:0; }
+
   @media (max-width:900px){
     .bot-grid{ grid-template-columns:1fr; }
     .bot-card{ padding:26px 24px; }
+  }
+
+  /* ---------- modal de demonstração dos bots ---------- */
+  .demo-overlay{
+    position:fixed; inset:0;
+    background:rgba(10,14,20,0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    z-index:100;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .demo-overlay.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .demo-modal{
+    width:100%;
+    max-width:600px;
+    max-height:min(720px, 88vh);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 40px 90px -20px rgba(10,14,20,0.45);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    transform:translateY(16px) scale(.985);
+    transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  }
+  .demo-overlay.open .demo-modal{
+    transform:translateY(0) scale(1);
+  }
+
+  .demo-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:16px 18px;
+    background:var(--off);
+    border-bottom:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .demo-head-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+  }
+  .demo-head-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);
+    flex-shrink:0;
+    animation:pulse 2s infinite;
+  }
+  .demo-head-text{ min-width:0; }
+  .demo-head-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .demo-head-sub{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--gray);
+  }
+  .demo-head-actions{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-shrink:0;
+  }
+  .demo-icon-btn{
+    width:30px; height:30px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--white);
+    color:var(--gray);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:border-color .18s, color .18s, background .18s;
+  }
+  .demo-icon-btn:hover{ border-color:var(--ink); color:var(--ink); }
+
+  .demo-progress{
+    display:flex;
+    gap:4px;
+    padding:10px 18px 0;
+    flex-shrink:0;
+  }
+  .demo-progress span{
+    height:3px;
+    flex:1;
+    background:var(--line);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .demo-progress span i{
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--ink);
+    transition:width .3s ease;
+  }
+  .demo-progress span.done i{ width:100%; }
+
+  .demo-body{
+    flex:1;
+    overflow-y:auto;
+    padding:20px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    scrollbar-width:thin;
+    scrollbar-color: var(--line) transparent;
+  }
+  .demo-body::-webkit-scrollbar{ width:6px; }
+  .demo-body::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
+
+  .demo-msg{
+    max-width:84%;
+    animation: demoRise .25s ease both;
+  }
+  @keyframes demoRise{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .demo-msg.bot{ align-self:flex-start; }
+  .demo-msg.user{ align-self:flex-end; }
+
+  .demo-bubble{
+    font-size:13.5px;
+    line-height:1.55;
+    padding:11px 14px;
+    border-radius:14px;
+  }
+  .demo-msg.bot .demo-bubble{
+    background:var(--off);
+    border:1px solid var(--line);
+    color:var(--ink);
+    border-bottom-left-radius:4px;
+  }
+  .demo-msg.user .demo-bubble{
+    background:var(--ink);
+    color:#fff;
+    border-bottom-right-radius:4px;
+  }
+  .demo-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gray);
+    margin-bottom:5px;
+    padding:0 2px;
+  }
+  .demo-msg.user .demo-label{ text-align:right; }
+
+  .demo-typing{
+    align-self:flex-start;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    background:var(--off);
+    border:1px solid var(--line);
+    border-radius:14px;
+    border-bottom-left-radius:4px;
+    padding:12px 14px;
+  }
+  .demo-typing span{
+    width:5px; height:5px;
+    border-radius:50%;
+    background:var(--gray);
+    animation:demoBlink 1.1s infinite ease-in-out;
+  }
+  .demo-typing span:nth-child(2){ animation-delay:.15s; }
+  .demo-typing span:nth-child(3){ animation-delay:.3s; }
+  @keyframes demoBlink{ 0%,80%,100%{ opacity:.25; transform:scale(.8); } 40%{ opacity:1; transform:scale(1); } }
+
+  .demo-choices{
+    align-self:flex-start;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    max-width:92%;
+  }
+  .demo-choice-btn{
+    font-family:'Inter', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    padding:9px 14px;
+    border-radius:100px;
+    border:1px solid var(--line);
+    background:var(--white);
+    color:var(--ink);
+    cursor:default;
+    transition:border-color .3s, background .3s, color .3s, transform .3s;
+  }
+  .demo-choice-btn.chosen{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+    transform:translateY(-1px);
+  }
+
+  .demo-result{
+    align-self:stretch;
+    max-width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--white);
+  }
+  .demo-result-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 16px;
+    background:var(--ink);
+    color:#fff;
+  }
+  .demo-result-head svg{ flex-shrink:0; }
+  .demo-result-head span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  .demo-result-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    padding:14px 16px 4px;
+  }
+  .demo-result-rows{
+    display:flex;
+    flex-direction:column;
+  }
+  .demo-result-row{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    padding:9px 16px;
+    border-top:1px solid var(--line);
+    font-size:12.5px;
+  }
+  .demo-result-row .k{
+    color:var(--gray);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.02em;
+  }
+  .demo-result-row .v{
+    font-weight:600;
+    text-align:right;
+  }
+  .demo-result-note{
+    padding:10px 16px 14px;
+    font-size:11.5px;
+    color:var(--gray);
+    line-height:1.5;
+    border-top:1px solid var(--line);
+  }
+
+  .demo-foot{
+    flex-shrink:0;
+    padding:16px 18px;
+    border-top:1px solid var(--line);
+    background:var(--off);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .demo-foot-note{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--gray);
+    letter-spacing:0.03em;
+  }
+  .demo-foot-actions{
+    display:flex;
+    gap:8px;
+  }
+  .demo-restart-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:transparent;
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:9px 15px;
+    font-family:'Inter', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    transition:border-color .18s, background .18s;
+  }
+  .demo-restart-btn:hover{ border-color:var(--ink); background:var(--white); }
+  .demo-cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#25D366;
+    color:#fff;
+    border:none;
+    border-radius:100px;
+    padding:9px 16px;
+    font-family:'Inter', sans-serif;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .15s, box-shadow .15s;
+    box-shadow:0 8px 22px -8px rgba(37,211,102,0.55);
+  }
+  .demo-cta-btn:hover{ transform:translateY(-1px); }
+
+  @media (max-width:600px){
+    .demo-overlay{ padding:0; align-items:flex-end; }
+    .demo-modal{
+      max-width:none;
+      width:100%;
+      max-height:92vh;
+      border-radius:16px 16px 0 0;
+    }
+    .demo-msg{ max-width:92%; }
+    .demo-foot{ flex-direction:column; align-items:stretch; }
+    .demo-foot-actions{ width:100%; }
+    .demo-foot-actions .demo-restart-btn,
+    .demo-foot-actions .demo-cta-btn{ flex:1; justify-content:center; }
   }
 
   @media (max-width:600px){
@@ -1009,6 +1373,46 @@
   <div class="status"><span class="dot"></span>Disponível para novos projetos</div>
 </footer>
 
+<div class="demo-overlay" id="demoOverlay" aria-hidden="true">
+  <div class="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+    <div class="demo-head">
+      <div class="demo-head-info">
+        <span class="demo-head-dot" aria-hidden="true"></span>
+        <div class="demo-head-text">
+          <div class="demo-head-title" id="demoTitle">—</div>
+          <div class="demo-head-sub">simulação · dados fictícios</div>
+        </div>
+      </div>
+      <div class="demo-head-actions">
+        <button type="button" class="demo-icon-btn" id="demoSkipBtn" title="Pular animação" aria-label="Pular animação">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 5l7 7-7 7M14 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="demo-icon-btn" id="demoCloseBtn" title="Fechar" aria-label="Fechar demonstração">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="demo-progress" id="demoProgress"></div>
+
+    <div class="demo-body" id="demoBody"></div>
+
+    <div class="demo-foot">
+      <span class="demo-foot-note" id="demoFootNote">isso é uma simulação do fluxo real</span>
+      <div class="demo-foot-actions">
+        <button type="button" class="demo-restart-btn" id="demoRestartBtn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1 1 3.2 6.9M3 12V6m0 6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Reiniciar
+        </button>
+        <a href="#" target="_blank" rel="noopener" class="demo-cta-btn" id="demoCtaBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.53.06-1 .27-3.44-.72-2.44-.99-4.04-3.49-4.16-3.65-.12-.16-.99-1.31-.99-2.5s.62-1.77.84-2.01c.22-.24.48-.3.64-.3.16 0 .32.002.46.008.15.006.35-.056.55.42.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.24.25-.1.49.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.26z"/></svg>
+          Quero esse bot
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   const WHATSAPP_NUMBER = "5515981289296";
 
@@ -1266,13 +1670,406 @@
         <h3>${bot.name}</h3>
         <p class="bot-tagline">${bot.tagline}</p>
         <ul class="bot-features">${featuresMarkup}</ul>
-        <a class="bot-cta" href="${botWaLink(bot)}" target="_blank" rel="noopener">Solicitar orçamento</a>
+        <div class="bot-cta-row">
+          <button type="button" class="bot-cta secondary" data-demo-id="${bot.id}">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7-11-7z" fill="currentColor"/></svg>
+            Ver demonstração
+          </button>
+          <a class="bot-cta" href="${botWaLink(bot)}" target="_blank" rel="noopener">Solicitar orçamento</a>
+        </div>
       `;
       grid.appendChild(card);
     });
   }
 
   renderBotCatalog();
+
+  // ---------------------------------------------------------------
+  // DEMONSTRAÇÕES SIMULADAS DOS BOTS
+  // ---------------------------------------------------------------
+  // Cada bot tem um roteiro (DEMOS[id].script) com passos sequenciais:
+  //   { from:'bot', text }                        -> bolha do bot, com indicador de digitação antes
+  //   { from:'user', text }                        -> bolha do usuário simulado
+  //   { choice:true, options:[...], chosen:n }     -> botões de opção; o índice `chosen` é
+  //                                                    "clicado" automaticamente na simulação
+  //   { result:{ title, rows:[[k,v],...], note } } -> cartão de resultado final do fluxo
+  // Isso roda 100% no navegador, sem IA real — é só uma demonstração do fluxo de conversa
+  // que o bot de verdade executaria em produção.
+
+  const DEMOS = {
+    orcamento: {
+      title: "Bot de Orçamento",
+      sub: "simulação · triagem de equipamento",
+      script: [
+        { from: "bot", text: "Oi! Eu sou o assistente de orçamento da LuidySec 👋 Pra te ajudar rápido, qual tipo de equipamento você quer que a gente avalie?" },
+        { choice: true, options: ["Notebook", "Desktop", "Celular", "Servidor/Rede"], chosen: 0 },
+        { from: "bot", text: "Entendido, notebook. E qual é o problema principal que você está enfrentando com ele?" },
+        { choice: true, options: ["Muito lento", "Não liga", "Vírus/malware", "Tela quebrada"], chosen: 0 },
+        { from: "bot", text: "Certo. Só mais duas perguntas pra eu calcular a faixa de valor certinho: qual a marca/modelo e o ano aproximado de compra?" },
+        { from: "user", text: "É um Dell Inspiron, comprei em 2021." },
+        { from: "bot", text: "Perfeito, obrigado! Uma última coisa: o armazenamento dele é HD mecânico ou SSD?" },
+        { choice: true, options: ["HD (mecânico)", "SSD", "Não sei"], chosen: 2 },
+        { from: "bot", text: "Sem problema, isso a gente confirma no diagnóstico. Com base no que você me contou, montei uma pré-análise 👇" },
+        { result: {
+            title: "Pré-análise concluída",
+            rows: [
+              ["Diagnóstico provável", "HD saturado / inicialização pesada"],
+              ["Serviço recomendado", "Upgrade para SSD + limpeza de sistema"],
+              ["Faixa estimada", "R$ 250 – R$ 450"],
+              ["Prazo estimado", "1 a 2 dias úteis"]
+            ],
+            note: "Valores e prazo são uma pré-análise. Um especialista confirma o valor exato após ver o aparelho."
+        }},
+        { from: "bot", text: "Consegui deixar uma estimativa pronta pra você. Quer que eu já encaminhe esse resumo pro especialista confirmar?" }
+      ]
+    },
+
+    agendamento: {
+      title: "Bot de Agendamento",
+      sub: "simulação · marcação de atendimento",
+      script: [
+        { from: "bot", text: "Olá! Vamos agendar seu atendimento técnico. Você prefere presencial ou remoto?" },
+        { choice: true, options: ["Presencial", "Remoto"], chosen: 1 },
+        { from: "bot", text: "Show, atendimento remoto economiza tempo de deslocamento. Qual tipo de serviço você precisa?" },
+        { choice: true, options: ["Suporte técnico", "Configuração de rede", "Remoção de vírus", "Outro"], chosen: 2 },
+        { from: "bot", text: "Anotado: remoção de vírus, remoto. Qual desses horários funciona melhor pra você essa semana?" },
+        { choice: true, options: ["Amanhã, 9h–11h", "Amanhã, 14h–16h", "Quinta, 10h–12h"], chosen: 1 },
+        { from: "bot", text: "Deixa eu verificar a disponibilidade na agenda..." },
+        { result: {
+            title: "Agendamento pré-confirmado",
+            rows: [
+              ["Serviço", "Remoção de vírus (remoto)"],
+              ["Data", "Amanhã"],
+              ["Janela", "14h – 16h"],
+              ["Técnico responsável", "Luidy"],
+              ["Status", "Pré-reservado"]
+            ],
+            note: "A confirmação final chega por WhatsApp em poucos minutos, com o link de acesso remoto."
+        }},
+        { from: "bot", text: "Prontinho! Deixei pré-reservado esse horário. Um especialista confirma em instantes pelo WhatsApp." }
+      ]
+    },
+
+    qualificacao: {
+      title: "Bot de Qualificação de Lead",
+      sub: "simulação · triagem inicial",
+      script: [
+        { from: "bot", text: "Oi! Antes de te encaminhar pro time certo, só preciso entender seu perfil. Você está entrando em contato como pessoa física ou representando uma empresa?" },
+        { choice: true, options: ["Pessoa física", "Empresa"], chosen: 1 },
+        { from: "bot", text: "Legal. Aproximadamente quantos computadores ou dispositivos a empresa tem hoje?" },
+        { choice: true, options: ["1 a 5", "6 a 20", "Mais de 20"], chosen: 1 },
+        { from: "bot", text: "E o que motivou o contato agora — é algo urgente ou é planejamento?" },
+        { choice: true, options: ["Urgente, sistema parado", "Planejamento/melhoria", "Só cotação"], chosen: 0 },
+        { from: "bot", text: "Entendi a urgência. Verificando o encaminhamento ideal..." },
+        { result: {
+            title: "Lead qualificado",
+            rows: [
+              ["Perfil", "Empresa · pequeno/médio porte (6–20 disp.)"],
+              ["Urgência", "Alta — operação impactada"],
+              ["Encaminhamento", "Equipe de infraestrutura, prioridade"],
+              ["Próximo passo", "Contato imediato via WhatsApp"]
+            ],
+            note: "Leads marcados como urgentes pulam a fila padrão de atendimento."
+        }},
+        { from: "bot", text: "Como sua operação está parada, já vou te encaminhar direto e com prioridade pro especialista." }
+      ]
+    },
+
+    status: {
+      title: "Bot de Status de Chamado",
+      sub: "simulação · consulta de protocolo",
+      script: [
+        { from: "bot", text: "Olá! Pra consultar o status do seu chamado, me informa o número do protocolo (você recebeu por WhatsApp ou e-mail)." },
+        { from: "user", text: "Protocolo 4821" },
+        { from: "bot", text: "Consultando o protocolo 4821 no sistema..." },
+        { result: {
+            title: "Chamado #4821",
+            rows: [
+              ["Serviço", "Backup e recuperação de dados"],
+              ["Status", "Em andamento — 70% concluído"],
+              ["Última atualização", "Hoje, 11h32"],
+              ["Previsão de conclusão", "Hoje até às 18h"],
+              ["Técnico", "Luidy"]
+            ],
+            note: "Atualizações de status também são enviadas automaticamente por WhatsApp."
+        }},
+        { from: "bot", text: "Seu chamado está quase finalizado! Quer que eu já te conecte com o técnico pra alguma dúvida?" }
+      ]
+    },
+
+    faq: {
+      title: "Bot FAQ",
+      sub: "simulação · dúvidas frequentes",
+      script: [
+        { from: "bot", text: "Oi! Sou o FAQ da LuidySec. Sobre o que você quer saber?" },
+        { choice: true, options: ["Horário de atendimento", "Formas de pagamento", "Área de cobertura", "Prazo médio"], chosen: 1 },
+        { from: "bot", text: "Aceitamos Pix, cartão de crédito/débito (com maquininha) e transferência bancária. Pra serviços empresariais, também emitimos nota fiscal." },
+        { from: "bot", text: "Posso te ajudar com mais alguma dúvida?" },
+        { choice: true, options: ["Área de cobertura", "Prazo médio", "Já resolveu, obrigado"], chosen: 0 },
+        { from: "bot", text: "Atendimento presencial cobre São Paulo (capital e região). Atendimento remoto é feito pra qualquer lugar do Brasil." },
+        { from: "bot", text: "Posso ajudar com mais alguma coisa ou prefere já falar com um especialista?" }
+      ]
+    },
+
+    checklist: {
+      title: "Quiz de Segurança",
+      sub: "simulação · checklist de hábitos digitais",
+      script: [
+        { from: "bot", text: "Vamos fazer um checklist rápido de segurança digital? São 4 perguntas, leva menos de 1 minuto." },
+        { from: "bot", text: "1) Você usa a mesma senha em mais de um site importante?" },
+        { choice: true, options: ["Sim", "Não"], chosen: 0 },
+        { from: "bot", text: "2) Seu computador ou celular tem backup automático configurado?" },
+        { choice: true, options: ["Sim", "Não", "Não sei"], chosen: 1 },
+        { from: "bot", text: "3) Você costuma clicar em links recebidos por WhatsApp ou e-mail sem verificar o remetente?" },
+        { choice: true, options: ["Às vezes", "Nunca"], chosen: 0 },
+        { from: "bot", text: "4) Seu Wi-Fi tem senha forte e é trocada periodicamente?" },
+        { choice: true, options: ["Sim", "Não tenho certeza"], chosen: 1 },
+        { from: "bot", text: "Calculando seu nível de exposição..." },
+        { result: {
+            title: "Resultado do checklist",
+            rows: [
+              ["Pontuação de segurança", "3 / 10 — risco elevado"],
+              ["Ponto crítico 1", "Reuso de senha entre sites"],
+              ["Ponto crítico 2", "Ausência de backup automático"],
+              ["Ponto crítico 3", "Wi-Fi sem gestão de senha"]
+            ],
+            note: "Recomendações: gerenciador de senhas com autenticação em duas etapas, rotina de backup automatizado e hardening da rede Wi-Fi."
+        }},
+        { from: "bot", text: "Seu checklist indica alguns pontos que valem atenção — nada grave, mas dá pra resolver rápido." }
+      ]
+    },
+
+    "pos-venda": {
+      title: "Bot de Pós-Atendimento",
+      sub: "simulação · pesquisa de satisfação",
+      script: [
+        { from: "bot", text: "Oi! Aqui é a LuidySec 👋 Seu atendimento de ontem (remoção de vírus) foi concluído. De 0 a 10, como você avalia o serviço?" },
+        { choice: true, options: ["9 ou 10", "7 ou 8", "Abaixo de 7"], chosen: 0 },
+        { from: "bot", text: "Que ótimo, fico feliz que deu certo 🙌 O problema que te motivou a chamar a gente foi totalmente resolvido?" },
+        { choice: true, options: ["Sim, resolvido", "Parcialmente", "Ainda não"], chosen: 0 },
+        { from: "bot", text: "Perfeito. Última pergunta: você recomendaria a LuidySec pra alguém?" },
+        { choice: true, options: ["Com certeza", "Talvez", "Não"], chosen: 0 },
+        { from: "bot", text: "Registrando sua avaliação..." },
+        { result: {
+            title: "Resumo da pesquisa",
+            rows: [
+              ["Nota", "9.6 (promotor)"],
+              ["Status do problema", "Resolvido"],
+              ["Indicação", "Alta probabilidade"],
+              ["Ação registrada", "Incluído na manutenção preventiva semestral"]
+            ],
+            note: "Clientes promotores entram automaticamente na lista de acompanhamento semestral."
+        }},
+        { from: "bot", text: "Obrigado pelo retorno! Isso ajuda muito a gente a manter o padrão. Qualquer coisa, é só chamar." }
+      ]
+    }
+  };
+
+  const demoOverlay = document.getElementById("demoOverlay");
+  const demoBody = document.getElementById("demoBody");
+  const demoProgress = document.getElementById("demoProgress");
+  const demoTitleEl = document.getElementById("demoTitle");
+  const demoSubEl = document.querySelector(".demo-head-sub");
+  const demoCtaBtn = document.getElementById("demoCtaBtn");
+  const demoCloseBtn = document.getElementById("demoCloseBtn");
+  const demoRestartBtn = document.getElementById("demoRestartBtn");
+  const demoSkipBtn = document.getElementById("demoSkipBtn");
+  const demoFootNote = document.getElementById("demoFootNote");
+
+  let demoRunToken = 0;   // invalida execuções antigas quando o modal é fechado/reiniciado
+  let demoSkipRequested = false;
+  let demoCurrentBotId = null;
+
+  function demoWait(ms, token){
+    return new Promise((resolve) => {
+      const start = Date.now();
+      function tick(){
+        if (token !== demoRunToken) return resolve(); // execução cancelada
+        if (demoSkipRequested || Date.now() - start >= ms) return resolve();
+        requestAnimationFrame(tick);
+      }
+      tick();
+    });
+  }
+
+  function demoScrollToBottom(){
+    demoBody.scrollTop = demoBody.scrollHeight;
+  }
+
+  function demoBuildProgress(steps){
+    demoProgress.innerHTML = "";
+    steps.forEach(() => {
+      const span = document.createElement("span");
+      span.innerHTML = "<i></i>";
+      demoProgress.appendChild(span);
+    });
+  }
+
+  function demoMarkProgress(index){
+    const bars = demoProgress.querySelectorAll("span");
+    bars.forEach((bar, i) => bar.classList.toggle("done", i <= index));
+  }
+
+  function demoAddTyping(){
+    const el = document.createElement("div");
+    el.className = "demo-typing";
+    el.innerHTML = "<span></span><span></span><span></span>";
+    demoBody.appendChild(el);
+    demoScrollToBottom();
+    return el;
+  }
+
+  function demoAddBubble(from, text){
+    const wrap = document.createElement("div");
+    wrap.className = `demo-msg ${from}`;
+    const label = document.createElement("div");
+    label.className = "demo-label";
+    label.textContent = from === "bot" ? "bot" : "cliente (simulado)";
+    const bubble = document.createElement("div");
+    bubble.className = "demo-bubble";
+    bubble.textContent = text;
+    wrap.appendChild(label);
+    wrap.appendChild(bubble);
+    demoBody.appendChild(wrap);
+    demoScrollToBottom();
+  }
+
+  function demoAddResult(result){
+    const wrap = document.createElement("div");
+    wrap.className = "demo-msg bot";
+    wrap.style.maxWidth = "100%";
+
+    const card = document.createElement("div");
+    card.className = "demo-result";
+
+    const rowsMarkup = result.rows
+      .map(([k, v]) => `<div class="demo-result-row"><span class="k">${k}</span><span class="v">${v}</span></div>`)
+      .join("");
+
+    card.innerHTML = `
+      <div class="demo-result-head">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/></svg>
+        <span>resultado do fluxo</span>
+      </div>
+      <div class="demo-result-title">${result.title}</div>
+      <div class="demo-result-rows">${rowsMarkup}</div>
+      ${result.note ? `<div class="demo-result-note">${result.note}</div>` : ""}
+    `;
+    wrap.appendChild(card);
+    demoBody.appendChild(wrap);
+    demoScrollToBottom();
+  }
+
+  async function demoRunChoice(step, token){
+    const choicesWrap = document.createElement("div");
+    choicesWrap.className = "demo-choices";
+    const btns = step.options.map((label) => {
+      const b = document.createElement("span");
+      b.className = "demo-choice-btn";
+      b.textContent = label;
+      choicesWrap.appendChild(b);
+      return b;
+    });
+    demoBody.appendChild(choicesWrap);
+    demoScrollToBottom();
+
+    await demoWait(900, token);
+    if (token !== demoRunToken) return;
+
+    btns[step.chosen].classList.add("chosen");
+    await demoWait(500, token);
+    if (token !== demoRunToken) return;
+
+    choicesWrap.remove();
+    demoAddBubble("user", step.options[step.chosen]);
+    await demoWait(450, token);
+  }
+
+  async function demoRunScript(botId){
+    const demo = DEMOS[botId];
+    if (!demo) return;
+
+    demoRunToken++;
+    const token = demoRunToken;
+    demoSkipRequested = false;
+    demoCurrentBotId = botId;
+
+    demoBody.innerHTML = "";
+    demoTitleEl.textContent = demo.title;
+    demoSubEl.textContent = demo.sub;
+    demoBuildProgress(demo.script);
+    demoFootNote.textContent = "reproduzindo simulação...";
+
+    const bot = BOT_CATALOG.find((b) => b.id === botId);
+    demoCtaBtn.href = botWaLink(bot || { name: demo.title });
+
+    for (let i = 0; i < demo.script.length; i++){
+      if (token !== demoRunToken) return;
+      const step = demo.script[i];
+      demoMarkProgress(i);
+
+      if (step.choice){
+        await demoRunChoice(step, token);
+      } else if (step.result){
+        const typing = demoAddTyping();
+        await demoWait(900, token);
+        if (token !== demoRunToken) return;
+        typing.remove();
+        demoAddResult(step.result);
+        await demoWait(600, token);
+      } else if (step.from === "bot"){
+        const typing = demoAddTyping();
+        await demoWait(850, token);
+        if (token !== demoRunToken) return;
+        typing.remove();
+        demoAddBubble("bot", step.text);
+        await demoWait(500, token);
+      } else {
+        await demoWait(500, token);
+        if (token !== demoRunToken) return;
+        demoAddBubble("user", step.text);
+        await demoWait(450, token);
+      }
+      demoSkipRequested = false;
+    }
+
+    if (token !== demoRunToken) return;
+    demoFootNote.textContent = "simulação concluída — fluxo real feito sob medida pro seu negócio";
+  }
+
+  function demoOpen(botId){
+    demoOverlay.classList.add("open");
+    demoOverlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    demoRunScript(botId);
+  }
+
+  function demoClose(){
+    demoRunToken++; // cancela qualquer execução em andamento
+    demoOverlay.classList.remove("open");
+    demoOverlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  document.getElementById("botGrid").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-demo-id]");
+    if (!btn) return;
+    demoOpen(btn.getAttribute("data-demo-id"));
+  });
+
+  demoCloseBtn.addEventListener("click", demoClose);
+  demoOverlay.addEventListener("click", (e) => {
+    if (e.target === demoOverlay) demoClose();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && demoOverlay.classList.contains("open")) demoClose();
+  });
+  demoRestartBtn.addEventListener("click", () => {
+    if (demoCurrentBotId) demoRunScript(demoCurrentBotId);
+  });
+  demoSkipBtn.addEventListener("click", () => {
+    demoSkipRequested = true;
+  });
 
   // ---------------------------------------------------------------
   // MENU MOBILE
