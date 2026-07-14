@@ -1,2228 +1,602 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light only">
-<title>LuidySec — Tecnologia da Informação</title>
-<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADT0lEQVR42u2Wv4tdRRTHP2fuJu/dmbn3zl1FsEgj24hmi5CtgkWC7BZq/gMFY6NFUgQiiI3dYgJBttluBYX0BiwWxC5pBAlapIsBrUSz+3g/zGbfnWPx5sH1uavZdSGFe2AYZs7M+Z4z55fAMR3T/53kCO/qYYRkBwTMWndmAU3iyVErYNKICTTNC52yHFedTiff2TkV4dG4dYaWMnpYF0gCbgCKoniuIXtDVF+PyPMCc0wGwFhhbNDfVOSbjObrfr//e0uRuJ8i8g9WRwDn6tMq+pHCeYFfgK9UtWtEliL6IiCC/KrCd6IMgYsKpwS+FZXV4XDrx1mZs0B7uSUCXevCuoreBaCJb40G20sCpTHmY8Qsi5jTgryKyAVRLquKHQ22l2jimwAqete6sA50k8x/dfncxOqwaH390Pn6nrXVmSkz99UXrqg19/X7ua8/sD48sj401oex9SG6Yl5zFzam562tzjhf37O+fuhcWGxj7BuQ1pbLtqgb6+u1Nq/rw2uumFfrq/emm86Fy66o1fqwa32I1ocnrqjVuep821rr6zVb1I215fJs8JvW3HR9fU6ybFOI10aDrStp/yTQiPIOQvxr3OjcTDwJoBF5OwXvScCMBltXhHhNsmyz6+tziWemz2EA7VTVS6bRTUU/HPV7N4ETwBjYZRJpr6iqQeXT3AWnaKbCJ6hqyyJREBFeTuvdNJ8Y9ns3bVFlBtnsVNXiTq/3E2DmDlz5hHkj8hlIwv5vNE0N2en1HkRkRTDXXVFdTdpLeglUuS+TXN5V1bGqjvfIbRVQVe5PLU8ydl1RXRXM9Yis7PR6D9J+nMZABLLHg6072jQrirmRgjACT4DMoF+2/J8l98lML1BA0tks3Y3W12uKuaFNs/J4sHWnlep/K0RzwNi5sKgitwW2NcZLo1Hve4DchQ1jzLuqUfewXkSMxBg//2O4fWmahmLMhkIQ1YvD4fYPU4yn6Q9d68K69aFvfbiV5+XZiRL1qvVhaItarU9jkorD3NWrAHlenrU+3LI+9FuFaM/ec5BSfEHgZ+C2Ck6UJUVfmAg5fCl+5s3oaTNljxq+0CnLcr4sy3lY6OzjSnOUP6Lpi0iyKO7zb9CDWPzMv2THdEzH9Cc/F07LN/R4lAAAAABJRU5ErkJggg==">
-<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABU0lEQVR42sWSP0ubYRTFf+c+GpOoGJDQTl07dOvezbGISycnFUHI3KH9COkHKPQTFHRxcXLr1kHo2kXQIpQWTcA3eTXJczrEgLSmLtKe6XL/33Mu/G9oij/uiBnI9zWMvzSdDIxpGyRgBFCvLz2X0rKdH5MQ0neG+Uev1z36PVe3JufqQuNF4Fe2viJWBStAgTk0HEp+mtFuedn5NKmJiVGbb7TCrHuU2kDC7CM2kBYUWpNc5mG8C7Nem2+0bviIAHJ9cWkT3OwVnZ1+//wb4g3SCCw8Btbbsrw47RWdHXBzXEOeuZMpUyh4bwLwEJTGIvyJBMTg+upotlJ7VqlUt1KqfVHymaSX2BlIkgR+naL+szJXbYOO+5fdD0CkG31jOCg/p7lqN8LbtrqYAeIJMMAcGJ1E8mqWPpZFZ2/C3VQZmYkm9qPxTdNlfNBHepBX/vf4BZo+jWR4KRScAAAAAElFTkSuQmCC">
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAgLUlEQVR42u2de5Qc1X3nv99b/ap+zgNFiPBY2QZD1gZj88YGIyMQGPMQJCSxITbkJCdncRAYhSQiPl4fcI4tAmJNTjY5MU6wiR8LEmCCedgiBgTiFRbwhoe9VgyyBSs0r353dd3f/lHV3TU1NaPRTHfPSLqfc3Sko+npunXrW7/7+/3u794LGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDD0m/8PVgmccb1iqvEAAAAASUVORK5CYII=">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HANNA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-  :root{
-    color-scheme: light only;
-    --white:#ffffff;
-    --off:#fafbfc;
-    --ink:#0a0e14;
-    --gray:#6b7280;
-    --line:#e6e9ee;
-    --cyan:#0a0e14;
-    --violet:#7b5cff;
-    --glow: 0 0 18px rgba(10,14,20,.28);
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  html, body{
-    background:#ffffff !important;
-  }
-  body{
-    color:var(--ink);
-    font-family:'Inter', -apple-system, sans-serif;
-    overflow-x:hidden;
-  }
-  @font-face{
-    font-family:'Space Grotesk';
-    src:local('Space Grotesk');
+  :root {
+    --bg: #212121;
+    --panel: #2f2f2f;
+    --panel-2: #383838;
+    --border: #4d4d4f;
+    --border-soft: #3f3f3f;
+    --text: #ececec;
+    --text-dim: #b4b4b4;
+    --text-faint: #8e8ea0;
+    --accent: #10a37f;
+    --accent-strong: #19c37d;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    --font-display: "Space Grotesk", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
   }
 
-  .grid-bg{
-    position:fixed; inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black 20%, transparent 80%);
-    pointer-events:none;
-    z-index:0;
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
-  nav{
-    position:fixed; top:0; left:0; right:0;
-    display:flex; justify-content:space-between; align-items:center;
-    padding:22px 56px;
-    z-index:10;
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(14px) saturate(1.1);
-    -webkit-backdrop-filter: blur(14px) saturate(1.1);
-    border-bottom:1px solid rgba(230,233,238,0.9);
-  }
-  .logo{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size:15px;
-    letter-spacing:0.02em;
-    display:flex; align-items:center; gap:10px;
-  }
-  .logo .dot{
-    width:8px; height:8px; border-radius:50%;
-    background: linear-gradient(135deg, var(--cyan), var(--violet));
-    box-shadow: var(--glow);
-  }
-  nav ul{
-    list-style:none;
-    display:flex; gap:36px;
-  }
-  nav a{
-    color:var(--ink);
-    text-decoration:none;
-    font-size:13px;
-    letter-spacing:0.03em;
-    text-transform:uppercase;
-    position:relative;
-    opacity:0.7;
-    transition:opacity .25s;
-  }
-  nav a:hover{opacity:1;}
-
-  .nav-toggle{
-    display:none;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:5px;
-    width:36px; height:36px;
-    background:transparent;
-    border:1px solid var(--line);
-    border-radius:4px;
-    cursor:pointer;
-    padding:0;
-    z-index:20;
-  }
-  .nav-toggle span{
-    display:block;
-    width:16px; height:1.5px;
-    background:var(--ink);
-    transition: transform .3s ease, opacity .3s ease;
-  }
-  .nav-toggle.open span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
-  .nav-toggle.open span:nth-child(2){ opacity:0; }
-  .nav-toggle.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
-
-  .nav-overlay{
-    position:fixed; inset:0;
-    background:rgba(10,14,20,0.25);
-    opacity:0; pointer-events:none;
-    transition:opacity .25s ease;
-    z-index:8;
-  }
-  .nav-overlay.open{ opacity:1; pointer-events:auto; }
-
-  header.hero{
-    position:relative;
-    min-height:100vh;
-    display:grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    align-items:stretch;
-    padding:120px 0 0 0;
-    z-index:1;
-  }
-
-  .hero-left{
-    padding:0 0 80px 56px;
-    display:flex; flex-direction:column; justify-content:center;
-  }
-
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--cyan);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:28px;
-  }
-  .eyebrow::before{
-    content:'';
-    width:28px; height:1px;
-    background:var(--cyan);
-  }
-
-  h1{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size:clamp(56px, 9vw, 128px);
-    line-height:0.92;
-    letter-spacing:-0.03em;
-    text-transform:uppercase;
-  }
-  h1 .accent{
-    color:var(--ink);
-    text-decoration: underline;
-    text-decoration-thickness: 0.06em;
-    text-underline-offset: 0.08em;
-    text-decoration-color: var(--ink);
-  }
-
-  .subhead{
-    margin-top:32px;
-    max-width:460px;
-    font-size:16px;
-    line-height:1.7;
-    color:var(--gray);
-  }
-
-  .hero-meta{
-    margin-top:56px;
-    display:flex; gap:56px;
-    padding-top:28px;
-    border-top:1px solid var(--line);
-    max-width:640px;
-  }
-  .hero-meta div{display:flex; flex-direction:column; gap:6px;}
-  .hero-meta .k{
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    color:var(--gray);
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-  }
-  .hero-meta .v{
-    font-size:15px;
-    font-weight:500;
-  }
-
-  .hero-right{
-    position:relative;
-    background:var(--off);
-    border-left:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
-  }
-  .hero-right .bg-photo{
-    position:absolute; inset:0;
-    background-size:cover;
-    background-position:center 20%;
-    opacity:0;
-    z-index:0;
-    animation: bgCrossfade 14s ease-in-out infinite;
-  }
-  .hero-right .bg-photo.p1{
-    background-image:url('assets/tecnico-1.png');
-    animation-delay:0s;
-  }
-  .hero-right .bg-photo.p2{
-    background-image:url('assets/tecnico-2.jpg');
-    animation-delay:-7s;
-  }
-  @keyframes bgCrossfade{
-    0%, 42%{ opacity:1; }
-    50%, 92%{ opacity:0; }
-    100%{ opacity:1; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero-right .bg-photo{ animation:none; opacity:0; }
-    .hero-right .bg-photo.p1{ opacity:1; }
-  }
-  .hero-right::before{
-    content:'';
-    position:absolute; inset:0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.0) 30%, rgba(255,255,255,0.55) 100%);
-    pointer-events:none;
-    z-index:1;
-  }
-  .hero-right .frame{
-    position:absolute; inset:40px;
-    border:1px solid var(--line);
-    z-index:2;
-  }
-  .hero-right .corner{
-    position:absolute;
-    width:16px; height:16px;
-    z-index:2;
-  }
-  .hero-right .corner.tl{top:32px; left:32px; border-top:1.5px solid var(--cyan); border-left:1.5px solid var(--cyan);}
-  .hero-right .corner.br{bottom:32px; right:32px; border-bottom:1.5px solid var(--cyan); border-right:1.5px solid var(--cyan);}
-  .hero-right .tag{
-    position:absolute; top:56px; left:56px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.1em;
-    color:var(--ink);
-    text-transform:uppercase;
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding:8px 12px;
-    border-radius:2px;
-    z-index:3;
-  }
-  .hero-right .readout{
-    position:absolute; bottom:56px; left:56px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    color:var(--gray);
-    line-height:1.9;
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding:14px 16px;
-    border-radius:2px;
-    z-index:3;
-  }
-  .hero-right .readout b{color:var(--ink); font-weight:600;}
-
-  section{
-    position:relative;
-    padding:140px 56px;
-    z-index:1;
-    border-top:1px solid var(--line);
-  }
-  .section-head{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    margin-bottom:64px;
-    flex-wrap:wrap; gap:20px;
-  }
-  .section-head h2{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:clamp(28px, 4vw, 44px);
-    font-weight:600;
-    letter-spacing:-0.01em;
-  }
-  .section-head p{
-    color:var(--gray);
-    max-width:360px;
-    font-size:14px;
-    line-height:1.6;
-  }
-
-  .grid3{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  .card{
-    background:var(--white);
-    padding:36px;
-    transition: background .3s;
-  }
-  .card:hover{background:var(--off);}
-  .card .num{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--cyan);
-    margin-bottom:20px;
-    display:block;
-  }
-  .card h3{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:19px;
-    font-weight:600;
-    margin-bottom:12px;
-  }
-  .card p{
-    color:var(--gray);
-    font-size:14px;
-    line-height:1.6;
-  }
-
-  .search-bar{
-    margin-top:8px;
-    margin-bottom:36px;
-    display:flex; align-items:center; justify-content:space-between;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-
-  #searchInput{
-    flex:1;
-    min-width:240px;
-    max-width:420px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:14px;
-    padding:13px 16px;
-    border:1px solid var(--line);
-    border-radius:2px;
-    background:var(--white);
-    color:var(--ink);
-    outline:none;
-    transition:border-color .2s;
-  }
-  #searchInput:focus{ border-color:var(--cyan); }
-  #searchInput::placeholder{ color:var(--gray); }
-
-  #resultCount{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12.5px;
-    color:var(--gray);
-    white-space:nowrap;
-  }
-
-  .tools-table-wrap{
-    border:1px solid var(--line);
-    border-radius:2px;
-    overflow:hidden;
-  }
-
-  #toolsTable{
-    width:100%;
-    border-collapse:collapse;
-  }
-
-  #toolsTable thead th{
-    text-align:left;
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--gray);
-    background:var(--off);
-    padding:16px 20px;
-    border-bottom:1px solid var(--line);
-  }
-
-  #toolsTable tbody tr{
-    border-bottom:1px solid var(--line);
-    transition:background .2s;
-  }
-  #toolsTable tbody tr:last-child{ border-bottom:none; }
-  #toolsTable tbody tr:hover{ background:var(--off); }
-
-  #toolsTable tbody td{
-    padding:20px;
-    font-size:14.5px;
-    vertical-align:middle;
-  }
-
-  .tool-name{ font-weight:600; font-size:15px; }
-  .tool-category{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--cyan); }
-  .tool-version{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--gray); }
-  .tool-desc{ color:var(--gray); line-height:1.5; max-width:340px; display:block; }
-
-  .download-btn{
-    display:inline-flex; align-items:center; gap:8px;
-    background:var(--ink);
-    color:#fff;
-    border:none;
-    border-radius:100px;
-    padding:9px 18px;
-    font-family:'Inter', sans-serif;
-    font-size:13px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    white-space:nowrap;
-    transition:background .2s, transform .15s;
-  }
-  .download-btn:hover{ background:#1a1f28; transform:translateY(-1px); }
-
-  .empty-state{
-    padding:56px 20px;
-    text-align:center;
-    color:var(--gray);
-    font-family:'JetBrains Mono', monospace;
-    font-size:13px;
-    display:none;
-  }
-  .empty-state.show{ display:block; }
-
-  @media (max-width:900px){
-    .tools-table-wrap{ border:none; }
-    #toolsTable thead{ display:none; }
-    #toolsTable, #toolsTable tbody, #toolsTable tr, #toolsTable td{ display:block; width:100%; }
-    #toolsTable tbody tr{
-      border:1px solid var(--line);
-      border-radius:4px;
-      margin-bottom:14px;
-      padding:16px 4px;
-    }
-    #toolsTable tbody td{ padding:6px 16px; border:none; }
-    #toolsTable tbody td:first-child{ padding-top:2px; }
-    #toolsTable td[data-label]::before{
-      content: attr(data-label);
-      display:block;
-      font-family:'JetBrains Mono', monospace;
-      font-size:10px;
-      letter-spacing:0.06em;
-      text-transform:uppercase;
-      color:var(--gray);
-      margin-bottom:4px;
-    }
-    .tool-desc{ max-width:none; }
-    .actions-cell{ padding-top:12px; }
-  }
-
-  @media (max-width:600px){
-    #searchInput{ max-width:none; width:100%; }
-  }
-
-  @media (max-width:900px){
-    #bannerVideo{
-      height:78vw;
-      min-height:340px;
-    }
-    #outroVideo{
-      height:88vw;
-      min-height:360px;
-    }
-  }
-
-  .tech-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:28px;
-  }
-  .tech-card{
-    position:relative;
-    aspect-ratio:1 / 1;
-    border:1px solid var(--line);
-    border-radius:10px;
-    background:var(--off);
-    overflow:hidden;
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:24px;
-    text-align:center;
-    transition:transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s, box-shadow .28s, background .28s;
-  }
-  .tech-card:hover, .tech-card:focus-visible{
-    transform:scale(1.055);
-    border-color:var(--ink);
-    background:var(--white);
-    box-shadow:0 24px 48px -16px rgba(10,14,20,0.28);
-    z-index:2;
-    outline:none;
-  }
-  .tech-card .tech-icon{
-    width:56px; height:56px;
-    margin-bottom:18px;
-    color:var(--ink);
-    transition:transform .28s;
-    object-fit:contain;
-  }
-  .tech-card:hover .tech-icon{
-    transform:translateY(-2px) scale(1.08);
-  }
-  .tech-card .tech-name{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:17px;
-    letter-spacing:-0.01em;
-    margin-bottom:8px;
-  }
-  .tech-card .tech-tag{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--gray);
-  }
-  .tech-card .tech-desc{
-    font-size:12.5px;
-    color:var(--gray);
-    line-height:1.5;
-    max-width:220px;
-    margin-top:10px;
-    max-height:0;
-    opacity:0;
-    overflow:hidden;
-    transition:max-height .28s ease, opacity .22s ease;
-  }
-  .tech-card:hover .tech-desc, .tech-card:focus-visible .tech-desc{
-    max-height:80px;
-    opacity:1;
-  }
-  .tech-card .tech-select{
-    position:absolute;
-    top:14px; right:14px;
-    width:26px; height:26px;
-    border-radius:50%;
-    background:#25D366;
-    color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    opacity:0;
-    transform:scale(.7);
-    transition:opacity .22s, transform .22s;
-  }
-  .tech-card:hover .tech-select, .tech-card:focus-visible .tech-select{
-    opacity:1;
-    transform:scale(1);
-  }
-
-  @media (max-width:900px){
-    .tech-grid{ grid-template-columns:repeat(2, 1fr); gap:18px; }
-    .tech-card{ padding:18px; }
-    .tech-card .tech-icon{ width:46px; height:46px; margin-bottom:14px; }
-  }
-
-  /* ---------- catálogo de bots ---------- */
-  .bot-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  .bot-card{
-    position:relative;
-    background:var(--white);
-    padding:32px 30px 28px;
-    display:flex;
-    flex-direction:column;
-    transition:background .3s;
-  }
-  .bot-card:hover{ background:var(--off); }
-  .bot-card .bot-badge{
-    position:absolute;
-    top:24px; right:24px;
-    font-family:'JetBrains Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:#fff;
-    background:var(--ink);
-    padding:4px 9px;
-    border-radius:100px;
-  }
-  .bot-card .num{
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--cyan);
-    margin-bottom:18px;
-    display:block;
-  }
-  .bot-card h3{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:18.5px;
-    font-weight:600;
-    margin-bottom:6px;
-    padding-right:60px;
-  }
-  .bot-card .bot-tagline{
-    color:var(--gray);
-    font-size:13.5px;
-    line-height:1.55;
-    margin-bottom:18px;
-  }
-  .bot-card ul.bot-features{
-    list-style:none;
-    margin:0 0 22px;
-    padding:0;
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    flex:1;
-  }
-  .bot-card ul.bot-features li{
-    font-size:12.5px;
-    color:var(--ink);
-    line-height:1.5;
-    padding-left:16px;
-    position:relative;
-  }
-  .bot-card ul.bot-features li::before{
-    content:'';
-    position:absolute;
-    left:0; top:6px;
-    width:5px; height:5px;
-    background:var(--cyan);
-  }
-  .bot-card .bot-cta{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    background:var(--ink);
-    color:#fff;
-    border:none;
-    border-radius:100px;
-    padding:11px 18px;
-    font-family:'Inter', sans-serif;
-    font-size:13px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    transition:background .2s, transform .15s;
-  }
-  .bot-card .bot-cta:hover{ background:#1a1f28; transform:translateY(-1px); }
-
-  .bot-cta-row{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .bot-cta-row .bot-cta{ flex:1; white-space:nowrap; }
-  .bot-card .bot-cta.secondary{
-    background:transparent;
-    color:var(--ink);
-    border:1px solid var(--line);
-  }
-  .bot-card .bot-cta.secondary:hover{
-    background:var(--off);
-    border-color:var(--ink);
-    transform:translateY(-1px);
-  }
-  .bot-card .bot-cta.secondary svg{ flex-shrink:0; }
-
-  @media (max-width:900px){
-    .bot-grid{ grid-template-columns:1fr; }
-    .bot-card{ padding:26px 24px; }
-  }
-
-  /* ---------- modal de demonstração dos bots ---------- */
-  .demo-overlay{
-    position:fixed; inset:0;
-    background:rgba(10,14,20,0.55);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:24px;
-    z-index:100;
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .25s ease;
-  }
-  .demo-overlay.open{
-    opacity:1;
-    pointer-events:auto;
-  }
-
-  .demo-modal{
-    width:100%;
-    max-width:600px;
-    max-height:min(720px, 88vh);
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:8px;
-    box-shadow:0 40px 90px -20px rgba(10,14,20,0.45);
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-    transform:translateY(16px) scale(.985);
-    transition:transform .28s cubic-bezier(.2,.8,.2,1);
-  }
-  .demo-overlay.open .demo-modal{
-    transform:translateY(0) scale(1);
-  }
-
-  .demo-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:16px 18px;
-    background:var(--off);
-    border-bottom:1px solid var(--line);
-    flex-shrink:0;
-  }
-  .demo-head-info{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    min-width:0;
-  }
-  .demo-head-dot{
-    width:8px; height:8px; border-radius:50%;
-    background:var(--cyan);
-    box-shadow:0 0 8px var(--cyan);
-    flex-shrink:0;
-    animation:pulse 2s infinite;
-  }
-  .demo-head-text{ min-width:0; }
-  .demo-head-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:13.5px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .demo-head-sub{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;
-    letter-spacing:0.05em;
-    text-transform:uppercase;
-    color:var(--gray);
-  }
-  .demo-head-actions{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    flex-shrink:0;
-  }
-  .demo-icon-btn{
-    width:30px; height:30px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:var(--white);
-    color:var(--gray);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:border-color .18s, color .18s, background .18s;
-  }
-  .demo-icon-btn:hover{ border-color:var(--ink); color:var(--ink); }
-
-  .demo-progress{
-    display:flex;
-    gap:4px;
-    padding:10px 18px 0;
-    flex-shrink:0;
-  }
-  .demo-progress span{
-    height:3px;
-    flex:1;
-    background:var(--line);
-    border-radius:2px;
-    overflow:hidden;
-  }
-  .demo-progress span i{
-    display:block;
-    height:100%;
-    width:0%;
-    background:var(--ink);
-    transition:width .3s ease;
-  }
-  .demo-progress span.done i{ width:100%; }
-
-  .demo-body{
-    flex:1;
-    overflow-y:auto;
-    padding:20px 18px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    scrollbar-width:thin;
-    scrollbar-color: var(--line) transparent;
-  }
-  .demo-body::-webkit-scrollbar{ width:6px; }
-  .demo-body::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
-
-  .demo-msg{
-    max-width:84%;
-    animation: demoRise .25s ease both;
-  }
-  @keyframes demoRise{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
-
-  .demo-msg.bot{ align-self:flex-start; }
-  .demo-msg.user{ align-self:flex-end; }
-
-  .demo-bubble{
-    font-size:13.5px;
-    line-height:1.55;
-    padding:11px 14px;
-    border-radius:14px;
-  }
-  .demo-msg.bot .demo-bubble{
-    background:var(--off);
-    border:1px solid var(--line);
-    color:var(--ink);
-    border-bottom-left-radius:4px;
-  }
-  .demo-msg.user .demo-bubble{
-    background:var(--ink);
-    color:#fff;
-    border-bottom-right-radius:4px;
-  }
-  .demo-label{
-    font-family:'JetBrains Mono', monospace;
-    font-size:9.5px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--gray);
-    margin-bottom:5px;
-    padding:0 2px;
-  }
-  .demo-msg.user .demo-label{ text-align:right; }
-
-  .demo-typing{
-    align-self:flex-start;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    background:var(--off);
-    border:1px solid var(--line);
-    border-radius:14px;
-    border-bottom-left-radius:4px;
-    padding:12px 14px;
-  }
-  .demo-typing span{
-    width:5px; height:5px;
-    border-radius:50%;
-    background:var(--gray);
-    animation:demoBlink 1.1s infinite ease-in-out;
-  }
-  .demo-typing span:nth-child(2){ animation-delay:.15s; }
-  .demo-typing span:nth-child(3){ animation-delay:.3s; }
-  @keyframes demoBlink{ 0%,80%,100%{ opacity:.25; transform:scale(.8); } 40%{ opacity:1; transform:scale(1); } }
-
-  .demo-choices{
-    align-self:flex-start;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    max-width:92%;
-  }
-  .demo-choice-btn{
-    font-family:'Inter', sans-serif;
-    font-size:12.5px;
-    font-weight:600;
-    padding:9px 14px;
-    border-radius:100px;
-    border:1px solid var(--line);
-    background:var(--white);
-    color:var(--ink);
-    cursor:default;
-    transition:border-color .3s, background .3s, color .3s, transform .3s;
-  }
-  .demo-choice-btn.chosen{
-    background:var(--ink);
-    border-color:var(--ink);
-    color:#fff;
-    transform:translateY(-1px);
-  }
-
-  .demo-result{
-    align-self:stretch;
-    max-width:100%;
-    border:1px solid var(--line);
-    border-radius:10px;
-    overflow:hidden;
-    background:var(--white);
-  }
-  .demo-result-head{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:12px 16px;
-    background:var(--ink);
-    color:#fff;
-  }
-  .demo-result-head svg{ flex-shrink:0; }
-  .demo-result-head span{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-  }
-  .demo-result-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:15px;
-    padding:14px 16px 4px;
-  }
-  .demo-result-rows{
-    display:flex;
-    flex-direction:column;
-  }
-  .demo-result-row{
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    padding:9px 16px;
-    border-top:1px solid var(--line);
-    font-size:12.5px;
-  }
-  .demo-result-row .k{
-    color:var(--gray);
-    font-family:'JetBrains Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.02em;
-  }
-  .demo-result-row .v{
-    font-weight:600;
-    text-align:right;
-  }
-  .demo-result-note{
-    padding:10px 16px 14px;
-    font-size:11.5px;
-    color:var(--gray);
-    line-height:1.5;
-    border-top:1px solid var(--line);
-  }
-
-  .demo-foot{
-    flex-shrink:0;
-    padding:16px 18px;
-    border-top:1px solid var(--line);
-    background:var(--off);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
-  }
-  .demo-foot-note{
-    font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;
-    color:var(--gray);
-    letter-spacing:0.03em;
-  }
-  .demo-foot-actions{
-    display:flex;
-    gap:8px;
-  }
-  .demo-restart-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:transparent;
-    color:var(--ink);
-    border:1px solid var(--line);
-    border-radius:100px;
-    padding:9px 15px;
-    font-family:'Inter', sans-serif;
-    font-size:12.5px;
-    font-weight:600;
-    cursor:pointer;
-    transition:border-color .18s, background .18s;
-  }
-  .demo-restart-btn:hover{ border-color:var(--ink); background:var(--white); }
-  .demo-cta-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    background:#25D366;
-    color:#fff;
-    border:none;
-    border-radius:100px;
-    padding:9px 16px;
-    font-family:'Inter', sans-serif;
-    font-size:12.5px;
-    font-weight:600;
-    cursor:pointer;
-    text-decoration:none;
-    transition:transform .15s, box-shadow .15s;
-    box-shadow:0 8px 22px -8px rgba(37,211,102,0.55);
-  }
-  .demo-cta-btn:hover{ transform:translateY(-1px); }
-
-  @media (max-width:600px){
-    .demo-overlay{ padding:0; align-items:flex-end; }
-    .demo-modal{
-      max-width:none;
-      width:100%;
-      max-height:92vh;
-      border-radius:16px 16px 0 0;
-    }
-    .demo-msg{ max-width:92%; }
-    .demo-foot{ flex-direction:column; align-items:stretch; }
-    .demo-foot-actions{ width:100%; }
-    .demo-foot-actions .demo-restart-btn,
-    .demo-foot-actions .demo-cta-btn{ flex:1; justify-content:center; }
-  }
-
-  @media (max-width:600px){
-    .tech-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
-    .tech-card .tech-name{ font-size:14.5px; }
-    .tech-card .tech-desc{ display:none; }
-  }
-
-  @media (max-width:600px){
-    .bot-card{ padding:22px 20px; }
-    .bot-card h3{ font-size:17px; }
-  }
-
-  footer{
-    padding:56px;
-    display:flex; justify-content:space-between; align-items:center;
-    border-top:1px solid var(--line);
-    font-family:'JetBrains Mono', monospace;
-    font-size:12px;
-    color:var(--gray);
-  }
-  footer .status{
-    display:flex; align-items:center; gap:8px;
-  }
-  footer .status .dot{
-    width:6px; height:6px; border-radius:50%;
-    background:var(--cyan);
-    box-shadow:0 0 8px var(--cyan);
-    animation:pulse 2s infinite;
-  }
-  @keyframes pulse{
-    0%,100%{opacity:1;}
-    50%{opacity:0.3;}
-  }
-
-  .whatsapp-cta{
+  .app {
     position: relative;
-  }
-  .whatsapp-cta::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    border-radius:100px;
-    animation: wa-pulse 2.2s ease-out infinite;
-    pointer-events:none;
-  }
-  @keyframes wa-pulse{
-    0%{ box-shadow:0 0 0 0 rgba(37,211,102,0.55); }
-    70%{ box-shadow:0 0 0 22px rgba(37,211,102,0); }
-    100%{ box-shadow:0 0 0 0 rgba(37,211,102,0); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .whatsapp-cta::before{ animation: none; }
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 32px 20px 20px;
   }
 
-  @media (max-width:860px){
-    .nav-toggle{ display:flex; }
+  .reset-btn {
+    position: fixed;
+    top: 20px;
+    right: 22px;
+    z-index: 5;
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    padding: 4px 6px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .reset-btn:hover { color: var(--text-dim); }
+  .reset-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    .nav-links{
-      position:fixed;
-      top:0; right:0;
-      height:100vh;
-      width:min(78vw, 320px);
-      background:#ffffff;
-      flex-direction:column;
-      gap:0;
-      padding:88px 32px 40px;
-      transform:translateX(100%);
-      transition:transform .32s cubic-bezier(.4,0,.2,1);
-      box-shadow:-24px 0 60px -20px rgba(10,14,20,0.18);
-      z-index:9;
-      align-items:flex-start;
-    }
-    .nav-links.open{ transform:translateX(0); }
-    .nav-links li{
-      width:100%;
-      border-bottom:1px solid var(--line);
-    }
-    .nav-links a{
-      display:block;
-      padding:18px 4px;
-      font-size:14px;
-      letter-spacing:0.04em;
-      opacity:0.85;
-    }
-    .nav-links a:hover{ opacity:1; color:var(--cyan); }
+  .hero {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    transition: opacity 0.35s ease, transform 0.35s ease, margin 0.35s ease, max-height 0.4s ease;
+    overflow: hidden;
+  }
+  .hero.collapsed {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    margin: 0;
+    pointer-events: none;
+  }
+  .hero-top { margin-top: 12vh; }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .hidden { display: none !important; }
+  .hero p.subtitle {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    margin: 0 0 30px;
+    font-family: var(--font-display);
+  }
+  .hero p.subtitle .flicker { color: var(--accent-strong); }
+
+  .chat-shell {
+    width: 100%;
+    max-width: 640px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 
-  @media (max-width:900px){
-    nav, section, footer{padding-left:24px; padding-right:24px;}
-    header.hero{grid-template-columns:1fr; padding-top:96px;}
-    .hero-left{padding:0 24px 40px 24px;}
-    .hero-right{min-height:320px; border-left:none; border-top:1px solid var(--line);}
-    .hero-right .bg-photo{background-position: center 10%;}
-    .grid3{grid-template-columns:1fr;}
-    .hero-meta{flex-wrap:wrap; gap:32px;}
+  .chat-window {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 2px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: #232833 transparent;
+  }
+  .chat-window::-webkit-scrollbar { width: 6px; }
+  .chat-window::-webkit-scrollbar-thumb { background: #232833; border-radius: 10px; }
+
+  .msg { max-width: 92%; animation: rise 0.28s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .msg.user {
+    align-self: flex-end;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md) var(--radius-md) 4px var(--radius-md);
+    padding: 10px 15px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--text);
   }
 
-  @media (max-width:600px){
-    nav{padding:18px 20px;}
-    .logo{font-size:12px; gap:8px;}
+  .msg.bot { align-self: flex-start; max-width: 100%; }
 
-    header.hero{padding-top:84px;}
-    .hero-left{padding:0 20px 32px 20px;}
-    .eyebrow{font-size:10.5px; margin-bottom:20px;}
-    h1{font-size:clamp(40px, 12vw, 56px); line-height:0.98;}
-    .subhead{font-size:14.5px; margin-top:20px;}
-    .hero-meta{margin-top:36px; gap:20px 28px; padding-top:20px;}
-    .hero-meta .v{font-size:13.5px;}
+  .prompt-line {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .prompt-line::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
 
-    .hero-right{min-height:260px;}
-    .hero-right .bg-photo{background-position: center 8%;}
-    .hero-right .frame{inset:20px;}
-    .hero-right .corner.tl{top:16px; left:16px;}
-    .hero-right .corner.br{bottom:16px; right:16px;}
-    .hero-right .tag{top:32px; left:32px; font-size:9.5px;}
-    .hero-right .readout{bottom:32px; left:32px; font-size:9.5px; line-height:1.6;}
+  .bot-text {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.65;
+    color: #dbe2ea;
+    white-space: pre-wrap;
+  }
 
-    section{padding:72px 20px;}
-    .section-head{margin-bottom:36px;}
-    .section-head h2{font-size:26px;}
-    .section-head p{font-size:13px;}
-    .card{padding:26px 24px;}
-    .card h3{font-size:17px;}
-    .card p{font-size:13px;}
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 15px;
+    background: var(--accent-strong);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
 
-    footer{padding:32px 20px; flex-direction:column; align-items:flex-start; gap:14px;}
+  .msg-actions { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .msg-actions button {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .msg-actions button:hover { border-color: var(--accent); color: var(--text); transform: translateY(-1px); }
+  .msg-actions button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .msg-actions button.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .msg-actions button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .composer-wrap {
+    width: 100%;
+    max-width: 640px;
+    margin: 10px auto 0;
+    position: sticky;
+    bottom: 0;
+    padding-bottom: 8px;
+    background: linear-gradient(to top, var(--bg) 55%, transparent);
+  }
+
+  .composer-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 14px 10px;
+  }
+  .composer-card:focus-within { border-color: var(--border-soft); }
+
+  .composer-divider { width: 1px; height: 20px; background: var(--border); margin: 0 2px; }
+
+  #chatInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 15px;
+    line-height: 1.5;
+    max-height: 96px;
+    min-height: 24px;
+    padding: 2px 4px 12px;
+  }
+  #chatInput::placeholder { color: var(--text-faint); }
+
+  .composer-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+  .agent-tag {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text-dim);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 8px 6px 6px;
+  }
+
+  .composer-actions { display: flex; align-items: center; gap: 6px; }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex-shrink: 0;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .icon-btn.mic-active { color: #fff; background: #ef4444; border-color: #ef4444; }
+
+  #sendBtn { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+  #sendBtn:hover:not(:disabled) { background: var(--accent-strong); border-color: var(--accent-strong); }
+  #sendBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 24px; }
+    .hero-top { margin-top: 8vh; }
+    .reset-btn { top: 14px; right: 14px; }
+  }
+
+  @media (min-width: 481px) and (max-width: 900px) {
+    .app { padding: 28px 32px 20px; }
+    .hero, .chat-shell, .composer-wrap { max-width: 680px; }
+    .hero-top { margin-top: 10vh; }
+    .hero h1 { font-size: 28px; }
+    .icon-btn { width: 38px; height: 38px; }
+    .msg { max-width: 85%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; }
+    .msg { animation: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="grid-bg"></div>
+  <button class="reset-btn hidden" id="resetBtn" type="button">reiniciar sessão</button>
 
-<nav>
-  <div class="logo"><span class="dot"></span>LUIDYSEC</div>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#ferramentas">Ferramentas</a></li>
-    <li><a href="#tecnologias">Tecnologias</a></li>
-    <li><a href="#bots">Bots</a></li>
-    <li><a href="#hanna">HANNA</a></li>
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#doom">Doom</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
-  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-overlay" id="navOverlay"></div>
-
-<header class="hero">
-  <div class="hero-left">
-    <div class="eyebrow">Sistemas online</div>
-    <h1>O <span class="accent">futuro</span><br>da segurança<br>cyber</h1>
-    <p class="subhead">LuidySec — soluções em infraestrutura, redes e proteção de dados para operações que não podem parar. Diagnóstico, prevenção e resposta, executados com precisão.</p>
-
-    <div class="hero-meta">
-      <div>
-        <span class="k">Base</span>
-        <span class="v">São Paulo, BR</span>
-      </div>
-      <div>
-        <span class="k">Foco</span>
-        <span class="v">Segurança &amp; Infraestrutura</span>
-      </div>
-      <div>
-        <span class="k">Disponibilidade</span>
-        <span class="v">Aberto a projetos</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="bg-photo p1"></div>
-    <div class="bg-photo p2"></div>
-    <div class="frame"></div>
-    <div class="corner tl"></div>
-    <div class="corner br"></div>
-    <div class="tag">Técnico responsável</div>
-    <div class="readout">
-      Nome <b>Luidy</b><br>
-      Cargo <b>Técnico &amp; Fundador</b><br>
-      Especialidade <b>Segurança &amp; Redes</b><br>
-      Atendimento <b>verificado</b>
-    </div>
-  </div>
-</header>
-
-<section id="video-banner" style="padding-top:0; padding-bottom:0; border-top:none; padding-left:0; padding-right:0;">
-  <div class="video-frame" style="position:relative; overflow:hidden; margin:0 0 60px;">
-    <video
-      id="bannerVideo"
-      autoplay muted loop playsinline webkit-playsinline="true" disablePictureInPicture
-      preload="auto"
-      style="width:100%; height:clamp(360px, 42vw, 620px); object-fit:cover; display:block; filter:grayscale(15%) contrast(1.05); pointer-events:none;"
-      poster="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_tiny.jpg">
-      <source src="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_large.mp4" type="video/mp4">
-    </video>
-    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(10,14,20,0.15) 55%, rgba(10,14,20,0.55) 100%); pointer-events:none;"></div>
-    <div style="position:absolute; top:24px; left:24px; display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); padding:8px 14px; border-radius:2px;">
-      <span style="width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></span>
-      <span style="font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink);">tecnologia em movimento</span>
-    </div>
-    <div style="position:absolute; bottom:0; left:0; right:0; padding:32px 32px 28px;">
-      <h2 style="font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(22px, 3.4vw, 36px); color:#fff; letter-spacing:-0.01em; max-width:640px;">
-        Infraestrutura, redes e IA trabalhando juntas.
-      </h2>
-    </div>
-  </div>
-</section>
-
-<section id="servicos">
-  <div class="section-head">
-    <h2>Serviços</h2>
-    <p>Suporte técnico completo, da manutenção do dia a dia à proteção contra ameaças digitais.</p>
-  </div>
-  <div class="grid3">
-    <div class="card">
-      <span class="num">01</span>
-      <h3>Segurança &amp; Backup</h3>
-      <p>Proteção de dados, backup automatizado e resposta a incidentes de segurança.</p>
-    </div>
-    <div class="card">
-      <span class="num">02</span>
-      <h3>Redes &amp; Infraestrutura</h3>
-      <p>Configuração de rede, Wi-Fi, VPN e monitoramento de infraestrutura local.</p>
-    </div>
-    <div class="card">
-      <span class="num">03</span>
-      <h3>Suporte &amp; Manutenção</h3>
-      <p>Formatação, instalação de sistemas e reparo de dispositivos móveis e desktops.</p>
-    </div>
-    <div class="card">
-      <span class="num">04</span>
-      <h3>Automação &amp; Ferramentas</h3>
-      <p>Chatbots e ferramentas sob medida para atendimento e operação de clientes.</p>
-      <a href="#hanna" style="display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; color:var(--cyan); text-decoration:underline; text-underline-offset:3px; letter-spacing:0.02em;">
-        Testar a HANNA ↓
-      </a>
-    </div>
-    <div class="card">
-      <span class="num">05</span>
-      <h3>Linux &amp; Sistemas Abertos</h3>
-      <p>Instalação, configuração e hardening de ambientes Linux para uso profissional.</p>
-    </div>
-    <div class="card">
-      <span class="num">06</span>
-      <h3>Consultoria Técnica</h3>
-      <p>Diagnóstico de ambiente e recomendações práticas de segurança e performance.</p>
-    </div>
-  </div>
-</section>
-
-<section id="ferramentas">
-  <div class="section-head">
-    <h2>Ferramentas</h2>
-    <p>Utilitários e scripts que uso no dia a dia de suporte e infraestrutura, disponibilizados aqui para quem quiser baixar e usar.</p>
-  </div>
-
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Buscar por nome ou categoria...">
-    <span id="resultCount"></span>
-  </div>
-
-  <div class="tools-table-wrap">
-    <table id="toolsTable">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Categoria</th>
-          <th>Versão</th>
-          <th>Descrição</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="toolsBody"></tbody>
-    </table>
-    <div class="empty-state" id="emptyState">Nenhuma ferramenta encontrada para essa busca.</div>
-  </div>
-</section>
-
-<section id="tecnologias">
-  <div class="section-head">
-    <h2>Tecnologias</h2>
-    <p>Selecione a stack ou o ambiente que melhor descreve sua necessidade. O encaminhamento já sai contextualizado direto pro WhatsApp.</p>
-  </div>
-
-  <div class="tech-grid" id="techGrid"></div>
-</section>
-
-<section id="bots">
-  <div class="section-head">
-    <h2>Catálogo de Bots</h2>
-    <p>Assistentes sob medida pra atendimento, orçamento e triagem — prontos pra rodar no seu site, WhatsApp ou painel interno.</p>
-  </div>
-
-  <div class="bot-grid" id="botGrid"></div>
-</section>
-
-<section id="sobre">
-  <div class="section-head">
-    <h2>Sobre</h2>
-  </div>
-  <p style="max-width:640px; font-size:16px; line-height:1.8; color:var(--gray);">
-    Atuo com tecnologia da informação de forma prática — aprendendo fazendo, resolvendo problemas reais de infraestrutura, segurança e suporte para negócios que precisam de resultado, não de teoria. Cada projeto é tratado como se fosse crítico, porque para o cliente, é.
-  </p>
-</section>
-
-<section id="doom" style="padding-bottom:100px;">
-  <div class="section-head">
-    <h2>Modo Nostalgia</h2>
-    <p>Um easter egg técnico: DOOM (1993) rodando 100% no navegador via WebAssembly. Amostra shareware, sem instalação.</p>
-  </div>
-
-  <div style="border:1px solid var(--line); border-radius:4px; overflow:hidden; max-width:680px; margin:0 auto; box-shadow:0 24px 60px -20px rgba(10,14,20,0.15); background:#000;">
-
-    <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 16px; background:var(--off); border-bottom:1px solid var(--line);">
-      <div style="display:flex; align-items:center; gap:8px;">
-        <span style="width:8px; height:8px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></span>
-        <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray); letter-spacing:0.05em; text-transform:uppercase;">doom.exe — amostra shareware</span>
-      </div>
-      <button id="doomFullscreenBtn" type="button" style="display:none; font-family:'JetBrains Mono', monospace; font-size:11px; background:transparent; border:1px solid var(--line); border-radius:100px; padding:6px 12px; color:var(--ink); cursor:pointer;">
-        tela cheia
-      </button>
-    </div>
-
-    <div id="doomStage" style="position:relative; width:100%; aspect-ratio:4/2.5; background:#0a0e14; display:flex; align-items:center; justify-content:center;">
-
-      <div id="doomStart" style="text-align:center; padding:24px; color:#dbe2ea;">
-        <div style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--cyan); margin-bottom:14px;">
-          pressione play pra carregar o emulador
-        </div>
-        <button id="doomPlayBtn" type="button" style="display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; border:none; border-radius:100px; padding:12px 24px; font-family:'Inter', sans-serif; font-weight:600; font-size:14px; cursor:pointer;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7-11-7z"/></svg>
-          Jogar amostra
-        </button>
-        <div style="font-family:'JetBrains Mono', monospace; font-size:10px; color:#6b7280; margin-top:14px; line-height:1.6;">
-          setas = mover · ctrl = atirar · espaço = usar<br>
-          funciona melhor em desktop
-        </div>
-      </div>
-
-      <div id="dosbox" style="display:none; width:100%; height:100%;"></div>
-    </div>
-  </div>
-</section>
-
-<section id="hanna" style="padding-bottom:100px;">
-  <div class="section-head">
-    <h2>Teste a HANNA</h2>
-    <p>Unidade de triagem técnica, já operacional atendendo clientes reais. Envie uma mensagem e observe o diagnóstico em tempo real.</p>
-  </div>
-  <div style="border:1px solid var(--line); border-radius:4px; overflow:hidden; max-width:720px; margin:0 auto; box-shadow:0 24px 60px -20px rgba(10,14,20,0.15);">
-    <div style="display:flex; align-items:center; gap:8px; padding:12px 16px; background:var(--off); border-bottom:1px solid var(--line);">
-      <span style="width:8px; height:8px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan);"></span>
-      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gray); letter-spacing:0.05em; text-transform:uppercase;">hanna — sistemas online</span>
-    </div>
-    <iframe src="chatbot/index.html" title="HANNA — assistente virtual" loading="lazy" style="width:100%; height:640px; border:none; display:block;"></iframe>
-  </div>
-</section>
-
-<section id="video-outro" style="padding-top:0; padding-bottom:0; border-top:none; padding-left:0; padding-right:0;">
-  <div class="video-frame" style="position:relative; overflow:hidden; margin:0;">
-    <video
-      id="outroVideo"
-      autoplay muted loop playsinline webkit-playsinline="true" disablePictureInPicture
-      preload="auto"
-      style="width:100%; height:clamp(320px, 40vw, 520px); object-fit:cover; display:block; filter:contrast(1.05); pointer-events:none;"
-      poster="https://cdn.pixabay.com/video/2023/07/27/173482-849645869_tiny.jpg">
-      <source src="https://cdn.pixabay.com/video/2023/07/27/173482-849645869_large.mp4" type="video/mp4">
-    </video>
-    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,14,20,0.35) 0%, rgba(10,14,20,0.1) 40%, rgba(10,14,20,0.55) 100%); pointer-events:none;"></div>
-    <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px;">
-      <span style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--cyan); margin-bottom:16px;">Protocolo de contato disponível</span>
-      <h2 style="font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(26px, 4.2vw, 46px); color:#fff; letter-spacing:-0.01em; max-width:640px;">
-        Vamos colocar sua infraestrutura em ordem.
-      </h2>
-      <a href="https://wa.me/5515981289296?text=Ol%C3%A1!%20Vi%20o%20portf%C3%B3lio%20da%20LuidySec%20e%20quero%20colocar%20minha%20infraestrutura%20em%20ordem." target="_blank" rel="noopener" class="whatsapp-cta"
-        style="display:inline-flex; align-items:center; gap:10px; margin-top:28px; background:#25D366; color:#ffffff; font-family:'Inter', sans-serif; font-weight:600; font-size:14.5px; padding:14px 26px; border-radius:100px; text-decoration:none; box-shadow:0 12px 32px -8px rgba(37,211,102,0.5); transition:transform .18s, box-shadow .18s;"
-        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 16px 40px -8px rgba(37,211,102,0.6)';"
-        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 32px -8px rgba(37,211,102,0.5)';">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.53.06-1 .27-3.44-.72-2.44-.99-4.04-3.49-4.16-3.65-.12-.16-.99-1.31-.99-2.5s.62-1.77.84-2.01c.22-.24.48-.3.64-.3.16 0 .32.002.46.008.15.006.35-.056.55.42.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.24.25-.1.49.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.26z"/></svg>
-        Falar no WhatsApp
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer id="contato">
-  <div>LuidySec — Tecnologia da Informação © 2026</div>
-  <div class="status"><span class="dot"></span>Disponível para novos projetos</div>
-</footer>
-
-<div class="demo-overlay" id="demoOverlay" aria-hidden="true">
-  <div class="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
-    <div class="demo-head">
-      <div class="demo-head-info">
-        <span class="demo-head-dot" aria-hidden="true"></span>
-        <div class="demo-head-text">
-          <div class="demo-head-title" id="demoTitle">—</div>
-          <div class="demo-head-sub">simulação · dados fictícios</div>
-        </div>
-      </div>
-      <div class="demo-head-actions">
-        <button type="button" class="demo-icon-btn" id="demoSkipBtn" title="Pular animação" aria-label="Pular animação">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 5l7 7-7 7M14 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button type="button" class="demo-icon-btn" id="demoCloseBtn" title="Fechar" aria-label="Fechar demonstração">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+  <div class="app">
+    <div class="hero" id="hero">
+      <div class="hero-top">
+        <h1>HANNA <span style="color:var(--accent-strong);">·</span> em espera</h1>
+        <p class="subtitle">Diagnóstico técnico sob demanda. <span class="flicker">Descreva a ocorrência</span> quando estiver pronto.</p>
       </div>
     </div>
 
-    <div class="demo-progress" id="demoProgress"></div>
+    <div class="chat-shell">
+      <div class="chat-window" id="chatWindow"></div>
 
-    <div class="demo-body" id="demoBody"></div>
-
-    <div class="demo-foot">
-      <span class="demo-foot-note" id="demoFootNote">isso é uma simulação do fluxo real</span>
-      <div class="demo-foot-actions">
-        <button type="button" class="demo-restart-btn" id="demoRestartBtn">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1 1 3.2 6.9M3 12V6m0 6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Reiniciar
-        </button>
-        <a href="#" target="_blank" rel="noopener" class="demo-cta-btn" id="demoCtaBtn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.53.06-1 .27-3.44-.72-2.44-.99-4.04-3.49-4.16-3.65-.12-.16-.99-1.31-.99-2.5s.62-1.77.84-2.01c.22-.24.48-.3.64-.3.16 0 .32.002.46.008.15.006.35-.056.55.42.2.48.68 1.66.74 1.78.06.12.1.26.02.42-.08.16-.12.26-.24.4-.12.14-.25.31-.36.42-.12.12-.24.25-.1.49.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.58-.18 1.26z"/></svg>
-          Quero esse bot
-        </a>
+      <div class="composer-wrap">
+        <form class="composer-card" id="composerForm" style="margin-top:10px;">
+          <textarea id="chatInput" rows="1" placeholder="Descreva a ocorrência..."></textarea>
+          <div class="composer-row">
+            <div class="agent-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="14" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/></svg>
+              HANNA · IA
+            </div>
+            <div class="composer-actions">
+              <span class="composer-divider" aria-hidden="true"></span>
+              <button type="button" class="icon-btn" id="micBtn" title="Entrada por voz" aria-label="Entrada por voz">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 003-3V6a3 3 0 10-6 0v6a3 3 0 003 3z" stroke="currentColor" stroke-width="1.6"/><path d="M19 11a7 7 0 01-14 0M12 18v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </button>
+              <button type="submit" class="icon-btn" id="sendBtn" disabled title="Transmitir" aria-label="Enviar mensagem">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-</div>
 
 <script>
-  const WHATSAPP_NUMBER = "5515981289296";
+// ============================================================
+// HANNA — versão 100% IA (sem regras locais / keywords / fuzzy matching)
+//
+// Toda mensagem do usuário é enviada direto pro Worker (Cloudflare),
+// que repassa pra API da OpenRouter. Quem decide o que responder é
+// inteiramente o modelo de IA, guiado pelo "system prompt" que está
+// dentro do código do Worker (o arquivo que fica no dash.cloudflare.com,
+// não este aqui).
+//
+// O histórico da conversa é enviado a cada mensagem, pra a IA manter
+// contexto (lembrar o que já foi dito antes na mesma sessão).
+// ============================================================
 
-  // ---------------------------------------------------------------
-  // FERRAMENTAS
-  // ---------------------------------------------------------------
-  const TOOLS = [
-    { name: "DiskClean", category: "Manutenção", version: "v1.2", description: "Script de limpeza de arquivos temporários e cache do Windows." },
-    { name: "NetScan Lite", category: "Redes", version: "v0.9", description: "Varredura simples de dispositivos ativos na rede local." },
-    { name: "BackupSync", category: "Segurança & Backup", version: "v2.0", description: "Rotina de backup incremental para pastas locais e externas." },
-    { name: "LogViewer", category: "Linux", version: "v1.0", description: "Visualizador rápido de logs do sistema em terminal." },
-    { name: "PortCheck", category: "Redes", version: "v1.1", description: "Verificação rápida de portas abertas em um host." }
-  ];
+const CONTACT_LINK = "https://wa.me/5515981289296";
+const HANNA_PROXY_URL = "https://hanna-proxy.luidysec.workers.dev";
 
-  const toolsBody = document.getElementById("toolsBody");
-  const toolsSearchInput = document.getElementById("searchInput");
-  const toolsResultCount = document.getElementById("resultCount");
-  const toolsEmptyState = document.getElementById("emptyState");
-  const toolsTableEl = document.getElementById("toolsTable");
+const hero = document.getElementById("hero");
+const chatWindow = document.getElementById("chatWindow");
+const chatInput = document.getElementById("chatInput");
+const composerForm = document.getElementById("composerForm");
+const sendBtn = document.getElementById("sendBtn");
+const micBtn = document.getElementById("micBtn");
+const resetBtn = document.getElementById("resetBtn");
 
-  function waLink(toolName){
-    const msg = `Olá! Vi a ferramenta "${toolName}" no portfólio da LuidySec e gostaria de receber o arquivo.`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  }
+let prefersReducedMotion = false;
+try {
+  prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+} catch (e) {
+  prefersReducedMotion = false;
+}
 
-  function renderTools(list){
-    toolsBody.innerHTML = "";
-    list.forEach(tool => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td data-label="Nome"><span class="tool-name">${tool.name}</span></td>
-        <td data-label="Categoria"><span class="tool-category">${tool.category}</span></td>
-        <td data-label="Versão"><span class="tool-version">${tool.version}</span></td>
-        <td data-label="Descrição"><span class="tool-desc">${tool.description}</span></td>
-        <td class="actions-cell">
-          <a class="download-btn" href="${waLink(tool.name)}" target="_blank" rel="noopener">↓ Baixar</a>
-        </td>
-      `;
-      toolsBody.appendChild(tr);
-    });
+let busy = false;
+let started = false;
 
-    toolsResultCount.textContent = `${list.length} de ${TOOLS.length}`;
-    const showEmpty = list.length === 0;
-    toolsEmptyState.classList.toggle("show", showEmpty);
-    toolsTableEl.style.display = showEmpty ? "none" : "table";
-  }
+// Histórico simples da sessão, enviado ao Worker a cada chamada
+// pra a IA manter contexto da conversa.
+let history = [];
 
-  function filterTools(query){
-    const q = query.trim().toLowerCase();
-    if(!q) return TOOLS;
-    return TOOLS.filter(t =>
-      t.name.toLowerCase().includes(q) ||
-      t.category.toLowerCase().includes(q)
-    );
-  }
+function scrollToBottom() {
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
 
-  toolsSearchInput.addEventListener("input", (e) => {
-    renderTools(filterTools(e.target.value));
-  });
+function collapseHero() {
+  if (started) return;
+  started = true;
+  hero.classList.add("collapsed");
+  resetBtn.classList.remove("hidden");
+}
 
-  renderTools(TOOLS);
+function addUserMessage(text) {
+  const el = document.createElement("div");
+  el.className = "msg user";
+  el.textContent = text;
+  chatWindow.appendChild(el);
+  scrollToBottom();
+}
 
-  // ---------------------------------------------------------------
-  // TECNOLOGIAS
-  // ---------------------------------------------------------------
-  const TECHNOLOGIES = [
-    {
-      id: "openclaw",
-      name: "OpenClaw",
-      tag: "Automação & Agentes de IA",
-      desc: "Orquestração de agentes autônomos, integrações e fluxos de automação sob medida.",
-      iconType: "custom",
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7L6.5 15.5M12 7L17.5 15.5M7 17h10"/></svg>`
-    },
-    {
-      id: "cli",
-      name: "Linha de Comando",
-      tag: "Shell & Scripting",
-      desc: "Scripts, automações e ferramentas via terminal, sem dependência de interface gráfica.",
-      iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/gnubash.svg"
-    },
-    {
-      id: "linux",
-      name: "Interface Linux",
-      tag: "Configuração & Hardening",
-      desc: "Instalação, configuração e hardening de ambientes Linux para uso profissional.",
-      iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linux.svg"
-    },
-    {
-      id: "redes",
-      name: "Redes & Infraestrutura",
-      tag: "Conectividade & Monitoramento",
-      desc: "Configuração de rede, VPN, firewall e monitoramento de infraestrutura.",
-      iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cisco.svg"
-    },
-    {
-      id: "seguranca",
-      name: "Segurança & OSINT",
-      tag: "Inteligência & Proteção de Dados",
-      desc: "Levantamento de informação, resposta a incidentes e proteção de dados.",
-      iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/kalilinux.svg"
-    },
-    {
-      id: "windows",
-      name: "Ambientes Windows",
-      tag: "Suporte & Administração",
-      desc: "Suporte, formatação e administração de ambientes corporativos Windows.",
-      iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/windows.svg"
-    }
-  ];
-
-  function techWaLink(tech){
-    const msg = `Olá! Tenho interesse na tecnologia "${tech.name}" (${tech.tag}) oferecida pela LuidySec. Podemos conversar?`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  }
-
-  function renderTechGrid(){
-    const grid = document.getElementById("techGrid");
-    if(!grid) return;
-    grid.innerHTML = "";
-    TECHNOLOGIES.forEach(tech => {
-      const card = document.createElement("a");
-      card.href = techWaLink(tech);
-      card.target = "_blank";
-      card.rel = "noopener";
-      card.className = "tech-card";
-      card.setAttribute("aria-label", `Selecionar ${tech.name} e falar no WhatsApp`);
-
-      const iconMarkup = tech.iconType === "cdn"
-        ? `<img class="tech-icon" src="${tech.iconUrl}" alt="${tech.name}" loading="lazy" />`
-        : `<span class="tech-icon">${tech.icon}</span>`;
-
-      card.innerHTML = `
-        <span class="tech-select" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>
-        </span>
-        ${iconMarkup}
-        <span class="tech-name">${tech.name}</span>
-        <span class="tech-tag">${tech.tag}</span>
-        <span class="tech-desc">${tech.desc}</span>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  renderTechGrid();
-
-  // ---------------------------------------------------------------
-  // CATÁLOGO DE BOTS
-  // ---------------------------------------------------------------
-  const BOT_CATALOG = [
-    {
-      id: "orcamento",
-      name: "Bot de Orçamento",
-      tagline: "Faz perguntas guiadas sobre o problema e já entrega uma estimativa de valor ou um resumo pronto pro WhatsApp.",
-      badge: "mais pedido",
-      features: [
-        "Perguntas adaptadas ao tipo de serviço",
-        "Estimativa de faixa de preço",
-        "Resumo automático pro atendente"
-      ]
-    },
-    {
-      id: "agendamento",
-      name: "Bot de Agendamento",
-      tagline: "Coleta dia, horário e tipo de atendimento (presencial ou remoto) e monta a confirmação sem ida e volta de mensagens.",
-      features: [
-        "Verificação de disponibilidade",
-        "Presencial ou remoto",
-        "Confirmação automática por mensagem"
-      ]
-    },
-    {
-      id: "qualificacao",
-      name: "Bot de Qualificação de Lead",
-      tagline: "Identifica se é pessoa física ou empresa e direciona pro serviço certo antes de chegar ao atendente.",
-      features: [
-        "Segmenta pessoa física ou empresa",
-        "Detecta porte e urgência",
-        "Encaminhamento por especialidade"
-      ]
-    },
-    {
-      id: "status",
-      name: "Bot de Status de Chamado",
-      tagline: "Cliente informa o número do protocolo e recebe o andamento do serviço na hora.",
-      features: [
-        "Consulta por número de protocolo",
-        "Integração com planilha ou painel",
-        "Atualização em tempo real"
-      ]
-    },
-    {
-      id: "faq",
-      name: "Bot FAQ",
-      tagline: "Respostas diretas pras perguntas mais comuns — horário, formas de pagamento, área de cobertura.",
-      features: [
-        "Setup rápido, sem regras complexas",
-        "Ideal pra dúvidas recorrentes",
-        "Baixo custo de manutenção"
-      ]
-    },
-    {
-      id: "checklist",
-      name: "Quiz de Segurança",
-      tagline: "Checklist interativo que avalia hábitos digitais e sugere os serviços certos pros pontos fracos encontrados.",
-      badge: "engajamento",
-      features: [
-        "Perguntas tipo quiz, com pontuação",
-        "Recomendação personalizada no final",
-        "Bom pra captar leads engajados"
-      ]
-    },
-    {
-      id: "pos-venda",
-      name: "Bot de Pós-Atendimento",
-      tagline: "Dispara automaticamente após o serviço pra medir satisfação e identificar problemas recorrentes.",
-      features: [
-        "Pesquisa rápida de satisfação",
-        "Disparo automático pós-serviço",
-        "Histórico de feedback por cliente"
-      ]
-    }
-  ];
-
-  function botWaLink(bot){
-    const msg = `Olá! Tenho interesse no "${bot.name}" do catálogo de bots da LuidySec. Podemos conversar sobre esse projeto?`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-  }
-
-  function renderBotCatalog(){
-    const grid = document.getElementById("botGrid");
-    if(!grid) return;
-    grid.innerHTML = "";
-    BOT_CATALOG.forEach((bot, i) => {
-      const card = document.createElement("div");
-      card.className = "bot-card";
-
-      const badgeMarkup = bot.badge
-        ? `<span class="bot-badge">${bot.badge}</span>`
-        : "";
-
-      const featuresMarkup = bot.features
-        .map(f => `<li>${f}</li>`)
-        .join("");
-
-      card.innerHTML = `
-        ${badgeMarkup}
-        <span class="num">${String(i + 1).padStart(2, "0")}</span>
-        <h3>${bot.name}</h3>
-        <p class="bot-tagline">${bot.tagline}</p>
-        <ul class="bot-features">${featuresMarkup}</ul>
-        <div class="bot-cta-row">
-          <button type="button" class="bot-cta secondary" data-demo-id="${bot.id}">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7-11-7z" fill="currentColor"/></svg>
-            Ver demonstração
-          </button>
-          <a class="bot-cta" href="${botWaLink(bot)}" target="_blank" rel="noopener">Solicitar orçamento</a>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  renderBotCatalog();
-
-  // ---------------------------------------------------------------
-  // DEMONSTRAÇÕES SIMULADAS DOS BOTS
-  // ---------------------------------------------------------------
-  const DEMOS = {
-    orcamento: {
-      title: "Bot de Orçamento",
-      sub: "simulação · triagem de equipamento",
-      script: [
-        { from: "bot", text: "Oi! Eu sou o assistente de orçamento da LuidySec 👋 Pra te ajudar rápido, qual tipo de equipamento você quer que a gente avalie?" },
-        { choice: true, options: ["Notebook", "Desktop", "Celular", "Servidor/Rede"], chosen: 0 },
-        { from: "bot", text: "Entendido, notebook. E qual é o problema principal que você está enfrentando com ele?" },
-        { choice: true, options: ["Muito lento", "Não liga", "Vírus/malware", "Tela quebrada"], chosen: 0 },
-        { from: "bot", text: "Certo. Só mais duas perguntas pra eu calcular a faixa de valor certinho: qual a marca/modelo e o ano aproximado de compra?" },
-        { from: "user", text: "É um Dell Inspiron, comprei em 2021." },
-        { from: "bot", text: "Perfeito, obrigado! Uma última coisa: o armazenamento dele é HD mecânico ou SSD?" },
-        { choice: true, options: ["HD (mecânico)", "SSD", "Não sei"], chosen: 2 },
-        { from: "bot", text: "Sem problema, isso a gente confirma no diagnóstico. Com base no que você me contou, montei uma pré-análise 👇" },
-        { result: {
-            title: "Pré-análise concluída",
-            rows: [
-              ["Diagnóstico provável", "HD saturado / inicialização pesada"],
-              ["Serviço recomendado", "Upgrade para SSD + limpeza de sistema"],
-              ["Faixa estimada", "R$ 250 – R$ 450"],
-              ["Prazo estimado", "1 a 2 dias úteis"]
-            ],
-            note: "Valores e prazo são uma pré-análise. Um especialista confirma o valor exato após ver o aparelho."
-        }},
-        { from: "bot", text: "Consegui deixar uma estimativa pronta pra você. Quer que eu já encaminhe esse resumo pro especialista confirmar?" }
-      ]
-    },
-
-    agendamento: {
-      title: "Bot de Agendamento",
-      sub: "simulação · marcação de atendimento",
-      script: [
-        { from: "bot", text: "Olá! Vamos agendar seu atendimento técnico. Você prefere presencial ou remoto?" },
-        { choice: true, options: ["Presencial", "Remoto"], chosen: 1 },
-        { from: "bot", text: "Show, atendimento remoto economiza tempo de deslocamento. Qual tipo de serviço você precisa?" },
-        { choice: true, options: ["Suporte técnico", "Configuração de rede", "Remoção de vírus", "Outro"], chosen: 2 },
-        { from: "bot", text: "Anotado: remoção de vírus, remoto. Qual desses horários funciona melhor pra você essa semana?" },
-        { choice: true, options: ["Amanhã, 9h–11h", "Amanhã, 14h–16h", "Quinta, 10h–12h"], chosen: 1 },
-        { from: "bot", text: "Deixa eu verificar a disponibilidade na agenda..." },
-        { result: {
-            title: "Agendamento pré-confirmado",
-            rows: [
-              ["Serviço", "Remoção de vírus (remoto)"],
-              ["Data", "Amanhã"],
-              ["Janela", "14h – 16h"],
-              ["Técnico responsável", "Luidy"],
-              ["Status", "Pré-reservado"]
-            ],
-            note: "A confirmação final chega por WhatsApp em poucos minutos, com o link de acesso remoto."
-        }},
-        { from: "bot", text: "Prontinho! Deixei pré-reservado esse horário. Um especialista confirma em instantes pelo WhatsApp." }
-      ]
-    },
-
-    qualificacao: {
-      title: "Bot de Qualificação de Lead",
-      sub: "simulação · triagem inicial",
-      script: [
-        { from: "bot", text: "Oi! Antes de te encaminhar pro time certo, só preciso entender seu perfil. Você está entrando em contato como pessoa física ou representando uma empresa?" },
-        { choice: true, options: ["Pessoa física", "Empresa"], chosen: 1 },
-        { from: "bot", text: "Legal. Aproximadamente quantos computadores ou dispositivos a empresa tem hoje?" },
-        { choice: true, options: ["1 a 5", "6 a 20", "Mais de 20"], chosen: 1 },
-        { from: "bot", text: "E o que motivou o contato agora — é algo urgente ou é planejamento?" },
-        { choice: true, options: ["Urgente, sistema parado", "Planejamento/melhoria", "Só cotação"], chosen: 0 },
-        { from: "bot", text: "Entendi a urgência. Verificando o encaminhamento ideal..." },
-        { result: {
-            title: "Lead qualificado",
-            rows: [
-              ["Perfil", "Empresa · pequeno/médio porte (6–20 disp.)"],
-              ["Urgência", "Alta — operação impactada"],
-              ["Encaminhamento", "Equipe de infraestrutura, prioridade"],
-              ["Próximo passo", "Contato imediato via WhatsApp"]
-            ],
-            note: "Leads marcados como urgentes pulam a fila padrão de atendimento."
-        }},
-        { from: "bot", text: "Como sua operação está parada, já vou te encaminhar direto e com prioridade pro especialista." }
-      ]
-    },
-
-    status: {
-      title: "Bot de Status de Chamado",
-      sub: "simulação · consulta de protocolo",
-      script: [
-        { from: "bot", text: "Olá! Pra consultar o status do seu chamado, me informa o número do protocolo (você recebeu por WhatsApp ou e-mail)." },
-        { from: "user", text: "Protocolo 4821" },
-        { from: "bot", text: "Consultando o protocolo 4821 no sistema..." },
-        { result: {
-            title: "Chamado #4821",
-            rows: [
-              ["Serviço", "Backup e recuperação de dados"],
-              ["Status", "Em andamento — 70% concluído"],
-              ["Última atualização", "Hoje, 11h32"],
-              ["Previsão de conclusão", "Hoje até às 18h"],
-              ["Técnico", "Luidy"]
-            ],
-            note: "Atualizações de status também são enviadas automaticamente por WhatsApp."
-        }},
-        { from: "bot", text: "Seu chamado está quase finalizado! Quer que eu já te conecte com o técnico pra alguma dúvida?" }
-      ]
-    },
-
-    faq: {
-      title: "Bot FAQ",
-      sub: "simulação · dúvidas frequentes",
-      script: [
-        { from: "bot", text: "Oi! Sou o FAQ da LuidySec. Sobre o que você quer saber?" },
-        { choice: true, options: ["Horário de atendimento", "Formas de pagamento", "Área de cobertura", "Prazo médio"], chosen: 1 },
-        { from: "bot", text: "Aceitamos Pix, cartão de crédito/débito (com maquininha) e transferência bancária. Pra serviços empresariais, também emitimos nota fiscal." },
-        { from: "bot", text: "Posso te ajudar com mais alguma dúvida?" },
-        { choice: true, options: ["Área de cobertura", "Prazo médio", "Já resolveu, obrigado"], chosen: 0 },
-        { from: "bot", text: "Atendimento presencial cobre São Paulo (capital e região). Atendimento remoto é feito pra qualquer lugar do Brasil." },
-        { from: "bot", text: "Posso ajudar com mais alguma coisa ou prefere já falar com um especialista?" }
-      ]
-    },
-
-    checklist: {
-      title: "Quiz de Segurança",
-      sub: "simulação · checklist de hábitos digitais",
-      script: [
-        { from: "bot", text: "Vamos fazer um checklist rápido de segurança digital? São 4 perguntas, leva menos de 1 minuto." },
-        { from: "bot", text: "1) Você usa a mesma senha em mais de um site importante?" },
-        { choice: true, options: ["Sim", "Não"], chosen: 0 },
-        { from: "bot", text: "2) Seu computador ou celular tem backup automático configurado?" },
-        { choice: true, options: ["Sim", "Não", "Não sei"], chosen: 1 },
-        { from: "bot", text: "3) Você costuma clicar em links recebidos por WhatsApp ou e-mail sem verificar o remetente?" },
-        { choice: true, options: ["Às vezes", "Nunca"], chosen: 0 },
-        { from: "bot", text: "4) Seu Wi-Fi tem senha forte e é trocada periodicamente?" },
-        { choice: true, options: ["Sim", "Não tenho certeza"], chosen: 1 },
-        { from: "bot", text: "Calculando seu nível de exposição..." },
-        { result: {
-            title: "Resultado do checklist",
-            rows: [
-              ["Pontuação de segurança", "3 / 10 — risco elevado"],
-              ["Ponto crítico 1", "Reuso de senha entre sites"],
-              ["Ponto crítico 2", "Ausência de backup automático"],
-              ["Ponto crítico 3", "Wi-Fi sem gestão de senha"]
-            ],
-            note: "Recomendações: gerenciador de senhas com autenticação em duas etapas, rotina de backup automatizado e hardening da rede Wi-Fi."
-        }},
-        { from: "bot", text: "Seu checklist indica alguns pontos que valem atenção — nada grave, mas dá pra resolver rápido." }
-      ]
-    },
-
-    "pos-venda": {
-      title: "Bot de Pós-Atendimento",
-      sub: "simulação · pesquisa de satisfação",
-      script: [
-        { from: "bot", text: "Oi! Aqui é a LuidySec 👋 Seu atendimento de ontem (remoção de vírus) foi concluído. De 0 a 10, como você avalia o serviço?" },
-        { choice: true, options: ["9 ou 10", "7 ou 8", "Abaixo de 7"], chosen: 0 },
-        { from: "bot", text: "Que ótimo, fico feliz que deu certo 🙌 O problema que te motivou a chamar a gente foi totalmente resolvido?" },
-        { choice: true, options: ["Sim, resolvido", "Parcialmente", "Ainda não"], chosen: 0 },
-        { from: "bot", text: "Perfeito. Última pergunta: você recomendaria a LuidySec pra alguém?" },
-        { choice: true, options: ["Com certeza", "Talvez", "Não"], chosen: 0 },
-        { from: "bot", text: "Registrando sua avaliação..." },
-        { result: {
-            title: "Resumo da pesquisa",
-            rows: [
-              ["Nota", "9.6 (promotor)"],
-              ["Status do problema", "Resolvido"],
-              ["Indicação", "Alta probabilidade"],
-              ["Ação registrada", "Incluído na manutenção preventiva semestral"]
-            ],
-            note: "Clientes promotores entram automaticamente na lista de acompanhamento semestral."
-        }},
-        { from: "bot", text: "Obrigado pelo retorno! Isso ajuda muito a gente a manter o padrão. Qualquer coisa, é só chamar." }
-      ]
-    }
-  };
-
-  const demoOverlay = document.getElementById("demoOverlay");
-  const demoBody = document.getElementById("demoBody");
-  const demoProgress = document.getElementById("demoProgress");
-  const demoTitleEl = document.getElementById("demoTitle");
-  const demoSubEl = document.querySelector(".demo-head-sub");
-  const demoCtaBtn = document.getElementById("demoCtaBtn");
-  const demoCloseBtn = document.getElementById("demoCloseBtn");
-  const demoRestartBtn = document.getElementById("demoRestartBtn");
-  const demoSkipBtn = document.getElementById("demoSkipBtn");
-  const demoFootNote = document.getElementById("demoFootNote");
-
-  let demoRunToken = 0;
-  let demoSkipRequested = false;
-  let demoCurrentBotId = null;
-
-  function demoWait(ms, token){
-    return new Promise((resolve) => {
-      const start = Date.now();
-      function tick(){
-        if (token !== demoRunToken) return resolve();
-        if (demoSkipRequested || Date.now() - start >= ms) return resolve();
-        requestAnimationFrame(tick);
-      }
-      tick();
-    });
-  }
-
-  function demoScrollToBottom(){
-    demoBody.scrollTop = demoBody.scrollHeight;
-  }
-
-  function demoBuildProgress(steps){
-    demoProgress.innerHTML = "";
-    steps.forEach(() => {
-      const span = document.createElement("span");
-      span.innerHTML = "<i></i>";
-      demoProgress.appendChild(span);
-    });
-  }
-
-  function demoMarkProgress(index){
-    const bars = demoProgress.querySelectorAll("span");
-    bars.forEach((bar, i) => bar.classList.toggle("done", i <= index));
-  }
-
-  function demoAddTyping(){
-    const el = document.createElement("div");
-    el.className = "demo-typing";
-    el.innerHTML = "<span></span><span></span><span></span>";
-    demoBody.appendChild(el);
-    demoScrollToBottom();
-    return el;
-  }
-
-  function demoAddBubble(from, text){
+function addBotMessage(text, { actions } = {}) {
+  return new Promise((resolve) => {
     const wrap = document.createElement("div");
-    wrap.className = `demo-msg ${from}`;
-    const label = document.createElement("div");
-    label.className = "demo-label";
-    label.textContent = from === "bot" ? "bot" : "cliente (simulado)";
-    const bubble = document.createElement("div");
-    bubble.className = "demo-bubble";
-    bubble.textContent = text;
-    wrap.appendChild(label);
-    wrap.appendChild(bubble);
-    demoBody.appendChild(wrap);
-    demoScrollToBottom();
-  }
+    wrap.className = "msg bot";
 
-  function demoAddResult(result){
-    const wrap = document.createElement("div");
-    wrap.className = "demo-msg bot";
-    wrap.style.maxWidth = "100%";
+    const promptLine = document.createElement("div");
+    promptLine.className = "prompt-line";
+    promptLine.textContent = "HANNA";
+    wrap.appendChild(promptLine);
 
-    const card = document.createElement("div");
-    card.className = "demo-result";
+    const textEl = document.createElement("span");
+    textEl.className = "bot-text";
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    wrap.appendChild(textEl);
+    wrap.appendChild(cursor);
 
-    const rowsMarkup = result.rows
-      .map(([k, v]) => `<div class="demo-result-row"><span class="k">${k}</span><span class="v">${v}</span></div>`)
-      .join("");
+    chatWindow.appendChild(wrap);
+    scrollToBottom();
 
-    card.innerHTML = `
-      <div class="demo-result-head">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/></svg>
-        <span>resultado do fluxo</span>
-      </div>
-      <div class="demo-result-title">${result.title}</div>
-      <div class="demo-result-rows">${rowsMarkup}</div>
-      ${result.note ? `<div class="demo-result-note">${result.note}</div>` : ""}
-    `;
-    wrap.appendChild(card);
-    demoBody.appendChild(wrap);
-    demoScrollToBottom();
-  }
-
-  async function demoRunChoice(step, token){
-    const choicesWrap = document.createElement("div");
-    choicesWrap.className = "demo-choices";
-    const btns = step.options.map((label) => {
-      const b = document.createElement("span");
-      b.className = "demo-choice-btn";
-      b.textContent = label;
-      choicesWrap.appendChild(b);
-      return b;
-    });
-    demoBody.appendChild(choicesWrap);
-    demoScrollToBottom();
-
-    await demoWait(900, token);
-    if (token !== demoRunToken) return;
-
-    btns[step.chosen].classList.add("chosen");
-    await demoWait(500, token);
-    if (token !== demoRunToken) return;
-
-    choicesWrap.remove();
-    demoAddBubble("user", step.options[step.chosen]);
-    await demoWait(450, token);
-  }
-
-  async function demoRunScript(botId){
-    const demo = DEMOS[botId];
-    if (!demo) return;
-
-    demoRunToken++;
-    const token = demoRunToken;
-    demoSkipRequested = false;
-    demoCurrentBotId = botId;
-
-    demoBody.innerHTML = "";
-    demoTitleEl.textContent = demo.title;
-    demoSubEl.textContent = demo.sub;
-    demoBuildProgress(demo.script);
-    demoFootNote.textContent = "reproduzindo simulação...";
-
-    const bot = BOT_CATALOG.find((b) => b.id === botId);
-    demoCtaBtn.href = botWaLink(bot || { name: demo.title });
-
-    for (let i = 0; i < demo.script.length; i++){
-      if (token !== demoRunToken) return;
-      const step = demo.script[i];
-      demoMarkProgress(i);
-
-      if (step.choice){
-        await demoRunChoice(step, token);
-      } else if (step.result){
-        const typing = demoAddTyping();
-        await demoWait(900, token);
-        if (token !== demoRunToken) return;
-        typing.remove();
-        demoAddResult(step.result);
-        await demoWait(600, token);
-      } else if (step.from === "bot"){
-        const typing = demoAddTyping();
-        await demoWait(850, token);
-        if (token !== demoRunToken) return;
-        typing.remove();
-        demoAddBubble("bot", step.text);
-        await demoWait(500, token);
-      } else {
-        await demoWait(500, token);
-        if (token !== demoRunToken) return;
-        demoAddBubble("user", step.text);
-        await demoWait(450, token);
-      }
-      demoSkipRequested = false;
-    }
-
-    if (token !== demoRunToken) return;
-    demoFootNote.textContent = "simulação concluída — fluxo real feito sob medida pro seu negócio";
-  }
-
-  function demoOpen(botId){
-    demoOverlay.classList.add("open");
-    demoOverlay.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-    demoRunScript(botId);
-  }
-
-  function demoClose(){
-    demoRunToken++;
-    demoOverlay.classList.remove("open");
-    demoOverlay.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-
-  document.getElementById("botGrid").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-demo-id]");
-    if (!btn) return;
-    demoOpen(btn.getAttribute("data-demo-id"));
-  });
-
-  demoCloseBtn.addEventListener("click", demoClose);
-  demoOverlay.addEventListener("click", (e) => {
-    if (e.target === demoOverlay) demoClose();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && demoOverlay.classList.contains("open")) demoClose();
-  });
-  demoRestartBtn.addEventListener("click", () => {
-    if (demoCurrentBotId) demoRunScript(demoCurrentBotId);
-  });
-  demoSkipBtn.addEventListener("click", () => {
-    demoSkipRequested = true;
-  });
-
-  // ---------------------------------------------------------------
-  // DOOM — EASTER EGG (só carrega quando o usuário clica em jogar)
-  // ---------------------------------------------------------------
-  (function(){
-    const playBtn = document.getElementById("doomPlayBtn");
-    const startScreen = document.getElementById("doomStart");
-    const dosboxEl = document.getElementById("dosbox");
-    const fullscreenBtn = document.getElementById("doomFullscreenBtn");
-    if (!playBtn) return;
-
-    let dosboxInstance = null;
-    let scriptLoaded = false;
-
-    function loadScript(src){
-      return new Promise((resolve, reject) => {
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        document.body.appendChild(s);
-      });
-    }
-
-    async function startDoom(){
-      playBtn.disabled = true;
-      playBtn.textContent = "Carregando...";
-
-      try {
-        if (!scriptLoaded){
-          await loadScript("https://js-dos.com/cdn/js-dos-api.js");
-          scriptLoaded = true;
-        }
-
-        startScreen.style.display = "none";
-        dosboxEl.style.display = "block";
-        fullscreenBtn.style.display = "inline-block";
-
-        dosboxInstance = new Dosbox({
-          id: "dosbox",
-          onload: function (dosbox) {
-            dosbox.run("https://js-dos.com/cdn/upload/DOOM-@evilution.zip", "./DOOM/DOOM.EXE");
-          },
-          onrun: function () {}
+    const finish = () => {
+      cursor.remove();
+      if (actions && actions.length) {
+        const actionsWrap = document.createElement("div");
+        actionsWrap.className = "msg-actions";
+        actions.forEach(({ label, primary, onClick }) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = label;
+          if (primary) btn.classList.add("primary");
+          btn.addEventListener("click", onClick);
+          actionsWrap.appendChild(btn);
         });
-      } catch (e) {
-        startScreen.style.display = "flex";
-        dosboxEl.style.display = "none";
-        playBtn.disabled = false;
-        playBtn.textContent = "Tentar novamente";
+        wrap.appendChild(actionsWrap);
       }
-    }
-
-    playBtn.addEventListener("click", startDoom);
-    fullscreenBtn.addEventListener("click", function(){
-      if (dosboxInstance) dosboxInstance.requestFullScreen();
-    });
-  })();
-
-  // ---------------------------------------------------------------
-  // MENU MOBILE
-  // ---------------------------------------------------------------
-  const navToggle = document.getElementById("navToggle");
-  const navLinks = document.getElementById("navLinks");
-  const navOverlay = document.getElementById("navOverlay");
-
-  function closeNav(){
-    navToggle.classList.remove("open");
-    navLinks.classList.remove("open");
-    navOverlay.classList.remove("open");
-    navToggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
-  }
-
-  function openNav(){
-    navToggle.classList.add("open");
-    navLinks.classList.add("open");
-    navOverlay.classList.add("open");
-    navToggle.setAttribute("aria-expanded", "true");
-    document.body.style.overflow = "hidden";
-  }
-
-  navToggle.addEventListener("click", () => {
-    navLinks.classList.contains("open") ? closeNav() : openNav();
-  });
-  navOverlay.addEventListener("click", closeNav);
-  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 860) closeNav();
-  });
-
-  // ---------------------------------------------------------------
-  // AUTOPLAY DOS VÍDEOS (mobile precisa de reforço)
-  // ---------------------------------------------------------------
-  const autoplayVideos = document.querySelectorAll("#bannerVideo, #outroVideo");
-  autoplayVideos.forEach((vid) => {
-    vid.muted = true;
-    vid.playsInline = true;
-
-    const tryPlay = () => {
-      const p = vid.play();
-      if (p !== undefined) p.catch(() => { /* tenta de novo depois */ });
+      scrollToBottom();
+      resolve();
     };
 
-    tryPlay();
-    vid.addEventListener("loadeddata", tryPlay);
-    vid.addEventListener("canplay", tryPlay);
-
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) tryPlay();
-        });
-      }, { threshold: 0.25 });
-      io.observe(vid);
+    if (prefersReducedMotion) {
+      textEl.textContent = text;
+      finish();
+      return;
     }
 
-    ["touchstart", "click", "scroll"].forEach((evt) => {
-      window.addEventListener(evt, tryPlay, { once: true, passive: true });
-    });
+    let i = 0;
+    const speed = 14;
+    const interval = setInterval(() => {
+      textEl.textContent = text.slice(0, i);
+      scrollToBottom();
+      i++;
+      if (i > text.length) {
+        clearInterval(interval);
+        finish();
+      }
+    }, speed);
   });
-</script>
+}
 
+function addThinkingBubble() {
+  const wrap = document.createElement("div");
+  wrap.className = "msg bot";
+  wrap.innerHTML = `<div class="prompt-line">HANNA</div><span class="bot-text">Processando sinal…</span>`;
+  chatWindow.appendChild(wrap);
+  scrollToBottom();
+  return wrap;
+}
+
+function ctaActions(extra = []) {
+  return [
+    {
+      label: "acionar especialista",
+      primary: true,
+      onClick: () => window.open(CONTACT_LINK, "_blank", "noopener"),
+    },
+    ...extra,
+  ];
+}
+
+// Chamada real ao Worker/OpenRouter — sem nenhuma regra local no meio.
+async function askAI(text) {
+  const bubble = addThinkingBubble();
+  try {
+    const res = await fetch(HANNA_PROXY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text, history }),
+    });
+    if (!res.ok) throw new Error("proxy indisponível");
+    const data = await res.json();
+    const reply = data.reply || "Não consegui processar essa mensagem no momento.";
+
+    history.push({ role: "user", content: text });
+    history.push({ role: "assistant", content: reply });
+    // mantém só as últimas mensagens pra não crescer indefinidamente
+    if (history.length > 20) history = history.slice(-20);
+
+    bubble.remove();
+    await addBotMessage(reply, { actions: ctaActions() });
+  } catch (e) {
+    bubble.remove();
+    await addBotMessage(
+      "Não consegui me conectar ao sistema de diagnóstico agora. Tente novamente em instantes, ou fale direto com o especialista.",
+      { actions: ctaActions() }
+    );
+  }
+}
+
+async function sendMessage(text) {
+  if (busy) return;
+  busy = true;
+  startChat();
+  addUserMessage(text);
+  await askAI(text);
+  busy = false;
+}
+
+function updateSendState() {
+  sendBtn.disabled = chatInput.value.trim().length === 0;
+}
+
+function autoResize() {
+  chatInput.style.height = "auto";
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 96) + "px";
+}
+
+chatInput.addEventListener("input", () => {
+  updateSendState();
+  autoResize();
+});
+
+function trySendMessage() {
+  const text = chatInput.value.trim();
+  if (!text || busy) return;
+  chatInput.value = "";
+  autoResize();
+  updateSendState();
+  sendMessage(text);
+}
+
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    trySendMessage();
+  }
+});
+
+composerForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  trySendMessage();
+});
+
+resetBtn.addEventListener("click", () => {
+  chatWindow.innerHTML = "";
+  hero.classList.remove("collapsed");
+  resetBtn.classList.add("hidden");
+  started = false;
+  history = [];
+});
+
+(function setupMic() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    micBtn.style.display = "none";
+    return;
+  }
+  const recognition = new SpeechRecognition();
+  recognition.lang = "pt-BR";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  let listening = false;
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    chatInput.value = transcript;
+    autoResize();
+    updateSendState();
+  };
+  recognition.onend = () => {
+    listening = false;
+    micBtn.classList.remove("mic-active");
+  };
+  recognition.onerror = () => {
+    listening = false;
+    micBtn.classList.remove("mic-active");
+  };
+
+  micBtn.addEventListener("click", () => {
+    if (listening) {
+      recognition.stop();
+      return;
+    }
+    listening = true;
+    micBtn.classList.add("mic-active");
+    try {
+      recognition.start();
+    } catch (e) {
+      listening = false;
+      micBtn.classList.remove("mic-active");
+    }
+  });
+})();
+
+function startChat() {
+  if (started) return;
+  collapseHero();
+}
+
+chatInput.addEventListener("focus", startChat, { once: true });
+</script>
 </body>
 </html>
