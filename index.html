@@ -1069,6 +1069,162 @@
     .distro-grid{ grid-template-columns:1fr 1fr; }
   }
 
+  /* ---------- terminal de comandos ---------- */
+  .term-tabs{
+    display:flex;
+    gap:6px;
+    padding:14px 18px 0;
+    flex-shrink:0;
+  }
+  .term-tab{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    font-weight:600;
+    color:var(--gray);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:100px;
+    padding:9px 10px;
+    cursor:pointer;
+    transition:border-color .18s, color .18s, background .18s;
+  }
+  .term-tab img{ width:14px; height:14px; object-fit:contain; opacity:0.7; }
+  .term-tab.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
+  .term-tab.active img{ opacity:1; filter:invert(1); }
+  .term-tab:hover:not(.active){ border-color:var(--ink); color:var(--ink); }
+
+  .term-search{
+    margin:14px 18px 0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    padding:11px 14px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    background:var(--white);
+    color:var(--ink);
+    outline:none;
+    width:calc(100% - 36px);
+    transition:border-color .2s;
+  }
+  .term-search:focus{ border-color:var(--cyan); }
+  .term-search::placeholder{ color:var(--gray); }
+
+  .term-window{
+    margin:14px 18px 18px;
+    background:#0a0e14;
+    border-radius:8px;
+    overflow:hidden;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+  }
+  .term-window-bar{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 14px;
+    background:#151a22;
+    flex-shrink:0;
+  }
+  .term-window-bar span{
+    width:10px; height:10px;
+    border-radius:50%;
+    display:block;
+  }
+  .term-window-bar span:nth-child(1){ background:#ff5f56; }
+  .term-window-bar span:nth-child(2){ background:#ffbd2e; }
+  .term-window-bar span:nth-child(3){ background:#27c93f; }
+  .term-window-title{
+    margin-left:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:#6b7280;
+  }
+  .term-list{
+    flex:1;
+    overflow-y:auto;
+    padding:6px 0 14px;
+    scrollbar-width:thin;
+    scrollbar-color: #2a3140 transparent;
+  }
+  .term-list::-webkit-scrollbar{ width:6px; }
+  .term-list::-webkit-scrollbar-thumb{ background:#2a3140; border-radius:10px; }
+
+  .term-empty{
+    padding:32px 20px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:#6b7280;
+    display:none;
+  }
+  .term-empty.show{ display:block; }
+
+  .term-row{
+    padding:11px 18px;
+    border-bottom:1px solid #1a2029;
+  }
+  .term-row:last-child{ border-bottom:none; }
+  .term-cmd-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .term-prompt{
+    color:#27c93f;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    flex-shrink:0;
+    user-select:none;
+  }
+  .term-cmd{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:#e6e9ee;
+    flex:1;
+    overflow-x:auto;
+    white-space:pre;
+  }
+  .term-copy-btn{
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    border-radius:5px;
+    border:1px solid #2a3140;
+    background:transparent;
+    color:#6b7280;
+    cursor:pointer;
+    transition:border-color .18s, color .18s, background .18s;
+  }
+  .term-copy-btn:hover{ border-color:#7b5cff; color:#fff; }
+  .term-copy-btn.copied{ border-color:#27c93f; color:#27c93f; }
+  .term-desc{
+    font-family:'Inter', sans-serif;
+    font-size:12px;
+    color:#6b7280;
+    margin-top:5px;
+    padding-left:24px;
+  }
+
+  @media (max-width:600px){
+    .term-tabs{ flex-wrap:wrap; }
+    .term-tab span.term-tab-label{ display:none; }
+    .term-cmd{ font-size:12px; }
+  }
+
   /* ---------- lojinha de bots ---------- */
   #loja{ background:var(--off); }
   .shop-eyebrow{
@@ -1507,6 +1663,37 @@
   </div>
 </div>
 
+<div class="demo-overlay" id="termOverlay" aria-hidden="true">
+  <div class="demo-modal" role="dialog" aria-modal="true" aria-labelledby="termTitle" style="max-width:640px;">
+    <div class="demo-head">
+      <div class="demo-head-info">
+        <span class="demo-head-dot" aria-hidden="true"></span>
+        <div class="demo-head-text">
+          <div class="demo-head-title" id="termTitle">Comandos de Terminal</div>
+          <div class="demo-head-sub">uso geral — windows, linux e macos</div>
+        </div>
+      </div>
+      <div class="demo-head-actions">
+        <button type="button" class="demo-icon-btn" id="termCloseBtn" title="Fechar" aria-label="Fechar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="term-tabs" id="termTabs"></div>
+    <input type="text" id="termSearch" class="term-search" placeholder="Buscar comando...">
+
+    <div class="term-window">
+      <div class="term-window-bar">
+        <span></span><span></span><span></span>
+        <span class="term-window-title" id="termWindowTitle">bash</span>
+      </div>
+      <div class="term-list" id="termList"></div>
+      <div class="term-empty" id="termEmpty">Nenhum comando encontrado.</div>
+    </div>
+  </div>
+</div>
+
 <script>
   const WHATSAPP_NUMBER = "5515981289296";
 
@@ -1651,7 +1838,8 @@
       tag: "Shell & Scripting",
       desc: "Scripts, automações e ferramentas via terminal, sem dependência de interface gráfica.",
       iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/gnubash.svg"
+      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/gnubash.svg",
+      action: "terminal"
     },
     {
       id: "linux",
@@ -1699,17 +1887,22 @@
     grid.innerHTML = "";
     TECHNOLOGIES.forEach(tech => {
       const isModal = tech.action === "modal";
-      const card = document.createElement(isModal ? "button" : "a");
+      const isTerminal = tech.action === "terminal";
+      const isOverlay = isModal || isTerminal;
+      const card = document.createElement(isOverlay ? "button" : "a");
       if(isModal){
         card.type = "button";
         card.addEventListener("click", () => distroOpen());
+      } else if(isTerminal){
+        card.type = "button";
+        card.addEventListener("click", () => termOpen());
       } else {
         card.href = techWaLink(tech);
         card.target = "_blank";
         card.rel = "noopener";
       }
       card.className = "tech-card";
-      card.setAttribute("aria-label", isModal ? "Ver distribuições Linux" : `Selecionar ${tech.name} e falar no WhatsApp`);
+      card.setAttribute("aria-label", isModal ? "Ver distribuições Linux" : (isTerminal ? "Ver comandos de terminal" : `Selecionar ${tech.name} e falar no WhatsApp`));
 
       const iconMarkup = tech.iconType === "cdn"
         ? `<img class="tech-icon" src="${tech.iconUrl}" alt="${tech.name}" loading="lazy" />`
@@ -1729,6 +1922,185 @@
   }
 
   renderTechGrid();
+
+  // ---------------------------------------------------------------
+  // TERMINAL DE COMANDOS (Windows / Linux / macOS)
+  // ---------------------------------------------------------------
+  const TERMINALS = {
+    windows: {
+      label: "Windows",
+      prompt: "C:\\>",
+      windowTitle: "cmd.exe / powershell",
+      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/windows.svg",
+      commands: [
+        { cmd: "ipconfig /all", desc: "Mostra todas as configurações de rede da máquina." },
+        { cmd: "ping 8.8.8.8", desc: "Testa conectividade com um host." },
+        { cmd: "tracert google.com", desc: "Mostra o caminho de rede até o destino." },
+        { cmd: "tasklist", desc: "Lista todos os processos em execução." },
+        { cmd: "taskkill /IM nome.exe /F", desc: "Encerra um processo pelo nome, à força." },
+        { cmd: "sfc /scannow", desc: "Verifica e repara arquivos de sistema corrompidos." },
+        { cmd: "chkdsk C: /f", desc: "Verifica e corrige erros no disco C." },
+        { cmd: "dir /s /b", desc: "Lista arquivos e pastas recursivamente." },
+        { cmd: "netstat -ano", desc: "Mostra conexões de rede ativas e portas em uso." },
+        { cmd: "systeminfo", desc: "Exibe informações detalhadas do sistema." },
+        { cmd: "shutdown /r /t 0", desc: "Reinicia o computador imediatamente." },
+        { cmd: "cls", desc: "Limpa a tela do terminal." }
+      ]
+    },
+    linux: {
+      label: "Linux",
+      prompt: "$",
+      windowTitle: "bash",
+      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/linux.svg",
+      commands: [
+        { cmd: "ls -la", desc: "Lista todos os arquivos da pasta, incluindo ocultos." },
+        { cmd: "cd /caminho/da/pasta", desc: "Navega até um diretório específico." },
+        { cmd: "sudo apt update && sudo apt upgrade", desc: "Atualiza a lista de pacotes e o sistema." },
+        { cmd: "chmod +x arquivo.sh", desc: "Torna um arquivo executável." },
+        { cmd: "ps aux | grep nome", desc: "Busca um processo em execução pelo nome." },
+        { cmd: "kill -9 PID", desc: "Encerra um processo à força pelo PID." },
+        { cmd: "df -h", desc: "Mostra o uso de espaço em disco de forma legível." },
+        { cmd: "du -sh *", desc: "Mostra o tamanho de cada item na pasta atual." },
+        { cmd: "top", desc: "Monitor de processos e uso de recursos em tempo real." },
+        { cmd: "ping -c 4 8.8.8.8", desc: "Testa conectividade com um host, 4 pacotes." },
+        { cmd: "ip a", desc: "Mostra as interfaces de rede e seus endereços IP." },
+        { cmd: "tail -f /var/log/syslog", desc: "Acompanha um arquivo de log em tempo real." },
+        { cmd: "grep -r \"texto\" .", desc: "Busca um texto recursivamente nos arquivos." },
+        { cmd: "clear", desc: "Limpa a tela do terminal." }
+      ]
+    },
+    macos: {
+      label: "macOS",
+      prompt: "%",
+      windowTitle: "zsh",
+      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/apple.svg",
+      commands: [
+        { cmd: "ls -la", desc: "Lista todos os arquivos da pasta, incluindo ocultos." },
+        { cmd: "brew update && brew upgrade", desc: "Atualiza o Homebrew e os pacotes instalados." },
+        { cmd: "top -o cpu", desc: "Monitor de processos ordenado por uso de CPU." },
+        { cmd: "kill -9 PID", desc: "Encerra um processo à força pelo PID." },
+        { cmd: "diskutil list", desc: "Lista todos os discos e partições conectados." },
+        { cmd: "sudo purge", desc: "Libera memória inativa do sistema." },
+        { cmd: "ifconfig en0", desc: "Mostra a configuração da interface de rede Wi-Fi." },
+        { cmd: "networksetup -listallhardwareports", desc: "Lista todas as interfaces de rede disponíveis." },
+        { cmd: "sudo dscacheutil -flushcache", desc: "Limpa o cache de DNS do sistema." },
+        { cmd: "open .", desc: "Abre a pasta atual no Finder." },
+        { cmd: "pmset -g batt", desc: "Mostra o status atual da bateria." },
+        { cmd: "clear", desc: "Limpa a tela do terminal." }
+      ]
+    }
+  };
+
+  const termOverlay = document.getElementById("termOverlay");
+  const termCloseBtn = document.getElementById("termCloseBtn");
+  const termTabsEl = document.getElementById("termTabs");
+  const termListEl = document.getElementById("termList");
+  const termEmptyEl = document.getElementById("termEmpty");
+  const termSearchEl = document.getElementById("termSearch");
+  const termWindowTitleEl = document.getElementById("termWindowTitle");
+
+  let termActiveOS = "linux";
+
+  function termRenderTabs(){
+    termTabsEl.innerHTML = "";
+    Object.keys(TERMINALS).forEach((osKey) => {
+      const os = TERMINALS[osKey];
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "term-tab" + (osKey === termActiveOS ? " active" : "");
+      tab.innerHTML = `<img src="${os.iconUrl}" alt="" /><span class="term-tab-label">${os.label}</span>`;
+      tab.addEventListener("click", () => {
+        termActiveOS = osKey;
+        termSearchEl.value = "";
+        termRenderTabs();
+        termRenderList();
+      });
+      termTabsEl.appendChild(tab);
+    });
+  }
+
+  function termCopy(text, btn){
+    const done = () => {
+      btn.classList.add("copied");
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.7"/><path d="M5 15V6a1.5 1.5 0 0 1 1.5-1.5H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>`;
+      }, 1400);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(done);
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch(err){ /* noop */ }
+      document.body.removeChild(ta);
+      done();
+    }
+  }
+
+  function termRenderList(){
+    const os = TERMINALS[termActiveOS];
+    termWindowTitleEl.textContent = os.windowTitle;
+
+    const q = termSearchEl.value.trim().toLowerCase();
+    const list = q
+      ? os.commands.filter(c => c.cmd.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q))
+      : os.commands;
+
+    termListEl.innerHTML = "";
+    list.forEach(item => {
+      const row = document.createElement("div");
+      row.className = "term-row";
+      row.innerHTML = `
+        <div class="term-cmd-line">
+          <span class="term-prompt">${os.prompt}</span>
+          <span class="term-cmd"></span>
+          <button type="button" class="term-copy-btn" title="Copiar comando" aria-label="Copiar comando">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="1.5" stroke="currentColor" stroke-width="1.7"/><path d="M5 15V6a1.5 1.5 0 0 1 1.5-1.5H15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="term-desc">${item.desc}</div>
+      `;
+      row.querySelector(".term-cmd").textContent = item.cmd;
+      row.querySelector(".term-copy-btn").addEventListener("click", (e) => {
+        termCopy(item.cmd, e.currentTarget);
+      });
+      termListEl.appendChild(row);
+    });
+
+    const showEmpty = list.length === 0;
+    termEmptyEl.classList.toggle("show", showEmpty);
+    termListEl.style.display = showEmpty ? "none" : "block";
+  }
+
+  function termOpen(){
+    termRenderTabs();
+    termRenderList();
+    termOverlay.classList.add("open");
+    termOverlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => termSearchEl.focus(), 250);
+  }
+
+  function termClose(){
+    termOverlay.classList.remove("open");
+    termOverlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  termCloseBtn.addEventListener("click", termClose);
+  termOverlay.addEventListener("click", (e) => {
+    if (e.target === termOverlay) termClose();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && termOverlay.classList.contains("open")) termClose();
+  });
+  termSearchEl.addEventListener("input", termRenderList);
 
   // ---------------------------------------------------------------
   // LOJA DE BOTS
@@ -1863,15 +2235,6 @@
   // ---------------------------------------------------------------
   // DEMONSTRAÇÕES SIMULADAS DOS BOTS
   // ---------------------------------------------------------------
-  // Cada bot tem um roteiro (DEMOS[id].script) com passos sequenciais:
-  //   { from:'bot', text }                        -> bolha do bot, com indicador de digitação antes
-  //   { from:'user', text }                        -> bolha do usuário simulado
-  //   { choice:true, options:[...], chosen:n }     -> botões de opção; o índice `chosen` é
-  //                                                    "clicado" automaticamente na simulação
-  //   { result:{ title, rows:[[k,v],...], note } } -> cartão de resultado final do fluxo
-  // Isso roda 100% no navegador, sem IA real — é só uma demonstração do fluxo de conversa
-  // que o bot de verdade executaria em produção.
-
   const DEMOS = {
     orcamento: {
       title: "Bot de Orçamento",
@@ -2052,7 +2415,7 @@
   const demoSkipBtn = document.getElementById("demoSkipBtn");
   const demoFootNote = document.getElementById("demoFootNote");
 
-  let demoRunToken = 0;   // invalida execuções antigas quando o modal é fechado/reiniciado
+  let demoRunToken = 0;
   let demoSkipRequested = false;
   let demoCurrentBotId = null;
 
@@ -2060,7 +2423,7 @@
     return new Promise((resolve) => {
       const start = Date.now();
       function tick(){
-        if (token !== demoRunToken) return resolve(); // execução cancelada
+        if (token !== demoRunToken) return resolve();
         if (demoSkipRequested || Date.now() - start >= ms) return resolve();
         requestAnimationFrame(tick);
       }
@@ -2221,7 +2584,7 @@
   }
 
   function demoClose(){
-    demoRunToken++; // cancela qualquer execução em andamento
+    demoRunToken++;
     demoOverlay.classList.remove("open");
     demoOverlay.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
