@@ -1871,8 +1871,8 @@
       name: "Ambientes Windows",
       tag: "Suporte & Administração",
       desc: "Suporte, formatação e administração de ambientes corporativos Windows.",
-      iconType: "cdn",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/windows.svg"
+      iconType: "custom",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>`
     }
   ];
 
@@ -1931,7 +1931,7 @@
       label: "Windows",
       prompt: "C:\\>",
       windowTitle: "cmd.exe / powershell",
-      iconUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/windows.svg",
+      iconUrl: "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>'),
       commands: [
         { cmd: "ipconfig /all", desc: "Mostra todas as configurações de rede da máquina." },
         { cmd: "ping 8.8.8.8", desc: "Testa conectividade com um host." },
