@@ -1440,8 +1440,8 @@
       autoplay muted loop playsinline webkit-playsinline="true" disablePictureInPicture
       preload="auto"
       style="width:100%; height:clamp(360px, 42vw, 620px); object-fit:cover; display:block; filter:grayscale(15%) contrast(1.05); pointer-events:none;"
-      poster="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_tiny.jpg">
-      <source src="https://cdn.pixabay.com/video/2024/03/12/203987-923133879_large.mp4" type="video/mp4">
+      poster="https://cdn.pixabay.com/video/2023/10/19/185631-876210585_tiny.jpg">
+      <source src="https://cdn.pixabay.com/video/2023/10/19/185631-876210585_large.mp4" type="video/mp4">
     </video>
     <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(10,14,20,0.15) 55%, rgba(10,14,20,0.55) 100%); pointer-events:none;"></div>
     <div style="position:absolute; top:24px; left:24px; display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); padding:8px 14px; border-radius:2px;">
@@ -1785,8 +1785,8 @@
       item.target = "_blank";
       item.rel = "noopener";
       item.innerHTML = `
-        <img src="https://cdn.simpleicons.org/${distro.slug}/${distro.hex}" alt="${distro.name}"
-             onerror="this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='block';}; this.src='https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/${distro.slug}.svg';"
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/${distro.slug}.svg" alt="${distro.name}"
+             onerror="this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='block';}; this.src='https://cdn.simpleicons.org/${distro.slug}/${distro.hex}';"
              loading="lazy" />
         <span class="distro-fallback">${distro.fallback}</span>
         <span class="distro-name">${distro.name}</span>
